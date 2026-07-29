@@ -54,7 +54,7 @@ const SHARED_HEADER = `
 
             <div class="b-mega-col">
               <div class="b-mega-item">
-                <a href="https://community.bizfirstai.com/tag/ancp" class="b-mega-item__name" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mega-item__name" target="_blank" rel="noopener">Community</a>
                 <span class="b-mega-item__desc">Ask questions &amp; discuss ANCP</span>
               </div>
             </div>
@@ -155,7 +155,7 @@ const SHARED_HEADER = `
               <a href="./changelog.html" class="b-mobile-cat__link">Changelog</a>
             </div>
             <div class="b-mobile-cat__item">
-              <a href="https://community.bizfirstai.com/tag/ancp" class="b-mobile-cat__link" target="_blank" rel="noopener">Community</a>
+              <a href="https://community.bizfirstai.com" class="b-mobile-cat__link" target="_blank" rel="noopener">Community</a>
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@ const SHARED_FOOTER = `
       <li><a href="./ANCP-gettingStarted.html" target="_blank" rel="noopener">Getting Started Guide</a></li>
       <li><a href="./docs.html">Documentation</a></li>
       <li><a href="./changelog.html">Changelog</a></li>
-      <li><a href="https://community.bizfirstai.com/tag/ancp" target="_blank" rel="noopener">Community</a></li>
+      <li><a href="https://community.bizfirstai.com" target="_blank" rel="noopener">Community</a></li>
     </ul>
   </div>
 

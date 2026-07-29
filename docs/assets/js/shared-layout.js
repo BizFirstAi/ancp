@@ -31,7 +31,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">Drag-and-drop form builder for any workflow</span>
                 <div class="b-mega-item__links">
                   <a href="https://atlasforms.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/atlas-forms" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
               <div class="b-mega-item">
@@ -39,7 +39,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">Embeddable chat &amp; interaction widgets</span>
                 <div class="b-mega-item__links">
                   <a href="https://www.bizfirstai.com/website/index.html" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/edge-interact" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">Visual AI workflow automation engine</span>
                 <div class="b-mega-item__links">
                   <a href="https://flow.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/flow" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
               <div class="b-mega-item">
@@ -59,7 +59,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">Real-time data streaming and processing</span>
                 <div class="b-mega-item__links">
                   <a href="https://edgestream.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/edge-stream" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
               <div class="b-mega-item">
@@ -67,7 +67,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">Multi-agent orchestration framework</span>
                 <div class="b-mega-item__links">
                   <a href="https://octopus.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/octopus" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">Identity, auth &amp; access management</span>
                 <div class="b-mega-item__links">
                   <a href="https://passport.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/passport" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
               <div class="b-mega-item">
@@ -87,7 +87,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">API network control &amp; policy enforcement</span>
                 <div class="b-mega-item__links">
                   <a href="https://ancp.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/ancp" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">App marketplace &amp; distribution platform</span>
                 <div class="b-mega-item__links">
                   <a href="https://markethub.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/market-hub" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
               <div class="b-mega-item">
@@ -107,7 +107,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">One-click deployment &amp; provisioning</span>
                 <div class="b-mega-item__links">
                   <a href="https://installhub.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/install-hub" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
               <div class="b-mega-item">
@@ -115,7 +115,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">AI-powered operations &amp; monitoring</span>
                 <div class="b-mega-item__links">
                   <a href="https://operateai.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/operate-ai" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">Unified data lake &amp; analytics layer</span>
                 <div class="b-mega-item__links">
                   <a href="https://dataocean.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/tag/data-ocean" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
               <div class="b-mega-item">
@@ -135,7 +135,7 @@ const SHARED_HEADER = `
                 <span class="b-mega-item__desc">Observability, logs &amp; tracing across all modules</span>
                 <div class="b-mega-item__links">
                   <a href="https://observe.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Visit Site</a>
-                  <a href="https://community.bizfirstai.com/c/observe" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
+                  <a href="https://community.bizfirstai.com" class="b-mega-item__link" target="_blank" rel="noopener">Community</a>
                 </div>
               </div>
             </div>
@@ -202,14 +202,14 @@ const SHARED_HEADER = `
               <a href="./products.html#atlas-forms" class="b-mobile-cat__link">Atlas Forms</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://atlasforms.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/atlas-forms" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
             <div class="b-mobile-cat__item">
               <a href="./products.html#edge-interact" class="b-mobile-cat__link">Edge Interact</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://www.bizfirstai.com/website/index.html" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/edge-interact" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
           </div>
@@ -222,21 +222,21 @@ const SHARED_HEADER = `
               <a href="./products.html#flow" class="b-mobile-cat__link">Flow</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://flow.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/flow" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
             <div class="b-mobile-cat__item">
               <a href="./products.html#edge-stream" class="b-mobile-cat__link">Edge Stream</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://edgestream.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/edge-stream" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
             <div class="b-mobile-cat__item">
               <a href="./products.html#octopus" class="b-mobile-cat__link">Octopus</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://octopus.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/octopus" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
           </div>
@@ -249,14 +249,14 @@ const SHARED_HEADER = `
               <a href="./products.html#passport" class="b-mobile-cat__link">Passport</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://passport.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/passport" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
             <div class="b-mobile-cat__item">
               <a href="./products.html#ancp" class="b-mobile-cat__link">ANCP</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://ancp.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/ancp" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
           </div>
@@ -269,21 +269,21 @@ const SHARED_HEADER = `
               <a href="./products.html#markethub" class="b-mobile-cat__link">MarketHub</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://markethub.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/market-hub" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
             <div class="b-mobile-cat__item">
               <a href="./products.html#install-hub" class="b-mobile-cat__link">Install Hub</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://installhub.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/install-hub" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
             <div class="b-mobile-cat__item">
               <a href="./products.html#operateai" class="b-mobile-cat__link">OperateAi</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://operateai.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/operate-ai" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
           </div>
@@ -296,14 +296,14 @@ const SHARED_HEADER = `
               <a href="./products.html#data-ocean" class="b-mobile-cat__link">Data Ocean</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://dataocean.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/tag/data-ocean" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
             <div class="b-mobile-cat__item">
               <a href="./products.html#bizfirst-observe" class="b-mobile-cat__link">BizFirst Observe</a>
               <div class="b-mobile-cat__item-links">
                 <a href="https://observe.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Visit Site</a>
-                <a href="https://community.bizfirstai.com/c/observe" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
+                <a href="https://community.bizfirstai.com" class="b-mobile-cat__item-link" target="_blank" rel="noopener">Community</a>
               </div>
             </div>
           </div>
