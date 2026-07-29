@@ -151,6 +151,7 @@ const SHARED_HEADER = `
     </ul>
 
     <div class="b-navbar-cta">
+      <a href="https://docs.bizfirstai.com/search" class="b-btn b-btn-secondary" target="_blank" rel="noopener">Search Docs</a>
       <a href="./contact.html" class="b-btn b-btn-primary">Get Demo</a>
     </div>
 
@@ -319,6 +320,7 @@ const SHARED_HEADER = `
   </nav>
 
   <div class="b-mobile-menu__cta">
+    <a href="https://docs.bizfirstai.com/search" class="b-btn b-btn-secondary" target="_blank" rel="noopener" style="margin-bottom:0.5rem;display:block;text-align:center;">Search Docs</a>
     <a href="./contact.html" class="b-btn b-btn-primary">Get Demo</a>
   </div>
 
