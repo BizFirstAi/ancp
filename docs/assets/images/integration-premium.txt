@@ -1,0 +1,11 @@
+IMAGE: integration-premium.png
+DIMENSIONS: 1200 x 600px
+USED ON: Home page Why BizFirstAi section or Platform page
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Split composition. Deep dark green-black background (#080F08). LEFT SIDE (labeled "Before"): 7 separate tool boxes (labeled n8n, LangChain, Auth0, JotForm, Zapier, Okta, Typeform) connected by tangled, messy red arrows going in all directions. Boxes are grey, dull, disconnected. Red warning glow. Label: "7 tools. Zero integration. Endless complexity." RIGHT SIDE (labeled "After — BizFirstAi"): One clean, glowing platform box in Brand Green (#16A34A) with all capabilities listed inside as clean white text. A single bright green checkmark glow surrounds it. Label: "One platform. Everything connected." A vertical white dividing line separates the two sides. Clean, bold, instantly readable.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Split composition. Dark navy background (#0A0F1E). LEFT SIDE (labeled "Before"): 7 separate tool boxes (labeled n8n, LangChain, Auth0, JotForm, Zapier, Okta, Typeform) connected by tangled, messy red arrows going in all directions. Boxes are grey, dull, disconnected. Red warning glow. Label: "7 tools. Zero integration. Endless complexity." RIGHT SIDE (labeled "After — BizFirstAi"): One clean, glowing platform box in Electric Indigo (#6366F1) with all capabilities listed inside as clean white text. A single green checkmark glow surrounds it. Label: "One platform. Everything connected." A vertical white dividing line separates the two sides. Clean, bold, instantly readable.

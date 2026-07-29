@@ -1,0 +1,68 @@
+/*
+ * Octopus Components — Shared CSS Library
+ * =========================================
+ *
+ * Import this file in your octopus component to get all shared styles:
+ *
+ *   <link rel="stylesheet" href="./assets/css/octopus/index.css">
+ *
+ * Includes:
+ * 1. octopus-variables.css — CSS custom properties and theme variables
+ * 2. octopus-animations.css — Shared animations and keyframes
+ * 3. octopus-base.css — Base styles for all octopus components
+ *
+ * Then include component-specific CSS after this:
+ *   <link rel="stylesheet" href="./octopus-02-tenacles/octopus.css">
+ *   <link rel="stylesheet" href="./octopus-03-hero/octopus-hero.css">
+ */
+
+/* Import all shared CSS modules */
+@import url('./octopus-variables.css');
+@import url('./octopus-animations.css');
+@import url('./octopus-base.css');
+
+/*
+ * =========================================
+ * Usage in HTML
+ * =========================================
+ *
+ * Standard setup:
+ *
+ *   <head>
+ *     <!-- Shared octopus CSS library -->
+ *     <link rel="stylesheet" href="./assets/css/octopus/index.css">
+ *
+ *     <!-- Component-specific CSS -->
+ *     <link rel="stylesheet" href="./assets/octopus-02-tenacles/octopus.css">
+ *   </head>
+ *   <body>
+ *     <octopus-stage></octopus-stage>
+ *     <script src="./assets/octopus-02-tenacles/octopus.js"></script>
+ *   </body>
+ *
+ * =========================================
+ * Customization
+ * =========================================
+ *
+ * Override variables in your CSS:
+ *
+ *   :root {
+ *     --oct-primary: #YOUR_COLOR;
+ *     --oct-text: #YOUR_TEXT_COLOR;
+ *   }
+ *
+ * Add your own styles after importing:
+ *
+ *   <link rel="stylesheet" href="./assets/css/octopus/index.css">
+ *   <link rel="stylesheet" href="./your-custom-styles.css">
+ *
+ * =========================================
+ * Component Specific Overrides
+ * =========================================
+ *
+ * Each component CSS can override shared styles:
+ *
+ *   octopus-hero-section .oct-progress {
+ *     background: var(--oct-green);  /* Use different color */
+ *   }
+ */

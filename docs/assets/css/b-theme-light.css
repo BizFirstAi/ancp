@@ -1,0 +1,163 @@
+/* ============================================================
+   theme-light.css — BizFirstAi
+   Light theme colour variables only.
+   Applied via: <html data-theme="light">
+
+   BRAND GREEN PALETTE
+   Logo green (exact):    #0A6C0C
+   Primary UI green:      #15803D  ← darker for light bg readability
+   Primary hover:         #166534
+   Primary light:         #16A34A
+   Primary subtle:        rgba(21, 128, 61, 0.08)
+   ============================================================ */
+
+[data-theme="light"] {
+
+  /* ── Brand Colours ───────────────────────────────────────── */
+  --b-color-primary:          #15803D;   /* Darker green — readable on white */
+  --b-color-primary-hover:    #166534;
+  --b-color-primary-light:    #16A34A;
+  --b-color-primary-subtle:   rgba(21, 128, 61, 0.08);
+  --b-color-logo:             #0A6C0C;   /* Exact logo green */
+
+  /* ── Background Layers ───────────────────────────────────── */
+  --b-bg-base:                #FFFFFF;
+  --b-bg-raised:              #F0FDF4;   /* Green-tinted white */
+  --b-bg-surface:             #DCFCE7;   /* Soft green surface */
+  --b-bg-surface-hover:       #BBF7D0;
+  --b-bg-overlay:             rgba(255, 255, 255, 0.92);
+
+  /* ── Text ────────────────────────────────────────────────── */
+  --b-text-primary:           #052E16;   /* Deep green-black */
+  --b-text-secondary:         #14532D;
+  --b-text-muted:             #166534;
+  --b-text-disabled:          #86EFAC;
+  --b-text-inverse:           #F0FDF4;
+
+  /* ── Borders ─────────────────────────────────────────────── */
+  --b-border-subtle:          rgba(21, 128, 61, 0.08);
+  --b-border-default:         rgba(21, 128, 61, 0.15);
+  --b-border-strong:          rgba(21, 128, 61, 0.30);
+  --b-border-primary:         rgba(21, 128, 61, 0.50);
+
+  /* ── Header ──────────────────────────────────────────────── */
+  --b-header-bg-transparent:  transparent;
+  --b-header-bg-solid:        rgba(255, 255, 255, 0.95);
+  --b-header-border:          rgba(21, 128, 61, 0.10);
+  --b-header-text:            #052E16;
+  --b-header-text-muted:      #166534;
+
+  /* ── Navigation ──────────────────────────────────────────── */
+  --b-nav-link:               #14532D;
+  --b-nav-link-hover:         #052E16;
+  --b-nav-link-active:        #15803D;
+  --b-nav-mega-bg:            #FFFFFF;
+  --b-nav-mega-border:        rgba(21, 128, 61, 0.10);
+
+  /* ── Buttons ─────────────────────────────────────────────── */
+  --b-btn-primary-bg:         #15803D;
+  --b-btn-primary-bg-hover:   #166534;
+  --b-btn-primary-text:       #FFFFFF;
+
+  --b-btn-secondary-bg:       transparent;
+  --b-btn-secondary-bg-hover: rgba(21, 128, 61, 0.08);
+  --b-btn-secondary-text:     #14532D;
+  --b-btn-secondary-border:   rgba(21, 128, 61, 0.25);
+
+  --b-btn-ghost-text:         #14532D;
+  --b-btn-ghost-text-hover:   #052E16;
+
+  /* ── Cards ───────────────────────────────────────────────── */
+  --b-card-bg:                #FFFFFF;
+  --b-card-bg-hover:          #F0FDF4;
+  --b-card-border:            rgba(21, 128, 61, 0.12);
+  --b-card-shadow:            0 4px 24px rgba(0, 0, 0, 0.06);
+  --b-card-shadow-hover:      0 8px 40px rgba(21, 128, 61, 0.15);
+
+  /* ── Badges / Pills ──────────────────────────────────────── */
+  --b-badge-bg:               rgba(21, 128, 61, 0.10);
+  --b-badge-text:             #15803D;
+  --b-badge-border:           rgba(21, 128, 61, 0.25);
+
+  --b-badge-muted-bg:         rgba(0, 0, 0, 0.04);
+  --b-badge-muted-text:       #166534;
+  --b-badge-muted-border:     rgba(21, 128, 61, 0.12);
+
+  /* ── Stats / Numbers ─────────────────────────────────────── */
+  --b-stat-number:            #052E16;
+  --b-stat-label:             #166534;
+  --b-stat-accent:            #15803D;
+
+  /* ── Section Backgrounds ─────────────────────────────────── */
+  --b-section-bg-default:     #FFFFFF;
+  --b-section-bg-alt:         #F0FDF4;
+  --b-section-bg-accent:      rgba(21, 128, 61, 0.04);
+
+  /* ── Dividers ────────────────────────────────────────────── */
+  --b-divider:                rgba(21, 128, 61, 0.08);
+
+  /* ── Inputs / Forms ──────────────────────────────────────── */
+  --b-input-bg:               #FFFFFF;
+  --b-input-border:           rgba(21, 128, 61, 0.20);
+  --b-input-border-focus:     #15803D;
+  --b-input-text:             #052E16;
+  --b-input-placeholder:      #86EFAC;
+
+  /* ── Footer ──────────────────────────────────────────────── */
+  --b-footer-bg:              #052E16;
+  --b-footer-text:            #86EFAC;
+  --b-footer-heading:         #F0FDF4;
+  --b-footer-link:            #86EFAC;
+  --b-footer-link-hover:      #22C55E;
+  --b-footer-border:          rgba(22, 163, 74, 0.10);
+
+  /* ── Status Colours ──────────────────────────────────────── */
+  --b-color-success:          #15803D;
+  --b-color-success-subtle:   rgba(21, 128, 61, 0.08);
+  --b-color-warning:          #D97706;
+  --b-color-warning-subtle:   rgba(217, 119, 6, 0.08);
+  --b-color-error:            #DC2626;
+  --b-color-error-subtle:     rgba(220, 38, 38, 0.08);
+  --b-color-info:             #2563EB;
+  --b-color-info-subtle:      rgba(37, 99, 235, 0.08);
+
+  /* ── Glow / Effects ──────────────────────────────────────── */
+  --b-glow-primary:           0 0 40px rgba(21, 128, 61, 0.20);
+  --b-glow-primary-sm:        0 0 20px rgba(21, 128, 61, 0.12);
+
+  /* ── Scrollbar ───────────────────────────────────────────── */
+  --b-scrollbar-track:        #F0FDF4;
+  --b-scrollbar-thumb:        #BBF7D0;
+  --b-scrollbar-thumb-hover:  #15803D;
+
+  /* ── Navigation Components ──────────────────────────────── */
+  --b-navbar-bg:              rgba(255, 255, 255, 0.95);
+  --b-navbar-border:          rgba(21, 128, 61, 0.10);
+  --b-navbar-text:            #052E16;
+  --b-navbar-text-muted:      #166534;
+  --b-dropdown-bg:            rgba(255, 255, 255, 0.98);
+  --b-dropdown-border:        rgba(21, 128, 61, 0.12);
+  --b-dropdown-text:          #14532D;
+  --b-dropdown-item-hover-bg: rgba(240, 253, 244, 1);
+
+  /* ── Hero Components ────────────────────────────────────── */
+  --b-hero-bg:                linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(240, 253, 244, 0.9));
+  --b-hero-visual-bg:         linear-gradient(135deg, rgba(21, 128, 61, 0.08), rgba(167, 243, 208, 0.05));
+  --b-hero-visual-border:     rgba(21, 128, 61, 0.15);
+
+  /* ── Button Components ──────────────────────────────────– */
+  --b-btn-secondary-hover-bg: rgba(21, 128, 61, 0.08);
+
+  /* ── Card Components ────────────────────────────────────– */
+  --b-card-bg:                #FFFFFF;
+  --b-card-border:            rgba(21, 128, 61, 0.12);
+  --b-card-hover-bg:          linear-gradient(135deg, rgba(21, 128, 61, 0.04), rgba(167, 243, 208, 0.02));
+
+  /* ── Product Icon ───────────────────────────────────────– */
+  --b-product-icon-bg:        rgba(21, 128, 61, 0.10);
+
+  /* ── CTA Section ────────────────────────────────────────– */
+  --b-cta-bg:                 linear-gradient(135deg, rgba(21, 128, 61, 0.08), rgba(167, 243, 208, 0.05));
+  --b-cta-border:             rgba(21, 128, 61, 0.15);
+
+}

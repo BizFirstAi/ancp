@@ -1,0 +1,40 @@
+/* ============================================================
+   b-index.css — BizFirstAi
+   Master CSS file that imports all component CSS files
+   ============================================================ */
+
+/* ── Octopus Shared CSS Library ────────────────────────────── */
+/* Shared variables, animations, and base styles for all octopus components */
+@import url('./octopus/index.css');
+
+/* ── BizFirstAi Theme & Base ───────────────────────────────── */
+/* Import theme variables first */
+@import url('./b-theme-common.css');
+@import url('./b-theme-dark.css');
+@import url('./b-theme-light.css');
+
+/* Import site-wide base styles */
+@import url('./b-site-common.css');
+
+/* ── BizFirstAi Component Styles ───────────────────────────── */
+/* Import component-specific styles */
+@import url('./b-navigation.css');
+@import url('./b-buttons.css');
+@import url('./b-hero.css');
+@import url('./b-sections.css');
+@import url('./b-cards.css');
+@import url('./b-cta.css');
+@import url('./b-footer.css');
+@import url('./b-icons.css');
+@import url('./b-platform-overview.css');
+@import url('./b-differentiators.css');
+@import url('./b-customization.css');
+@import url('./b-tech-highlights.css');
+@import url('./b-pricing-cards.css');
+@import url('./b-timeline.css');
+@import url('./b-contact.css');
+
+/* ── Octopus Component CSS ─────────────────────────────────── */
+/* Component-specific CSS for octopus animations */
+@import url('../octopus-02-tenacles/octopus.css');
+@import url('../octopus-03-hero/octopus-hero.css');

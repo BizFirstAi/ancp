@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="https://bizfirstai.com/website/assets/Logo/logo-m.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ANCP Architecture — The Intelligent Neural Mesh. Full architecture specification for the Agentic Node Communication Protocol.">
+  <title>ANCP Architecture — The Intelligent Neural Mesh</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://bizfirstai.com/website/assets/css/b-index.css">
+
+  <style>
+    body { overflow-x: hidden; }
+    .ancp-arch-layout {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 60px);
+    }
+
+    .ancp-arch-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--b-space-3) var(--b-space-8);
+      border-bottom: 1px solid var(--b-border-subtle);
+      background: var(--b-card-bg);
+      flex-shrink: 0;
+    }
+
+    .ancp-arch-toolbar__title {
+      font-size: var(--b-font-size-sm);
+      font-weight: var(--b-font-weight-semibold);
+      color: var(--b-text-primary);
+    }
+
+    .ancp-arch-toolbar__subtitle {
+      font-size: var(--b-font-size-xs);
+      color: var(--b-text-muted);
+      margin-left: var(--b-space-3);
+    }
+
+    .ancp-arch-toolbar__left {
+      display: flex;
+      align-items: center;
+    }
+
+    .ancp-arch-toolbar__actions {
+      display: flex;
+      gap: var(--b-space-3);
+    }
+
+    .ancp-arch-frame {
+      flex: 1;
+      width: 100%;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .ancp-arch-toolbar {
+        padding: var(--b-space-3) var(--b-space-4);
+      }
+
+      .ancp-arch-toolbar__subtitle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header-container"></header>
+
+  <div class="ancp-arch-layout">
+
+<!--     <div class="ancp-arch-toolbar">
+      <div class="ancp-arch-toolbar__left">
+        <span class="ancp-arch-toolbar__title">ANCP — The Intelligent Neural Mesh</span>
+        <span class="ancp-arch-toolbar__subtitle">Architecture Specification v1.0.2</span>
+      </div>
+      <div class="ancp-arch-toolbar__actions">
+        <a href="./050_ANCP_The_Intelligent_Neural_Mesh.pdf" download class="b-btn b-btn-secondary" style="font-size:var(--b-font-size-sm); padding: 6px 14px;">
+          Download PDF
+        </a>
+        <a href="./050_ANCP_The_Intelligent_Neural_Mesh.pdf" target="_blank" rel="noopener" class="b-btn b-btn-primary" style="font-size:var(--b-font-size-sm); padding: 6px 14px;">
+          Open Full Screen
+        </a>
+      </div>
+    </div> -->
+
+    <iframe
+      class="ancp-arch-frame"
+      src="./050_ANCP_The_Intelligent_Neural_Mesh.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+      title="ANCP Architecture — The Intelligent Neural Mesh"
+      aria-label="ANCP Architecture PDF Viewer">
+    </iframe>
+
+  </div>
+
+  <script src="./shared-layout.js"></script>
+</body>
+</html>

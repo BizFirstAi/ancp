@@ -1,0 +1,2176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A2A vs AANCP — Protocol Comparison</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --a2a:        #60a5fa;
+      --a2a-light:  #1c2d4a;
+      --ncp:        #4ade80;
+      --ncp-light:  #14261a;
+      --both:       #fbbf24;
+      --both-light: #2d2515;
+      --bg:         #0d1117;
+      --surface:    #161b22;
+      --border:     #30363d;
+      --text:       #c9d1d9;
+      --muted:      #8b949e;
+      --header-bg:  #010409;
+      --header-fg:  #e6edf3;
+      --tag-a2a-bg: #60a5fa;
+      --tag-ncp-bg: #4ade80;
+      --tag-both-bg:#fbbf24;
+      --critical:   #f87171;
+      --critical-light: #2d1616;
+      --warning:    #fbbf24;
+      --warning-light: #2d2515;
+      --good:       #4ade80;
+      --good-light: #14261a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────── */
+    header {
+      background: var(--header-bg);
+      color: var(--header-fg);
+      padding: 48px 64px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0d1b2a 0%, #1a1a2e 50%, #16213e 100%);
+    }
+    header > * { position: relative; z-index: 1; }
+    header .kicker {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #9aa0a6;
+      margin-bottom: 12px;
+    }
+    header h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #4fc3f7, #81d4fa, #b2ebf2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    header .subtitle {
+      font-size: 18px;
+      color: #9aa0a6;
+      max-width: 700px;
+    }
+    header .meta-row {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    header .meta-badge {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #bdc1c6;
+    }
+
+    /* ─── NAV / TOC ──────────────────────────────────────── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    nav a {
+      display: inline-block;
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+    }
+    nav a:hover { color: var(--a2a); border-bottom-color: var(--a2a); }
+
+    /* ─── LAYOUT ─────────────────────────────────────────── */
+    main { max-width: 1280px; margin: 0 auto; padding: 48px 64px; }
+
+    section { margin-bottom: 64px; }
+    section + section { border-top: 1px solid var(--border); padding-top: 64px; }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    h2 .section-num {
+      display: inline-block;
+      background: var(--header-bg);
+      color: white;
+      border-radius: 6px;
+      padding: 2px 10px;
+      font-size: 14px;
+      margin-right: 12px;
+      vertical-align: middle;
+    }
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 32px 0 16px;
+      color: var(--text);
+    }
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    p { margin-bottom: 14px; color: var(--text); }
+    .lead { font-size: 17px; color: var(--muted); margin-bottom: 24px; max-width: 900px; }
+
+    /* ─── HERO COMPARISON CARDS ─────────────────────────── */
+    .hero-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 32px 0;
+    }
+    .hero-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card.a2a { border-color: var(--a2a); }
+    .hero-card.ncp { border-color: var(--ncp); }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .hero-card.a2a::before { background: var(--a2a); }
+    .hero-card.ncp::before { background: var(--ncp); }
+    .hero-card .proto-badge {
+      display: inline-block;
+      border-radius: 8px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .a2a .proto-badge { background: var(--a2a-light); color: var(--a2a); }
+    .ncp .proto-badge { background: var(--ncp-light); color: var(--ncp); }
+    .hero-card h3 { margin-top: 0; font-size: 22px; }
+    .hero-card .tagline { color: var(--muted); margin-bottom: 20px; font-size: 14px; }
+    .hero-card .stat-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .stat {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: center;
+      flex: 1;
+      min-width: 70px;
+    }
+    .stat .val { font-size: 13px; font-weight: 700; }
+    .stat .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+    .a2a .stat .val { color: var(--a2a); }
+    .ncp .stat .val { color: var(--ncp); }
+
+    /* ─── PILL TAGS ──────────────────────────────────────── */
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+    .tag {
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .tag.a2a { background: var(--a2a-light); color: var(--a2a); }
+    .tag.ncp { background: var(--ncp-light); color: var(--ncp); }
+    .tag.both { background: var(--both-light); color: #fbbf24; }
+    .tag.critical { background: var(--critical-light); color: var(--critical); }
+
+    /* ─── COMPARISON TABLE ───────────────────────────────── */
+    .cmp-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 24px 0;
+      border-radius: 12px;
+    }
+    .cmp-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin: 0;
+      min-width: 480px;
+    }
+    .cmp-table th {
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #21262d;
+      color: var(--muted);
+    }
+    .cmp-table th.a2a { background: var(--a2a-light); color: var(--a2a); }
+    .cmp-table th.ncp { background: var(--ncp-light); color: var(--ncp); }
+    .cmp-table td {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      vertical-align: top;
+    }
+    .cmp-table tr:hover td { background: #1c2128; }
+    .cmp-table td.feature {
+      font-weight: 600;
+      color: var(--text);
+      width: 18%;
+    }
+    .cmp-table td.a2a-col { color: #79b8ff; }
+    .cmp-table td.ncp-col { color: #56d364; }
+
+    /* win/loss/tie indicators */
+    .win  { font-weight: 700; }
+    .win.a2a { color: var(--a2a); }
+    .win.ncp { color: var(--ncp); }
+    .tie { color: var(--muted); font-style: italic; }
+
+    /* score badge */
+    .score-badge {
+      display: inline-block;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .score-a2a { background: var(--a2a-light); color: var(--a2a); }
+    .score-ncp { background: var(--ncp-light); color: var(--ncp); }
+    .score-tie { background: #21262d; color: var(--muted); }
+
+    /* ─── MERMAID DIAGRAMS ───────────────────────────────── */
+    .diagram-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+    .diagram-wrap .diagram-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* ─── STRENGTH / WEAKNESS CARDS ─────────────────────── */
+    .sw-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 24px 0;
+    }
+    .sw-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .sw-card .sw-header {
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sw-card.strength .sw-header { background: var(--good-light); color: var(--good); }
+    .sw-card.weakness .sw-header { background: var(--critical-light); color: var(--critical); }
+    .sw-card .sw-icon { font-size: 20px; }
+    .sw-list { list-style: none; padding: 0; }
+    .sw-list li {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .sw-list li::before {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .sw-card.strength .sw-list li::before { content: '✓'; color: var(--good); }
+    .sw-card.weakness .sw-list li::before { content: '✗'; color: var(--critical); }
+    .sw-list .sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    /* ─── CODE BLOCKS ────────────────────────────────────── */
+    .code-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .code-block {
+      background: #1e1e2e;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .code-block .cb-header {
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .code-block.a2a .cb-header { background: #1a3a6e; color: #90caf9; }
+    .code-block.ncp .cb-header { background: #1a3a2e; color: #a5d6a7; }
+    .code-block pre {
+      padding: 16px;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #cdd6f4;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .code-block pre .kw { color: #cba6f7; }
+    .code-block pre .str { color: #a6e3a1; }
+    .code-block pre .num { color: #fab387; }
+    .code-block pre .key { color: #89dceb; }
+    .code-block pre .cmt { color: #585b70; font-style: italic; }
+
+    /* ─── SCORECARD ──────────────────────────────────────── */
+    .scorecard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 24px 0;
+    }
+    .scorecard-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      background: var(--header-bg);
+      color: white;
+      padding: 14px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .scorecard-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      align-items: center;
+    }
+    .scorecard-row:hover { background: #1c2128; }
+    .scorecard-row .cat { font-weight: 600; }
+    .scorecard-footer {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 16px 20px;
+      background: #21262d;
+      font-weight: 700;
+      font-size: 15px;
+      border-top: 2px solid var(--border);
+    }
+    .bar-wrap { display: flex; align-items: center; gap: 10px; }
+    .bar-bg { height: 8px; background: #30363d; border-radius: 4px; flex: 1; }
+    .bar-fill { height: 100%; border-radius: 4px; }
+    .bar-fill.a2a { background: var(--a2a); }
+    .bar-fill.ncp { background: var(--ncp); }
+
+    /* ─── CALLOUT BOXES ──────────────────────────────────── */
+    .callout {
+      border-left: 4px solid;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    .callout.info { border-color: var(--a2a); background: var(--a2a-light); }
+    .callout.success { border-color: var(--ncp); background: var(--ncp-light); }
+    .callout.warning { border-color: var(--warning); background: var(--warning-light); }
+    .callout.danger { border-color: var(--critical); background: var(--critical-light); }
+    .callout strong { display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ─── TIMELINE ───────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+      margin: 24px 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--border);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+    .tl-item.a2a::before { background: var(--a2a); }
+    .tl-item.ncp::before { background: var(--ncp); }
+    .tl-item .tl-date { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .tl-item .tl-text { font-size: 14px; }
+
+    /* ─── USE CASE CARDS ─────────────────────────────────── */
+    .uc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .uc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .uc-card .uc-title { font-weight: 600; margin-bottom: 8px; }
+    .uc-card .uc-verdict {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .uc-card .uc-verdict.a2a { background: var(--a2a-light); color: var(--a2a); }
+    .uc-card .uc-verdict.ncp { background: var(--ncp-light); color: var(--ncp); }
+    .uc-card .uc-verdict.tie { background: var(--both-light); color: #fbbf24; }
+    .uc-card .uc-desc { font-size: 13px; color: var(--muted); }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--header-bg);
+      color: #9aa0a6;
+      text-align: center;
+      padding: 32px;
+      font-size: 13px;
+      margin-top: 64px;
+    }
+    footer strong { color: #e8eaed; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      main { padding: 24px; }
+      header { padding: 32px 24px; }
+      header h1 { font-size: 28px; }
+      nav { padding: 0 16px; }
+      .hero-cards, .sw-grid, .code-grid, .diagram-grid { grid-template-columns: 1fr; }
+      .uc-grid { grid-template-columns: repeat(2, 1fr); }
+      .scorecard-header, .scorecard-row, .scorecard-footer { grid-template-columns: 2fr 1fr 1fr; }
+      .scorecard-header > *:last-child,
+      .scorecard-row > *:last-child,
+      .scorecard-footer > *:last-child { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      main { padding: 16px; }
+      header { padding: 24px 16px; }
+      header h1 { font-size: 22px; }
+      .uc-grid { grid-template-columns: 1fr; }
+      .scorecard-header, .scorecard-row, .scorecard-footer { grid-template-columns: 1fr; }
+      .scorecard-header > *,
+      .scorecard-row > *,
+      .scorecard-footer > * { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ HEADER -->
+<header>
+  <div class="kicker">Protocol Analysis · BizFirst Engineering · March 2026</div>
+  <h1>A2A vs ANCP</h1>
+  <p class="subtitle">A deep comparison of Google's Agent-to-Agent Protocol and BizFirst's Agentic Node Communication Protocol — architecture, capabilities, strengths, weaknesses, and fit-for-purpose analysis.</p>
+  <div class="meta-row">
+    <span class="meta-badge">A2A v0.2.6 · Google DeepMind</span>
+    <span class="meta-badge">ANCP Phase 2 · BizFirst</span>
+    <span class="meta-badge">Confidential — External Review Draft</span>
+    <span class="meta-badge">Document Version 1.1 — ANCP rename</span>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════ NAV -->
+<nav>
+  <a href="#overview">§1 Overview</a>
+  <a href="#architecture">§2 Architecture</a>
+  <a href="#messages">§3 Message Format</a>
+  <a href="#flows">§4 Call Flows</a>
+  <a href="#strengths">§5 Strengths &amp; Weaknesses</a>
+  <a href="#scorecard">§6 Scorecard</a>
+  <a href="#security">§7 Security &amp; Identity</a>
+  <a href="#payments">§8 Payments</a>
+  <a href="#usecases">§9 Use Cases</a>
+  <a href="#verdict">§10 Verdict</a>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ MAIN -->
+<main>
+
+<!-- ─── §1 OVERVIEW ──────────────────────────────────────────── -->
+<section id="overview">
+  <h2><span class="section-num">§1</span> Protocol Overview</h2>
+  <p class="lead">Both A2A and ANCP define how AI agents communicate with each other. They share a common goal but take dramatically different philosophical stances on scope, trust, identity, and monetization.</p>
+
+  <div class="hero-cards">
+    <div class="hero-card a2a">
+      <span class="proto-badge">A2A</span>
+      <h3>Agent-to-Agent (A2A)</h3>
+      <p class="tagline">Google DeepMind · Apache 2.0 · Open Standard</p>
+      <p>A2A is a lightweight, open protocol designed to allow AI agents built by different vendors to discover and interoperate. It is built on JSON-RPC 2.0 over HTTP and SSE, with an "Agent Card" discovery mechanism published at a well-known URL.</p>
+      <p>A2A takes a minimalist approach: it defines the wire protocol for sending tasks and receiving results, but intentionally leaves security, authentication, payment, and multi-tenancy to the application layer. This is its biggest strength <em>and</em> biggest gap.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="val">JSON-RPC</div><div class="lbl">Transport</div></div>
+        <div class="stat"><div class="val">4</div><div class="lbl">Core Methods</div></div>
+        <div class="stat"><div class="val">Open</div><div class="lbl">Governance</div></div>
+        <div class="stat"><div class="val">2024</div><div class="lbl">Released</div></div>
+      </div>
+    </div>
+
+    <div class="hero-card ncp">
+      <span class="proto-badge">ANCP</span>
+      <h3>Agentic Node Communication Protocol (ANCP)</h3>
+      <p class="tagline">BizFirst · Proprietary · Enterprise AI Platform</p>
+      <p>ANCP is a full-stack node communication protocol purpose-built for the BizFirst platform. It defines not just how agents talk, but <em>who they are</em> (DID + EVM identity), <em>how they authenticate</em> (multi-factor tenant isolation), <em>how they get paid</em> (EIP-191 receipts), and <em>how they coordinate</em> (task queuing, streaming, autonomous execution).</p>
+      <p>ANCP is opinionated by design. It integrates deeply with BizFirst's IEnvelope transport layer, EdgeStream/Kafka backbone, and LGTM observability stack.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="val">IEnvelope</div><div class="lbl">Transport</div></div>
+        <div class="stat"><div class="val">6+</div><div class="lbl">System Actions</div></div>
+        <div class="stat"><div class="val">Enterprise</div><div class="lbl">Governance</div></div>
+        <div class="stat"><div class="val">2025</div><div class="lbl">Phase 2</div></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Guiding Philosophy</h3>
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th class="a2a">A2A</th>
+          <th class="ncp">ANCP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="feature">Philosophy</td>
+          <td>"Simple wire protocol, you handle the rest"</td>
+          <td>"Complete node operating contract"</td>
+        </tr>
+        <tr>
+          <td class="feature">Scope</td>
+          <td>Message exchange + task lifecycle</td>
+          <td>Message exchange + identity + auth + payment + observability + streaming + tasks</td>
+        </tr>
+        <tr>
+          <td class="feature">Governance</td>
+          <td>Open standard, community-driven (Apache 2.0)</td>
+          <td>Platform standard, BizFirst-controlled</td>
+        </tr>
+        <tr>
+          <td class="feature">Target</td>
+          <td>Any AI agent, any vendor, cross-platform</td>
+          <td>BizFirst executor nodes on the BizFirstGO platform</td>
+        </tr>
+        <tr>
+          <td class="feature">Completeness</td>
+          <td>Thin — leaves much to implementers</td>
+          <td>Thick — prescribes the full operating model</td>
+        </tr>
+        <tr>
+          <td class="feature">Interoperability</td>
+          <td>High — any JSON-RPC agent can implement it</td>
+          <td>Open specification — any team can implement it. BizFirst is the reference implementation; adapters for A2A and other protocols are planned.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── §2 ARCHITECTURE ───────────────────────────────────────── -->
+<section id="architecture">
+  <h2><span class="section-num">§2</span> Architecture Comparison</h2>
+  <p class="lead">The architectural models reflect each protocol's philosophy: A2A is peer-to-peer and flat; ANCP is hierarchical, platform-anchored, and layered.</p>
+
+  <h3>A2A Architecture</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">A2A — Flat Agent Mesh</div>
+    <div class="mermaid">
+graph TB
+    subgraph "Agent Ecosystem (A2A)"
+        AC["🤖 Agent A<br/><small>Client Role</small>"]
+        AB["🤖 Agent B<br/><small>Server Role</small>"]
+        AC2["🤖 Agent C<br/><small>Both Roles</small>"]
+    end
+
+    subgraph "Discovery"
+        WK["/.well-known/agent.json<br/><small>AgentCard</small>"]
+    end
+
+    subgraph "Transport (HTTP + SSE)"
+        RPC["JSON-RPC 2.0<br/>POST /"]
+        SSE["Server-Sent Events<br/>GET /stream"]
+    end
+
+    subgraph "A2A Methods"
+        M1["tasks/send"]
+        M2["tasks/sendSubscribe"]
+        M3["tasks/get"]
+        M4["tasks/cancel"]
+    end
+
+    AC -->|"1. Discover"| WK
+    WK -->|"2. AgentCard"| AC
+    AC -->|"3. Send Task"| RPC
+    RPC --> M1 & M2 & M3 & M4
+    M2 -->|"streaming updates"| SSE
+    RPC --> AB
+    AB --> AC2
+
+    style AC fill:#1c4a9a,color:#c9d1d9,stroke:#60a5fa
+    style AB fill:#1c4a9a,color:#c9d1d9,stroke:#60a5fa
+    style AC2 fill:#1c4a9a,color:#c9d1d9,stroke:#60a5fa
+    style WK fill:#1c2d4a,stroke:#60a5fa
+    style RPC fill:#1c2d4a,stroke:#60a5fa
+    style SSE fill:#1c2d4a,stroke:#60a5fa
+    </div>
+  </div>
+
+  <h3>ANCP Architecture</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">ANCP — Layered Platform Architecture</div>
+    <div class="mermaid">
+graph TB
+    subgraph "Client Layer"
+        NC["AncpClient<br/><small>Typed SDK</small>"]
+    end
+
+    subgraph "Transport Layer"
+        SR["SignalR / HTTP<br/><small>INcpTransport</small>"]
+        ES["EdgeStream / Kafka<br/><small>Async backbone</small>"]
+    end
+
+    subgraph "IEnvelope Layer"
+        ENV["IEnvelope<br/><small>meta + body.data</small>"]
+        VIEW["AncpEnvelopeView&lt;T&gt;<br/><small>Typed accessor</small>"]
+        META["NcpMetadataExtension<br/><small>metadata.ancp block</small>"]
+    end
+
+    subgraph "Node Runtime"
+        REC["NcpReceiver<br/><small>ACL + Routing</small>"]
+        ENG["BizFirst.Ai.ProcessEngine<br/><small>DAG execution</small>"]
+        BASE["BaseNodeExecutor<br/><small>Node contract</small>"]
+    end
+
+    subgraph "Identity &amp; Auth"
+        DID["DID Identity<br/><small>W3C compliant</small>"]
+        EVM["EVM Address<br/><small>Crypto payments</small>"]
+        TENANT["Tenant / Operate isolation"]
+    end
+
+    subgraph "System Actions"
+        PING["ancp.ping"]
+        CAP["ancp.capabilities"]
+        NEG["ancp.negotiate"]
+        PAY["ncp.pay"]
+        STATUS["ancp.status"]
+        PINFO["ancp.payment-info"]
+    end
+
+    subgraph "Observability"
+        OTL["OpenTelemetry<br/><small>Traces + Metrics</small>"]
+        TEMPO["Grafana Tempo"]
+        PROM["Prometheus"]
+    end
+
+    NC -->|"BuildCallEnvelope()"| SR
+    SR --> ENV
+    ENV --> VIEW --> META
+    VIEW --> REC
+    REC -->|"ACL check"| DID & EVM & TENANT
+    REC --> BASE --> ENG
+    REC --> PING & CAP & NEG & PAY & STATUS & PINFO
+    REC --> OTL --> TEMPO & PROM
+    ES -.->|"async tasks"| ENG
+
+    style NC fill:#166534,color:#c9d1d9,stroke:#4ade80
+    style REC fill:#166534,color:#c9d1d9,stroke:#4ade80
+    style BASE fill:#166534,color:#c9d1d9,stroke:#4ade80
+    style ENG fill:#166534,color:#c9d1d9,stroke:#4ade80
+    style ENV fill:#14261a,stroke:#4ade80
+    style VIEW fill:#14261a,stroke:#4ade80
+    style META fill:#14261a,stroke:#4ade80
+    </div>
+  </div>
+
+  <div class="callout info">
+    <strong>Key Architectural Difference</strong>
+    A2A treats all agents as equal peers on the internet. ANCP treats nodes as platform participants with known identities, ACL-enforced roles, and platform-mediated communication. This isn't better or worse — it reflects different deployment contexts: public internet vs enterprise platform.
+  </div>
+
+  <h3>Layer-by-Layer Comparison</h3>
+  <div class="cmp-table-wrap">
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th class="a2a">A2A</th>
+        <th class="ncp">ANCP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="feature">Discovery</td>
+        <td>AgentCard at <code>/.well-known/agent.json</code> — public, no auth</td>
+        <td>Discovery endpoint + <code>ancp.capabilities</code> action — auth optional per capability</td>
+      </tr>
+      <tr>
+        <td class="feature">Wire Format</td>
+        <td>JSON-RPC 2.0 (method + params + id)</td>
+        <td>IEnvelope (meta + body.data) over SignalR/HTTP</td>
+      </tr>
+      <tr>
+        <td class="feature">Streaming</td>
+        <td>SSE via <code>tasks/sendSubscribe</code></td>
+        <td>SSE with typed IEnvelope chunks (stream-chunk / stream-complete / stream-error events)</td>
+      </tr>
+      <tr>
+        <td class="feature">Async Tasks</td>
+        <td>Task polling via <code>tasks/get</code></td>
+        <td>Task queuing (StatusUrl + polling + optional Kafka async delivery)</td>
+      </tr>
+      <tr>
+        <td class="feature">Auth</td>
+        <td>Not specified — left to implementer</td>
+        <td>DID proof + JWT + tenant/operate isolation + payment receipts</td>
+      </tr>
+      <tr>
+        <td class="feature">Payments</td>
+        <td>Not in scope</td>
+        <td>EIP-191 signed receipts, on-chain payment verification, per-action pricing</td>
+      </tr>
+      <tr>
+        <td class="feature">Multi-tenancy</td>
+        <td>Not in scope</td>
+        <td>Built-in: tenantId + operateId isolation enforced at ACL layer</td>
+      </tr>
+      <tr>
+        <td class="feature">Observability</td>
+        <td>Not in scope</td>
+        <td>OpenTelemetry traces, Prometheus metrics, Grafana dashboards — all in-spec</td>
+      </tr>
+      <tr>
+        <td class="feature">SDK</td>
+        <td>Community SDKs (unofficial)</td>
+        <td><code>AncpClient</code> typed SDK — part of spec</td>
+      </tr>
+      <tr>
+        <td class="feature">Node Registry</td>
+        <td>No registry — URL-based only</td>
+        <td><code>NodeAddress</code> + federated registry (nodeId, resId, env, version)</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ─── §3 MESSAGE FORMAT ─────────────────────────────────────── -->
+<section id="messages">
+  <h2><span class="section-num">§3</span> Message Format Comparison</h2>
+  <p class="lead">The wire format is where the two protocols diverge most visibly. A2A uses JSON-RPC's familiar request/response envelope. ANCP uses IEnvelope — a richer, platform-native container with typed metadata extensions.</p>
+
+  <h3>A Task Request: Side by Side</h3>
+  <div class="code-grid">
+    <div class="code-block a2a">
+      <div class="cb-header">A2A — tasks/send (JSON-RPC 2.0)</div>
+      <pre>{
+  <span class="key">"jsonrpc"</span>: <span class="str">"2.0"</span>,
+  <span class="key">"method"</span>: <span class="str">"tasks/send"</span>,
+  <span class="key">"id"</span>: <span class="str">"req-1"</span>,
+  <span class="key">"params"</span>: {
+    <span class="key">"id"</span>: <span class="str">"task-abc123"</span>,
+    <span class="key">"sessionId"</span>: <span class="str">"sess-xyz"</span>,
+    <span class="key">"message"</span>: {
+      <span class="key">"role"</span>: <span class="str">"user"</span>,
+      <span class="key">"parts"</span>: [
+        {
+          <span class="key">"type"</span>: <span class="str">"text"</span>,
+          <span class="key">"text"</span>: <span class="str">"Summarise Q4 report"</span>
+        }
+      ]
+    },
+    <span class="key">"metadata"</span>: {}
+  }
+}
+
+<span class="cmt">// Response</span>
+{
+  <span class="key">"jsonrpc"</span>: <span class="str">"2.0"</span>,
+  <span class="key">"id"</span>: <span class="str">"req-1"</span>,
+  <span class="key">"result"</span>: {
+    <span class="key">"id"</span>: <span class="str">"task-abc123"</span>,
+    <span class="key">"status"</span>: {
+      <span class="key">"state"</span>: <span class="str">"completed"</span>,
+      <span class="key">"timestamp"</span>: <span class="str">"2026-03-16T12:00:00Z"</span>
+    },
+    <span class="key">"artifacts"</span>: [
+      {
+        <span class="key">"parts"</span>: [
+          { <span class="key">"type"</span>: <span class="str">"text"</span>, <span class="key">"text"</span>: <span class="str">"Summary..."</span> }
+        ]
+      }
+    ]
+  }
+}</pre>
+    </div>
+    <div class="code-block ncp">
+      <div class="cb-header">ANCP — IEnvelope (invoke pattern)</div>
+      <pre><span class="cmt">// Request</span>
+{
+  <span class="key">"meta"</span>: {
+    <span class="key">"id"</span>: <span class="str">"env-abc123"</span>,
+    <span class="key">"topic"</span>: <span class="str">"ancp.invoke"</span>,
+    <span class="key">"timestamp"</span>: <span class="str">"2026-03-16T12:00:00Z"</span>,
+    <span class="key">"protocol"</span>: <span class="str">"signal-r"</span>,
+    <span class="key">"nodeProtocol"</span>: <span class="str">"ncp"</span>
+  },
+  <span class="key">"body"</span>: {
+    <span class="key">"data"</span>: {
+      <span class="key">"metadata"</span>: {
+        <span class="key">"messageType"</span>: {
+          <span class="key">"type"</span>: <span class="str">"request"</span>,
+          <span class="key">"subType"</span>: <span class="str">"invoke"</span>
+        },
+        <span class="key">"ncp"</span>: {
+          <span class="key">"version"</span>: <span class="str">"2.0"</span>,
+          <span class="key">"action"</span>: <span class="str">"summarise-report"</span>,
+          <span class="key">"callerNodeId"</span>: <span class="str">"node-agent-a"</span>,
+          <span class="key">"callerDid"</span>: <span class="str">"did:bizfirst:agent-a"</span>,
+          <span class="key">"callerEvmAddress"</span>: <span class="str">"0xABC..."</span>,
+          <span class="key">"targetRole"</span>: <span class="str">"summariser"</span>
+        }
+      },
+      <span class="key">"data"</span>: { <span class="key">"input"</span>: <span class="str">"Summarise Q4 report"</span> }
+    }
+  }
+}
+
+<span class="cmt">// Response (success)</span>
+{
+  <span class="key">"meta"</span>: { <span class="key">"id"</span>: <span class="str">"env-resp-1"</span>, ... },
+  <span class="key">"body"</span>: {
+    <span class="key">"data"</span>: {
+      <span class="key">"metadata"</span>: {
+        <span class="key">"ncp"</span>: { <span class="key">"durationMs"</span>: <span class="num">1203</span> }
+      },
+      <span class="key">"data"</span>: { <span class="key">"summary"</span>: <span class="str">"Q4 results..."</span> }
+    }
+  }
+}</pre>
+    </div>
+  </div>
+
+  <h3>Streaming: Side by Side</h3>
+  <div class="code-grid">
+    <div class="code-block a2a">
+      <div class="cb-header">A2A — SSE Streaming (TaskStatusUpdateEvent)</div>
+      <pre><span class="cmt">// Request</span>
+POST / HTTP/1.1
+Content-Type: application/json
+
+{
+  <span class="key">"jsonrpc"</span>: <span class="str">"2.0"</span>,
+  <span class="key">"method"</span>: <span class="str">"tasks/sendSubscribe"</span>,
+  <span class="key">"id"</span>: <span class="str">"req-2"</span>,
+  <span class="key">"params"</span>: { <span class="key">"id"</span>: <span class="str">"task-s1"</span>, ... }
+}
+
+<span class="cmt">// SSE response stream</span>
+event: task_status_update
+data: {
+  "jsonrpc": "2.0",
+  "id": "req-2",
+  "result": {
+    "id": "task-s1",
+    "status": { "state": "working" },
+    "artifact": {
+      "parts": [{ "type": "text", "text": "Chunk 1..." }],
+      "index": 0,
+      "append": true,
+      "lastChunk": false
+    },
+    "final": false
+  }
+}
+
+event: task_status_update
+data: {
+  "result": {
+    "artifact": {
+      "parts": [{ "type": "text", "text": "...done" }],
+      "lastChunk": true
+    },
+    "final": true
+  }
+}</pre>
+    </div>
+    <div class="code-block ncp">
+      <div class="cb-header">ANCP — SSE Streaming (IEnvelope events)</div>
+      <pre><span class="cmt">// SSE response stream</span>
+event: chunk
+data: {
+  "meta": {
+    "id": "env-chunk-1",
+    "nodeProtocol": "ancp"
+  },
+  "body": { "data": {
+    "metadata": {
+      "messageType": {
+        "type": "response",
+        "subType": "stream-chunk"
+      },
+      "ncp": { "sequence": 1 }
+    },
+    "data": { "text": "Chunk 1..." }
+  }}
+}
+
+event: chunk
+data: {
+  "body": { "data": {
+    "metadata": {
+      "messageType": { "subType": "stream-chunk" },
+      "ncp": { "sequence": 2 }
+    },
+    "data": { "text": "...more..." }
+  }}
+}
+
+event: complete
+data: {
+  "body": { "data": {
+    "metadata": {
+      "messageType": { "subType": "stream-complete" },
+      "ncp": { "durationMs": 1840 }
+    },
+    "data": null
+  }}
+}</pre>
+    </div>
+  </div>
+
+  <h3>Message Format Analysis</h3>
+  <div class="cmp-table-wrap">
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th class="a2a">A2A</th>
+        <th class="ncp">ANCP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="feature">Envelope format</td>
+        <td>JSON-RPC 2.0 — industry standard, widely understood</td>
+        <td>IEnvelope — custom, platform-native, richer metadata</td>
+      </tr>
+      <tr>
+        <td class="feature">Method routing</td>
+        <td>By <code>method</code> field (e.g., <code>tasks/send</code>)</td>
+        <td>By <code>metadata.ancp.action</code> + <code>messageType.subType</code></td>
+      </tr>
+      <tr>
+        <td class="feature">Correlation</td>
+        <td><code>id</code> at JSON-RPC level</td>
+        <td><code>meta.id</code> (propagated through all response envelopes)</td>
+      </tr>
+      <tr>
+        <td class="feature">Content types</td>
+        <td>Parts: text, data, file, image — typed union</td>
+        <td><code>body.data.data</code> — arbitrary JSON, typed via generics in SDK</td>
+      </tr>
+      <tr>
+        <td class="feature">Error format</td>
+        <td>JSON-RPC error object (<code>code</code>, <code>message</code>, <code>data</code>)</td>
+        <td><code>body.data.error</code> with <code>ncpError</code> extension (code + message)</td>
+      </tr>
+      <tr>
+        <td class="feature">Streaming events</td>
+        <td>Single event type (<code>task_status_update</code>)</td>
+        <td>Named SSE events: <code>chunk</code>, <code>complete</code>, <code>error</code></td>
+      </tr>
+      <tr>
+        <td class="feature">Timing/perf data</td>
+        <td>None in protocol</td>
+        <td><code>metadata.ancp.durationMs</code> on every response</td>
+      </tr>
+      <tr>
+        <td class="feature">Caller identity in message</td>
+        <td>None (relies on HTTP auth headers)</td>
+        <td><code>metadata.ancp.caller*</code> — nodeId, resId, did, evmAddress, tenantId, operateId</td>
+      </tr>
+      <tr>
+        <td class="feature">Verbosity</td>
+        <td>Compact — minimal overhead</td>
+        <td>Verbose — rich metadata per message (~30% overhead)</td>
+      </tr>
+      <tr>
+        <td class="feature">Tooling</td>
+        <td>Any JSON-RPC tooling works (Postman, curl, etc.)</td>
+        <td>Requires AncpClient SDK for full ergonomics; raw HTTP is possible but verbose</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ─── §4 CALL FLOWS ─────────────────────────────────────────── -->
+<section id="flows">
+  <h2><span class="section-num">§4</span> Call Flow Comparison</h2>
+  <p class="lead">Understanding how a request travels from client to result reveals the operational complexity each protocol requires.</p>
+
+  <h3>Simple Request-Response</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">A2A vs ANCP — Simple Invoke Flow</div>
+    <div class="mermaid">
+sequenceDiagram
+    participant CA as Client (A2A)
+    participant SA as Agent Server (A2A)
+    participant CN as AncpClient (ANCP)
+    participant SN as Node Server (ANCP)
+
+    rect rgb(28, 45, 74)
+        Note over CA,SA: A2A Flow
+        CA->>SA: GET /.well-known/agent.json
+        SA-->>CA: AgentCard (skills, auth requirements)
+        CA->>SA: POST / (tasks/send, JSON-RPC)
+        SA-->>CA: Task result (completed)
+    end
+
+    rect rgb(20, 38, 26)
+        Note over CN,SN: ANCP Flow
+        CN->>SN: ancp.ping (health check)
+        SN-->>CN: pong + nodeId + uptimeMs
+        CN->>SN: ancp.capabilities (discover actions)
+        SN-->>CN: capabilities list + auth/payment requirements
+        CN->>SN: POST /ncp (IEnvelope, invoke subType)
+        Note right of SN: ACL check<br/>DID verify<br/>Tenant check
+        SN-->>CN: IEnvelope response + durationMs
+    end
+    </div>
+  </div>
+
+  <h3>Streaming Flow</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">A2A vs ANCP — Streaming Flow</div>
+    <div class="mermaid">
+sequenceDiagram
+    participant C as Client
+    participant SA as A2A Agent
+    participant SN as ANCP Node
+
+    rect rgb(28, 45, 74)
+        Note over C,SA: A2A Streaming
+        C->>SA: POST / (tasks/sendSubscribe)
+        SA-->>C: SSE: task_status_update {state: working}
+        SA-->>C: SSE: task_status_update {artifact chunk 1, append:true}
+        SA-->>C: SSE: task_status_update {artifact chunk 2, append:true}
+        SA-->>C: SSE: task_status_update {final:true, state:completed}
+    end
+
+    rect rgb(20, 38, 26)
+        Note over C,SN: ANCP Streaming
+        C->>SN: POST /ncp (IEnvelope, stream subType)
+        SN-->>C: SSE event:chunk {sequence:1, data:{...}}
+        SN-->>C: SSE event:chunk {sequence:2, data:{...}}
+        SN-->>C: SSE event:chunk {sequence:3, data:{...}}
+        SN-->>C: SSE event:complete {durationMs:1840}
+        Note right of C: AncpClient reassembles<br/>chunks in AncpStreamEvent&lt;T&gt;
+    end
+    </div>
+  </div>
+
+  <h3>Async Long-Running Task</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">A2A vs ANCP — Long-Running Task</div>
+    <div class="mermaid">
+sequenceDiagram
+    participant C as Client
+    participant SA as A2A Agent
+    participant SN as ANCP Node
+    participant KF as Kafka (ANCP only)
+
+    rect rgb(28, 45, 74)
+        Note over C,SA: A2A Async (via polling)
+        C->>SA: tasks/send (long task)
+        SA-->>C: {state: submitted}
+        loop Poll until complete
+            C->>SA: tasks/get {id: task-xyz}
+            SA-->>C: {state: working, progress: 40%}
+        end
+        SA-->>C: {state: completed, artifacts: [...]}
+    end
+
+    rect rgb(20, 38, 26)
+        Note over C,SN: ANCP Async (task-start pattern)
+        C->>SN: IEnvelope (task-start subType)
+        SN-->>C: IEnvelope (task-accepted) + taskId + statusUrl
+        SN->>KF: Enqueue async work
+        loop Poll statusUrl
+            C->>SN: GET statusUrl
+            SN-->>C: IEnvelope {taskState: running, progress: 40%}
+        end
+        KF-->>SN: Work completed
+        SN-->>C: IEnvelope {taskState: completed, result: {...}}
+    end
+    </div>
+  </div>
+
+  <h3>Payment-Gated Flow (ANCP Only)</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">ANCP — Autonomous Node Payment Flow</div>
+    <div class="mermaid">
+sequenceDiagram
+    participant A as Agent A (Caller)
+    participant N as ANCP Node (Autonomous)
+    participant BC as Blockchain
+
+    A->>N: ancp.capabilities
+    N-->>A: {action: "analyse-data", priceUsdc: 0.50, requiresPayment: true}
+
+    A->>N: ancp.negotiate {callerDid, callerEvmAddress, callerCapabilities}
+    N-->>A: {supported: ["analyse-data"], paymentAddress: "0xNODE..."}
+
+    A->>N: ancp.payment-info
+    N-->>A: {evmAddress, chainId, acceptedTokens: ["USDC"]}
+
+    A->>BC: Transfer 0.50 USDC → 0xNODE...
+    BC-->>A: txHash: "0xTX..."
+
+    A->>N: ncp.pay {txHash, forAction: "analyse-data", amountUsdc: 0.50}
+    N->>BC: Verify transaction
+    BC-->>N: Confirmed + amount OK
+    N-->>A: {receipt: {receiptId, signature (EIP-191), validUntil}}
+
+    A->>N: IEnvelope (invoke, action: "analyse-data")<br/>Header: X-Ancp-Payment-Receipt: {receiptId, signature}
+    N->>N: Validate receipt signature + check replay store
+    N-->>A: IEnvelope (response, data: {...})
+
+    Note over A,N: Receipt marked consumed — cannot reuse
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <strong>A2A Has No Equivalent</strong>
+    A2A has no payment flow. If your use case involves monetised autonomous agents, you must build this entirely yourself on top of A2A. ANCP prescribes a complete, auditable payment lifecycle from discovery to receipt validation.
+  </div>
+</section>
+
+<!-- ─── §5 STRENGTHS & WEAKNESSES ────────────────────────────── -->
+<section id="strengths">
+  <h2><span class="section-num">§5</span> Strengths &amp; Weaknesses</h2>
+  <p class="lead">An honest assessment of what each protocol does well and where it falls short.</p>
+
+  <h3>A2A Protocol</h3>
+  <div class="sw-grid">
+    <div class="sw-card strength">
+      <div class="sw-header"><span class="sw-icon">✓</span> A2A Strengths</div>
+      <ul class="sw-list">
+        <li>
+          <div>
+            <strong>Open standard — anyone can implement it</strong>
+            <div class="sub">Apache 2.0 license, no vendor lock-in. Anthropic, Microsoft, Salesforce, SAP already announcing support.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Simple and learnable</strong>
+            <div class="sub">4 JSON-RPC methods. Any developer familiar with REST/JSON-RPC can implement a client in hours.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Vendor-neutral interoperability</strong>
+            <div class="sub">An OpenAI agent can call a Claude agent can call a Gemini agent without platform knowledge.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>AgentCard is a great discovery primitive</strong>
+            <div class="sub">Self-describing agents at a predictable URL. Maps naturally to "service catalogue" thinking.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Multi-modal content via Parts</strong>
+            <div class="sub">First-class support for text, file, image, structured data parts — rich content natively.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Session continuity</strong>
+            <div class="sub"><code>sessionId</code> allows multi-turn conversations within a task context — built into the protocol.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Growing ecosystem momentum</strong>
+            <div class="sub">Major AI vendors adopting in 2025-2026. Community SDKs, tooling, documentation expanding rapidly.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Transport-agnostic intent</strong>
+            <div class="sub">Core design is HTTP-centric but the JSON-RPC framing doesn't prevent other transports.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="sw-card weakness">
+      <div class="sw-header"><span class="sw-icon">✗</span> A2A Weaknesses</div>
+      <ul class="sw-list">
+        <li>
+          <div>
+            <strong>No authentication specification</strong>
+            <div class="sub">Auth is mentioned in the AgentCard but not defined. Every implementer must invent their own model — interop breaks at auth layer.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>No payment or monetisation support</strong>
+            <div class="sub">Zero protocol-level constructs for paid agents. Must build from scratch on top.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>No identity beyond HTTP headers</strong>
+            <div class="sub">No DID, no cryptographic identity, no EVM address. Caller identity is whatever the implementer chooses.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>No multi-tenancy</strong>
+            <div class="sub">No tenant/organisation isolation concept. Enterprise deployment requires wrapping the protocol.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>No observability specification</strong>
+            <div class="sub">No standard for tracing, metrics, or logs. Each deployment observes differently — operational fragmentation.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Push notification gap</strong>
+            <div class="sub">No protocol for agent-initiated callbacks. Long-running task updates require polling or custom webhooks.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Early maturity — spec gaps</strong>
+            <div class="sub">Version 0.2.6 — still evolving. Some edge cases (error recovery, partial artifacts) underspecified.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>No ACL or role-based access control</strong>
+            <div class="sub">Any caller who can reach the endpoint can invoke any method. Permission model must be built externally.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>ANCP Protocol</h3>
+  <div class="sw-grid">
+    <div class="sw-card strength">
+      <div class="sw-header"><span class="sw-icon">✓</span> ANCP Strengths</div>
+      <ul class="sw-list">
+        <li>
+          <div>
+            <strong>Complete identity model</strong>
+            <div class="sub">DID + EVM address + nodeId + resId + tenantId + operateId — every caller is cryptographically identified at multiple levels.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Built-in payment infrastructure</strong>
+            <div class="sub">Full payment lifecycle: discovery → negotiate → pay → EIP-191 receipt → validated execution. No external system needed.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Autonomous agent model is fully designed</strong>
+            <div class="sub">6 system actions (ping, capabilities, negotiate, payment-info, pay, status) enable full autonomous agent lifecycle.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>ACL and role-based access control</strong>
+            <div class="sub"><code>NcpAclPolicy</code> with pattern-to-role mapping. Auth requirements per action. Deny-by-default.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Rich observability built in</strong>
+            <div class="sub">OpenTelemetry traces, Prometheus metrics, Grafana dashboards — all part of the spec, not bolted on.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Typed streaming with sequence numbers</strong>
+            <div class="sub">Named SSE events (chunk/complete/error) + <code>sequence</code> field + <code>durationMs</code> — more debuggable than generic SSE.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Platform integration depth</strong>
+            <div class="sub">Deep integration with ProcessEngine DAG, EdgeStream/Kafka, BaseNodeExecutor, IEnvelope — one coherent system.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Multi-tenancy by design</strong>
+            <div class="sub">Tenant and operate isolation enforced at every layer. Enterprise-grade from day one.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Federated node registry</strong>
+            <div class="sub"><code>NodeAddress</code> with nodeId + resId + env + version + region. Nodes are first-class registry citizens, not just URLs.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>DID lifecycle management</strong>
+            <div class="sub">DID reissuance detection, proof expiry, <code>aud</code> audience validation — cryptographic identity is live, not static.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Agent marketplace — OperateDao.com</strong>
+            <div class="sub">ANCP nodes are discoverable on <strong>OperateDao.com</strong>, BizFirst's agent marketplace. Nodes publish their capabilities, pricing, and identity — external agents can browse, negotiate, and transact without any custom integration work.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="sw-card weakness">
+      <div class="sw-header"><span class="sw-icon">✗</span> ANCP Weaknesses</div>
+      <ul class="sw-list">
+        <li>
+          <div>
+            <strong>Reference implementation is BizFirst-only (so far)</strong>
+            <div class="sub">ANCP is an open specification — any team or vendor can implement it. BizFirst is the first and reference implementation. Protocol adapters for popular agentic systems (A2A, LangChain, AutoGen) are planned, so any A2A-compliant or LangChain-based agent will be able to call an ANCP node via the adapter layer without changes to the ANCP spec itself.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>High implementation complexity</strong>
+            <div class="sub">Implementing ANCP from scratch requires understanding IEnvelope, NcpMetadataExtension, DID, EVM, ACL, receipt store — steep entry point.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Verbose wire format</strong>
+            <div class="sub">Every message carries full metadata.ancp block, caller identity fields, and envelope meta. ~30-40% overhead vs A2A for simple calls.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>No multi-modal content typing</strong>
+            <div class="sub"><code>body.data.data</code> is arbitrary JSON. No equivalent to A2A's typed Parts (text/file/image). Content structure is implicit.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Crypto and DID are part of OperateAI — not base ANCP</strong>
+            <div class="sub">EVM address, DID identity, and EIP-191 payment receipts belong to <strong>OperateAI</strong> — a specialised edition of BizFirst for autonomous, crypto-native agents. Standard ANCP deployments require no blockchain wallet. Any agent can invoke, stream, and run tasks; OperateAI capabilities activate only when needed.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>No session/conversation continuity</strong>
+            <div class="sub">No built-in <code>sessionId</code> equivalent. Multi-turn conversation state must be managed at the action/payload level.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Early community — growing rapidly</strong>
+            <div class="sub">ANCP is an open specification that anyone can implement. BizFirst is the reference implementation, with open source publication planned for Q3 2026. External tooling and community are still growing — a natural phase of any new open protocol, and one that changes significantly once the codebase is publicly available.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── §6 SCORECARD ─────────────────────────────────────────── -->
+<section id="scorecard">
+  <h2><span class="section-num">§6</span> Feature Scorecard</h2>
+  <p class="lead">A structured comparison across 12 dimensions. Each protocol is scored 1–10. Winner per dimension shown.</p>
+
+  <div class="scorecard">
+    <div class="scorecard-header">
+      <div>Dimension</div>
+      <div style="color:#90caf9">A2A Score</div>
+      <div style="color:#a5d6a7">ANCP Score</div>
+      <div>Winner</div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Simplicity &amp; Learnability</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:90%"></div></div>9</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:40%"></div></div>4</div></div>
+      <div><span class="score-badge score-a2a">A2A</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Interoperability</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:95%"></div></div>9.5</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:20%"></div></div>2</div></div>
+      <div><span class="score-badge score-a2a">A2A</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Authentication &amp; Identity</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:20%"></div></div>2</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:95%"></div></div>9.5</div></div>
+      <div><span class="score-badge score-ncp">ANCP</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Payment &amp; Monetisation</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:0%"></div></div>0</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:90%"></div></div>9</div></div>
+      <div><span class="score-badge score-ncp">ANCP</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Multi-tenancy</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:0%"></div></div>0</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:95%"></div></div>9.5</div></div>
+      <div><span class="score-badge score-ncp">ANCP</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Observability</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:10%"></div></div>1</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:90%"></div></div>9</div></div>
+      <div><span class="score-badge score-ncp">ANCP</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Async Task Handling</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:70%"></div></div>7</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:80%"></div></div>8</div></div>
+      <div><span class="score-badge score-ncp">ANCP ↑</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Streaming</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:70%"></div></div>7</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:80%"></div></div>8</div></div>
+      <div><span class="score-badge score-ncp">ANCP ↑</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Content / Media Types</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:90%"></div></div>9</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:50%"></div></div>5</div></div>
+      <div><span class="score-badge score-a2a">A2A</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Access Control</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:10%"></div></div>1</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:90%"></div></div>9</div></div>
+      <div><span class="score-badge score-ncp">ANCP</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Autonomous Agent Support</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:40%"></div></div>4</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:90%"></div></div>9</div></div>
+      <div><span class="score-badge score-ncp">ANCP</span></div>
+    </div>
+
+    <div class="scorecard-row">
+      <div class="cat">Ecosystem &amp; Tooling</div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill a2a" style="width:75%"></div></div>7.5</div></div>
+      <div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ncp" style="width:50%"></div></div>5</div></div>
+      <div><span class="score-badge score-a2a">A2A</span></div>
+    </div>
+
+    <div class="scorecard-footer">
+      <div>Total (out of 120)</div>
+      <div>57.5</div>
+      <div>83</div>
+      <div style="color:var(--ncp)">ANCP overall</div>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <strong>Scorecard Caveat</strong>
+    ANCP's higher overall score reflects its completeness for BizFirst's specific enterprise use case. If the context were "build a public-internet AI marketplace with unknown partners," A2A would score much higher. Always evaluate against your specific requirements.
+  </div>
+
+  <h3>Decision Matrix — When to use which</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">Protocol Selection Decision Tree</div>
+    <div class="mermaid">
+flowchart TD
+    START([What are you building?]) --> Q1{Do your agents need\nto talk to agents\nfrom OTHER vendors?}
+
+    Q1 -->|Yes| Q2{Can you control\nboth endpoints?}
+    Q1 -->|No - internal only| Q3{Do you need\npayments or\ncrypto identity?}
+
+    Q2 -->|No - truly open| A2A_WIN["✅ Use A2A\nInterop is the priority"]
+    Q2 -->|Yes - but want standards| BRIDGE["Consider A2A adapter\nlayer on ANCP nodes"]
+
+    Q3 -->|Yes| ANCP_WIN["✅ Use ANCP\nPlatform integration wins"]
+    Q3 -->|No| Q4{Do you need\nmulti-tenancy\nor enterprise ACL?}
+
+    Q4 -->|Yes| ANCP_WIN2["✅ Use ANCP\nEnterprise model is built-in"]
+    Q4 -->|No| Q5{Do you want a full\nagent operating contract:\nidentity + observability\n+ payments in one spec?}
+
+    Q5 -->|Yes| ANCP_WIN3["✅ Use ANCP\nOpen spec · full agent model"]
+    Q5 -->|No| EITHER["Either works.\nA2A is simpler."]
+
+    style A2A_WIN fill:#1c2d4a,stroke:#60a5fa,color:#60a5fa
+    style BRIDGE fill:#2d2515,stroke:#fbbf24,color:#fbbf24
+    style ANCP_WIN fill:#14261a,stroke:#4ade80,color:#4ade80
+    style ANCP_WIN2 fill:#14261a,stroke:#4ade80,color:#4ade80
+    style ANCP_WIN3 fill:#14261a,stroke:#4ade80,color:#4ade80
+    style EITHER fill:#21262d,stroke:#30363d
+    </div>
+  </div>
+</section>
+
+<!-- ─── §7 SECURITY & IDENTITY ────────────────────────────────── -->
+<section id="security">
+  <h2><span class="section-num">§7</span> Security &amp; Identity</h2>
+  <p class="lead">Security is where the two protocols diverge most sharply. A2A punts on security by design; ANCP makes it a first-class citizen.</p>
+
+  <h3>Identity Model Comparison</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">Identity Layers: A2A vs ANCP</div>
+    <div class="mermaid">
+graph LR
+    subgraph "A2A Identity"
+        A2A_NONE["HTTP Auth (unspecified)\ne.g. Bearer token, API key\n\nNo standard identity format\nNo cryptographic binding\nNo cross-agent verification"]
+    end
+
+    subgraph "ANCP Identity (layered)"
+        L1["Layer 1: Network\nnodeId + resId\nPlatform-assigned"]
+        L2["Layer 2: Organisation\ntenantId + operateId\nMulti-tenancy isolation"]
+        L3["Layer 3: Cryptographic\nDID (W3C compliant)\nW3C decentralised identity"]
+        L4["Layer 4: Blockchain\nEVM Address\nCrypto wallet identity"]
+        L1 --> L2 --> L3 --> L4
+    end
+
+    style A2A_NONE fill:#2d1616,stroke:#f87171,color:#f87171
+    style L1 fill:#14261a,stroke:#4ade80,color:#4ade80
+    style L2 fill:#14261a,stroke:#4ade80,color:#4ade80
+    style L3 fill:#14261a,stroke:#4ade80,color:#4ade80
+    style L4 fill:#14261a,stroke:#4ade80,color:#4ade80
+    </div>
+  </div>
+
+  <div class="cmp-table-wrap">
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Security Dimension</th>
+        <th class="a2a">A2A</th>
+        <th class="ncp">ANCP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="feature">Authentication</td>
+        <td>Referenced in AgentCard (<code>authentication</code> field) but format not defined. Implementer must choose (OAuth, API key, mTLS, etc.)</td>
+        <td>DID proof in every request (<code>metadata.ancp.callerDid</code>) + JWT layer + receipt validation for paid actions</td>
+      </tr>
+      <tr>
+        <td class="feature">Authorisation</td>
+        <td>Not in protocol — application layer</td>
+        <td><code>NcpAclPolicy</code>: per-pattern role mapping, per-action auth requirements, deny-by-default</td>
+      </tr>
+      <tr>
+        <td class="feature">Caller verification</td>
+        <td>Depends on auth mechanism chosen</td>
+        <td>DID proof signature verified per request; EVM address verified for payment actions</td>
+      </tr>
+      <tr>
+        <td class="feature">Replay protection</td>
+        <td>Depends on auth mechanism chosen</td>
+        <td><code>IAncpReceiptStore</code> — receipts marked consumed after single use; <code>validUntil</code> timestamp enforcement</td>
+      </tr>
+      <tr>
+        <td class="feature">Tenant isolation</td>
+        <td>None</td>
+        <td>Hard isolation: <code>tenantId</code> + <code>operateId</code> enforced at ACL layer, cannot be spoofed via payload</td>
+      </tr>
+      <tr>
+        <td class="feature">Transport security</td>
+        <td>HTTPS assumed, not enforced</td>
+        <td>HTTPS + SignalR TLS; header-level correlation via <code>X-Ancp-Correlation-Id</code></td>
+      </tr>
+      <tr>
+        <td class="feature">DID reissuance</td>
+        <td>N/A</td>
+        <td>Detected via <code>aud</code> mismatch — stale DID proofs rejected</td>
+      </tr>
+      <tr>
+        <td class="feature">Key management</td>
+        <td>N/A</td>
+        <td>Node private key for EIP-191 signing; HSM or secure storage recommended in spec</td>
+      </tr>
+      <tr>
+        <td class="feature">Rate limiting</td>
+        <td>Not in protocol</td>
+        <td>Per-callerNodeId rate limiting referenced in autonomous node spec</td>
+      </tr>
+      <tr>
+        <td class="feature">Security audit surface</td>
+        <td>Small — thin protocol, few attack surfaces</td>
+        <td>Large — more features = more attack surface. Receipt replay, DID spoofing, tenant escape are all potential vectors.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout danger">
+    <strong>Known Security Gap in ANCP Phase 2</strong>
+    The design review identified that DID proof <code>aud</code> is not validated against the endpoint URL. An attacker could replay a stolen DID proof intended for Node A at Node B. This is flagged as Critical Issue #7 in the design review report and needs a fix before production deployment.
+  </div>
+</section>
+
+<!-- ─── §8 PAYMENTS ───────────────────────────────────────────── -->
+<section id="payments">
+  <h2><span class="section-num">§8</span> Payments &amp; Monetisation</h2>
+  <p class="lead">This is the area of greatest divergence. A2A is not designed for monetary transactions. ANCP is built for crypto-native autonomous economic agents.</p>
+
+  <div class="hero-cards">
+    <div class="hero-card a2a" style="border-style: dashed; opacity: 0.7;">
+      <span class="proto-badge">A2A</span>
+      <h3>Payment Support: None</h3>
+      <p>A2A has no payment primitives. The protocol spec explicitly out-of-scopes monetary exchange. To build a paid A2A agent, you must implement your own:</p>
+      <ul style="margin: 12px 0 12px 20px; font-size: 14px;">
+        <li>Pricing negotiation mechanism</li>
+        <li>Payment method (crypto, stripe, invoicing)</li>
+        <li>Receipt/proof-of-payment mechanism</li>
+        <li>Pre-authorisation gate at the action level</li>
+        <li>Replay protection</li>
+      </ul>
+      <p style="font-size:13px; color:var(--critical)">This is not A2A's fault — it's a deliberate scope decision. But it means monetised agents on A2A are reinventing payment infrastructure that ANCP ships with.</p>
+    </div>
+
+    <div class="hero-card ncp">
+      <span class="proto-badge">ANCP</span>
+      <h3>Payment Support: Full</h3>
+      <p>ANCP ships a complete crypto payment lifecycle as part of the protocol spec:</p>
+      <ul style="margin: 12px 0 12px 20px; font-size: 14px;">
+        <li><code>ancp.payment-info</code> — discover accepted tokens, price list, EVM address</li>
+        <li><code>ancp.negotiate</code> — agree on capabilities + payment terms</li>
+        <li><code>ncp.pay</code> — submit on-chain tx hash for verification</li>
+        <li>EIP-191 signed receipt issued by node</li>
+        <li><code>X-Ancp-Payment-Receipt</code> header protocol</li>
+        <li><code>IAncpReceiptStore</code> — replay protection (single-use receipts)</li>
+        <li>Per-action pricing with <code>AncpPaymentRequirement</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Payment Architecture</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">ANCP Payment Data Model</div>
+    <div class="mermaid">
+classDiagram
+    class AncpPaymentOptions {
+        +bool IsAutonomous
+        +string NodeEvmAddress
+        +string NodeDid
+        +string NodeOperateId
+        +string ChainId
+        +List~AcceptedToken~ AcceptedTokens
+        +Dictionary~string,PriceEntry~ PriceList
+    }
+
+    class AncpPaymentRequirement {
+        +decimal PriceUsdc
+        +int ReceiptValiditySec
+        +bool AllowReceiptReuse
+    }
+
+    class AncpPaymentReceipt {
+        +string ReceiptId
+        +string ForAction
+        +decimal AmountUsdc
+        +string TxHash
+        +DateTime IssuedAt
+        +DateTime ValidUntil
+        +string CallerEvmAddress
+        +string Signature [EIP-191]
+    }
+
+    class IAncpReceiptStore {
+        +ExistsAsync(receiptId) bool
+        +MarkConsumedAsync(receiptId)
+    }
+
+    class NcpPayRequest {
+        +string TxHash
+        +string ChainId
+        +string ForAction
+        +decimal AmountUsdc
+    }
+
+    AncpPaymentOptions --> AncpPaymentRequirement : per action
+    NcpPayRequest --> AncpPaymentReceipt : issues
+    AncpPaymentReceipt --> IAncpReceiptStore : stored
+    IAncpReceiptStore --> AncpPaymentReceipt : validates
+    </div>
+  </div>
+
+  <h3>Payment Comparison</h3>
+  <div class="cmp-table-wrap">
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Payment Capability</th>
+        <th class="a2a">A2A</th>
+        <th class="ncp">ANCP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="feature">Payment protocol</td>
+        <td class="tie">Not defined — out of scope</td>
+        <td class="win ncp">Full EIP-191 receipt system</td>
+      </tr>
+      <tr>
+        <td class="feature">Pricing discovery</td>
+        <td class="tie">Not in spec</td>
+        <td class="win ncp"><code>ancp.payment-info</code> → priceList per action</td>
+      </tr>
+      <tr>
+        <td class="feature">Payment negotiation</td>
+        <td class="tie">Not in spec</td>
+        <td class="win ncp"><code>ancp.negotiate</code> → agreed capabilities + payment address</td>
+      </tr>
+      <tr>
+        <td class="feature">On-chain verification</td>
+        <td class="tie">Not in spec</td>
+        <td class="win ncp">Node verifies txHash on-chain before issuing receipt</td>
+      </tr>
+      <tr>
+        <td class="feature">Receipt issuance</td>
+        <td class="tie">Not in spec</td>
+        <td class="win ncp">EIP-191 signed receipt with expiry + callerEvmAddress binding</td>
+      </tr>
+      <tr>
+        <td class="feature">Replay protection</td>
+        <td class="tie">Not in spec</td>
+        <td class="win ncp"><code>IAncpReceiptStore</code> — single-use receipts</td>
+      </tr>
+      <tr>
+        <td class="feature">Multi-currency support</td>
+        <td class="tie">Not in spec</td>
+        <td class="win ncp"><code>acceptedTokens</code> list per node (USDC, ETH, etc.)</td>
+      </tr>
+      <tr>
+        <td class="feature">Traditional payment (fiat)</td>
+        <td class="tie">Up to implementer</td>
+        <td class="tie">Not in current spec (crypto-only)</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ─── §9 USE CASES ──────────────────────────────────────────── -->
+<section id="usecases">
+  <h2><span class="section-num">§9</span> Use Case Fit Analysis</h2>
+  <p class="lead">Different deployment scenarios favour different protocols. This section gives honest recommendations per use case.</p>
+
+  <div class="uc-grid">
+    <div class="uc-card">
+      <div class="uc-title">Public AI Marketplace</div>
+      <span class="uc-verdict a2a">A2A Preferred</span>
+      <p class="uc-desc">Multiple vendors offering agent capabilities to unknown callers. Interoperability is the #1 requirement. A2A's open standard and AgentCard discovery make this natural.</p>
+    </div>
+
+    <div class="uc-card">
+      <div class="uc-title">Enterprise Internal Agents</div>
+      <span class="uc-verdict ncp">ANCP Preferred</span>
+      <p class="uc-desc">Internal agents within a controlled organisation. Multi-tenancy, ACL, observability, and audit trails matter. ANCP's full identity + ACL model wins.</p>
+    </div>
+
+    <div class="uc-card">
+      <div class="uc-title">Autonomous Paid Agents</div>
+      <span class="uc-verdict ncp">ANCP Preferred</span>
+      <p class="uc-desc">Agents that monetise capabilities via crypto payments. ANCP's built-in payment infrastructure vs A2A's zero payment support makes this a clear ANCP win.</p>
+    </div>
+
+    <div class="uc-card">
+      <div class="uc-title">Cross-Vendor Agent Workflow</div>
+      <span class="uc-verdict a2a">A2A Preferred</span>
+      <p class="uc-desc">Chaining an OpenAI agent → Anthropic agent → custom agent. A2A is the only standard all vendors agree on. ANCP nodes would need an A2A adapter.</p>
+    </div>
+
+    <div class="uc-card">
+      <div class="uc-title">Long-Running Data Pipelines</div>
+      <span class="uc-verdict ncp">ANCP Preferred</span>
+      <p class="uc-desc">Background tasks consuming hours. ANCP's Kafka/EdgeStream backend, task-start pattern, and progress reporting outperform A2A's polling model for heavy async work.</p>
+    </div>
+
+    <div class="uc-card">
+      <div class="uc-title">Quick Prototyping / PoC</div>
+      <span class="uc-verdict a2a">A2A Preferred</span>
+      <p class="uc-desc">Building a demo quickly. A2A's 4-method API and JSON-RPC simplicity means less setup. ANCP requires DI registration, IEnvelope, identity setup before a single call works.</p>
+    </div>
+
+    <div class="uc-card">
+      <div class="uc-title">Regulated Financial Processing</div>
+      <span class="uc-verdict ncp">ANCP Preferred</span>
+      <p class="uc-desc">Payroll, HR, financial operations requiring audit trails, tenant isolation, and identity binding. ANCP's multi-layer identity + observability is purpose-built for this.</p>
+    </div>
+
+    <div class="uc-card">
+      <div class="uc-title">Real-Time Streaming Inference</div>
+      <span class="uc-verdict tie">Tie</span>
+      <p class="uc-desc">Both support SSE streaming. ANCP adds sequence numbers and durationMs; A2A adds append/lastChunk flags. Neither has a decisive advantage here.</p>
+    </div>
+
+    <div class="uc-card">
+      <div class="uc-title">Multi-Tenant SaaS Agent Platform</div>
+      <span class="uc-verdict ncp">ANCP Preferred</span>
+      <p class="uc-desc">Platform serving multiple organisations. ANCP's tenantId + operateId isolation model is built for this; A2A requires significant wrapping to achieve tenant isolation.</p>
+    </div>
+  </div>
+
+  <h3>The Hybrid Opportunity</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">A2A ↔ ANCP Bridge Architecture (Recommended for BizFirst)</div>
+    <div class="mermaid">
+graph TB
+    subgraph "External World (A2A)"
+        EA["External A2A Agent\n(OpenAI / Anthropic / etc.)"]
+        EB["External A2A Agent\n(LangChain / AutoGen)"]
+    end
+
+    subgraph "BizFirst Boundary"
+        GW["A2A Gateway Node\n• Exposes /.well-known/agent.json\n• Accepts tasks/send JSON-RPC\n• Handles A2A auth (OAuth)"]
+
+        BRIDGE["Protocol Bridge\n• A2A Task → AncpClient.InvokeAsync()\n• NcpResponse → A2A Artifact\n• Handles identity mapping"]
+    end
+
+    subgraph "BizFirst Platform (ANCP)"
+        N1["ANCP Node: Payroll"]
+        N2["ANCP Node: HR Analytics"]
+        N3["ANCP Node: Reporting"]
+        REG["Node Registry"]
+    end
+
+    EA -->|"A2A tasks/send"| GW
+    EB -->|"A2A tasks/send"| GW
+    GW --> BRIDGE
+    BRIDGE -->|"AncpClient.InvokeAsync()"| N1
+    BRIDGE -->|"AncpClient.InvokeAsync()"| N2
+    BRIDGE -->|"AncpClient.InvokeAsync()"| N3
+    N1 & N2 & N3 --> REG
+
+    style GW fill:#2d2515,stroke:#fbbf24
+    style BRIDGE fill:#2d2515,stroke:#fbbf24
+    style N1 fill:#14261a,stroke:#4ade80
+    style N2 fill:#14261a,stroke:#4ade80
+    style N3 fill:#14261a,stroke:#4ade80
+    </div>
+  </div>
+
+  <div class="callout success">
+    <strong>Recommended Strategy for BizFirst</strong>
+    ANCP remains the internal protocol for all platform nodes — it provides the identity, ACL, payment, and observability features the platform requires. An A2A Gateway bridge layer exposes BizFirst agents to external callers, providing interoperability without compromising internal architecture. This gives BizFirst the best of both worlds.
+  </div>
+</section>
+
+<!-- ─── §10 VERDICT ───────────────────────────────────────────── -->
+<section id="verdict">
+  <h2><span class="section-num">§10</span> Final Verdict</h2>
+  <p class="lead">A2A and ANCP are not competing for the same problem. Understanding where each wins prevents false comparisons.</p>
+
+  <h3>Summary: The Core Trade-off</h3>
+  <div class="diagram-wrap">
+    <div class="diagram-title">Protocol Position Map</div>
+    <div style="position:relative;width:100%;max-width:580px;margin:0 auto;aspect-ratio:1/1;border:1px solid #30363d;border-radius:8px;background:#0d1117;overflow:hidden">
+      <!-- axis lines -->
+      <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:#30363d"></div>
+      <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:#30363d"></div>
+      <!-- axis labels -->
+      <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:10px;color:#8b949e;white-space:nowrap;font-family:monospace;font-weight:600;letter-spacing:1px">▲ HIGH COMPLETENESS</div>
+      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:10px;color:#8b949e;white-space:nowrap;font-family:monospace;font-weight:600;letter-spacing:1px">▼ LOW COMPLETENESS</div>
+      <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center;font-size:10px;color:#8b949e;white-space:nowrap;font-family:monospace;font-weight:600;letter-spacing:1px">◄ LOW OPENNESS</div>
+      <div style="position:absolute;right:8px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center;font-size:10px;color:#8b949e;white-space:nowrap;font-family:monospace;font-weight:600;letter-spacing:1px">► HIGH OPENNESS</div>
+      <!-- quadrant labels -->
+      <div style="position:absolute;top:24px;left:14px;font-size:9px;color:#30363d;font-weight:700;line-height:1.4">ENTERPRISE<br>GOLD STANDARD</div>
+      <div style="position:absolute;top:24px;right:14px;font-size:9px;color:#30363d;font-weight:700;line-height:1.4;text-align:right">OPEN AND<br>COMPLETE</div>
+      <div style="position:absolute;bottom:24px;left:14px;font-size:9px;color:#30363d;font-weight:700;line-height:1.4">MINIMAL<br>UTILITY</div>
+      <div style="position:absolute;bottom:24px;right:14px;font-size:9px;color:#30363d;font-weight:700;line-height:1.4;text-align:right">OPEN BUT<br>INCOMPLETE</div>
+      <!-- ANCP: x=15%, y=12% from top (completeness=88%) -->
+      <div style="position:absolute;left:15%;top:12%;transform:translate(-50%,-50%);text-align:center">
+        <div style="width:14px;height:14px;border-radius:50%;background:#4ade80;margin:0 auto;box-shadow:0 0 8px #4ade8088"></div>
+        <div style="font-size:11px;font-weight:700;color:#4ade80;margin-top:4px;white-space:nowrap">ANCP</div>
+      </div>
+      <!-- A2A: x=88%, y=62% from top (completeness=38%) -->
+      <div style="position:absolute;left:88%;top:62%;transform:translate(-50%,-50%);text-align:center">
+        <div style="width:14px;height:14px;border-radius:50%;background:#60a5fa;margin:0 auto;box-shadow:0 0 8px #60a5fa88"></div>
+        <div style="font-size:11px;font-weight:700;color:#60a5fa;margin-top:4px;white-space:nowrap">A2A</div>
+      </div>
+      <!-- MCP: x=70%, y=45% from top (completeness=55%) -->
+      <div style="position:absolute;left:70%;top:45%;transform:translate(-50%,-50%);text-align:center">
+        <div style="width:10px;height:10px;border-radius:50%;background:#fbbf24;margin:0 auto"></div>
+        <div style="font-size:10px;font-weight:600;color:#fbbf24;margin-top:4px;white-space:nowrap">MCP</div>
+      </div>
+      <!-- Custom REST: x=30%, y=75% from top (completeness=25%) -->
+      <div style="position:absolute;left:30%;top:75%;transform:translate(-50%,-50%);text-align:center">
+        <div style="width:9px;height:9px;border-radius:50%;background:#8b949e;margin:0 auto"></div>
+        <div style="font-size:9px;color:#8b949e;margin-top:4px;white-space:nowrap">Custom REST</div>
+      </div>
+      <!-- gRPC: x=45%, y=50% from top (completeness=50%) -->
+      <div style="position:absolute;left:45%;top:50%;transform:translate(-50%,-50%);text-align:center">
+        <div style="width:9px;height:9px;border-radius:50%;background:#8b949e;margin:0 auto"></div>
+        <div style="font-size:9px;color:#8b949e;margin-top:4px;white-space:nowrap">gRPC</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>What A2A Does Better</h3>
+  <ul style="margin: 16px 0 16px 20px; font-size: 15px; line-height: 2;">
+    <li><strong>Open ecosystem play</strong> — A2A enables true cross-vendor agent communication. If BizFirst nodes need to be reachable by the broader AI ecosystem, A2A is the answer.</li>
+    <li><strong>Time-to-first-call</strong> — A developer can build an A2A client and call an A2A agent in under 30 minutes. ANCP requires hours of setup.</li>
+    <li><strong>Content richness</strong> — A2A's typed Parts (text/file/image/data) give a richer content model than ANCP's generic JSON payload.</li>
+    <li><strong>Industry momentum</strong> — In 2025-2026, A2A adoption is growing rapidly. Being A2A-compatible gives BizFirst agents discoverability in external registries.</li>
+  </ul>
+
+  <h3>What ANCP Does Better</h3>
+  <ul style="margin: 16px 0 16px 20px; font-size: 15px; line-height: 2;">
+    <li><strong>Enterprise identity</strong> — ANCP's 4-layer identity model (nodeId → tenantId → DID → EVM) is unmatched. A2A leaves this entirely to the implementer.</li>
+    <li><strong>Payments</strong> — ANCP ships a complete payment lifecycle. A2A has zero payment support. For autonomous monetised agents, ANCP wins by default.</li>
+    <li><strong>Multi-tenancy</strong> — ANCP's tenantId + operateId isolation is built into every request. A2A would require building a complete tenant layer on top.</li>
+    <li><strong>Observability</strong> — ANCP specifies OpenTelemetry traces, Prometheus metrics, and Grafana dashboards as part of the protocol. A2A says nothing about observability.</li>
+    <li><strong>Platform depth</strong> — ANCP integrates with ProcessEngine, EdgeStream, Kafka, and BaseNodeExecutor. It's a complete operational model, not just a wire protocol.</li>
+    <li><strong>Ships 90% of the infrastructure plumbing</strong> — Implementing a production-grade agentic system on A2A still requires building auth, multi-tenancy, payments, observability, and access control from scratch. ANCP includes all of these as part of the spec. Teams building on ANCP start at the application layer, not the infrastructure layer.</li>
+  </ul>
+
+  <h3>Final Recommendations</h3>
+  <div class="sw-grid" style="grid-template-columns: 1fr;">
+    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+      <table class="cmp-table" style="margin: 0;">
+        <thead>
+          <tr>
+            <th>Recommendation</th>
+            <th class="a2a">Action for A2A</th>
+            <th class="ncp">Action for ANCP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature">For BizFirst internal nodes</td>
+            <td>Expose an A2A adapter at the gateway layer</td>
+            <td><strong>Continue with ANCP as the internal protocol</strong></td>
+          </tr>
+          <tr>
+            <td class="feature">For external discoverability</td>
+            <td><strong>Publish AgentCards at /.well-known/agent.json for each node</strong></td>
+            <td>Use ANCP's discovery endpoint as the source of truth</td>
+          </tr>
+          <tr>
+            <td class="feature">For payment-enabled agents</td>
+            <td>Not applicable — A2A has no payment support</td>
+            <td><strong>Use ANCP's full payment lifecycle — it's the only option</strong></td>
+          </tr>
+          <tr>
+            <td class="feature">For enterprise security</td>
+            <td>Build on top (OAuth, mTLS, custom ACL)</td>
+            <td><strong>ANCP's ACL + DID + EVM model is the foundation — fix the aud validation gap</strong></td>
+          </tr>
+          <tr>
+            <td class="feature">For spec completeness</td>
+            <td>Track A2A 1.0 stabilisation</td>
+            <td><strong>Fix 10 critical issues in Phase 2 spec before implementation</strong></td>
+          </tr>
+          <tr>
+            <td class="feature">Long-term strategy</td>
+            <td>Adopt A2A for the external-facing layer</td>
+            <td><strong>ANCP remains the internal execution protocol — these are complementary</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout success">
+    <strong>Closing Statement</strong>
+    A2A and ANCP are not rivals — they operate at different layers of the same ecosystem. A2A answers "how can any agent anywhere call my agent?" ANCP answers "how does my platform orchestrate, secure, pay, and observe its own agents?" BizFirst should adopt both: ANCP internally for its depth and completeness, with an A2A compatibility layer at the boundary for external reach. This is not a compromise — it is the architecturally correct answer.
+  </div>
+
+  <h3>Appendix: Protocol Timeline</h3>
+  <div class="timeline">
+    <div class="tl-item a2a">
+      <div class="tl-date">2024 Q4</div>
+      <div class="tl-text"><strong>A2A first published</strong> by Google DeepMind team as an open draft</div>
+    </div>
+    <div class="tl-item ncp">
+      <div class="tl-date">2025 Q1</div>
+      <div class="tl-text"><strong>ANCP Phase 1</strong> — Basic node communication, IEnvelope alignment begins</div>
+    </div>
+    <div class="tl-item a2a">
+      <div class="tl-date">2025 Q2</div>
+      <div class="tl-text"><strong>A2A v0.2</strong> — Major vendors (Anthropic, Microsoft, Salesforce) announce support</div>
+    </div>
+    <div class="tl-item ncp">
+      <div class="tl-date">2025 Q2</div>
+      <div class="tl-text"><strong>ANCP Phase 2 design</strong> — Autonomous nodes, payment infrastructure, DID identity (OperateAI edition), LGTM observability; OperateDao.com agent marketplace launched</div>
+    </div>
+    <div class="tl-item a2a">
+      <div class="tl-date">2026 Q1</div>
+      <div class="tl-text"><strong>A2A v0.2.6</strong> — Current stable version; 1.0 stabilisation expected mid-2026</div>
+    </div>
+    <div class="tl-item ncp">
+      <div class="tl-date">2026 Q1</div>
+      <div class="tl-text"><strong>ANCP Phase 2 review</strong> — Design review complete; 10 critical issues identified; spec hardening in progress</div>
+    </div>
+    <div class="tl-item ncp">
+      <div class="tl-date">2026 Q2 (planned)</div>
+      <div class="tl-text"><strong>ANCP Phase 2 implementation</strong> — Post spec-fix; formal protocol specification to follow</div>
+    </div>
+    <div class="tl-item ncp">
+      <div class="tl-date">2026 Q3 (planned)</div>
+      <div class="tl-text"><strong>ANCP open source release</strong> — Reference implementation published publicly; community contributions open; A2A and LangChain adapter layers included</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  <p>Prepared by <strong>BizFirst Engineering</strong> · March 2026</p>
+  <p style="margin-top:8px; font-size:12px">This document is a confidential external review draft. References: <strong>A2A Protocol</strong> (google-deepmind/a2a, Apache 2.0) · <strong>ANCP Phase 2</strong> design documents · BizFirst IEnvelope specification.</p>
+  <p style="margin-top:8px; font-size:12px; color:#5f6368">Feedback requested on: accuracy of A2A characterisation · completeness of comparison · any A2A capabilities not covered · ANCP design recommendations</p>
+</footer>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#1c2d3a',
+      primaryTextColor: '#c9d1d9',
+      primaryBorderColor: '#30363d',
+      lineColor: '#8b949e',
+      secondaryColor: '#14261a',
+      tertiaryColor: '#2d2515',
+      background: '#161b22',
+      mainBkg: '#0d1117',
+      nodeBorder: '#30363d',
+      clusterBkg: '#161b22',
+      clusterBorder: '#30363d',
+      titleColor: '#c9d1d9',
+      edgeLabelBackground: '#161b22',
+      fontFamily: 'Google Sans, Segoe UI, Roboto, Arial, sans-serif',
+      fillType0: '#1c2d3a',
+      fillType1: '#14261a',
+      fillType2: '#2d2515',
+      fillType3: '#2d1616',
+      actorBkg: '#161b22',
+      actorBorder: '#30363d',
+      actorTextColor: '#c9d1d9',
+      actorLineColor: '#30363d',
+      signalColor: '#8b949e',
+      signalTextColor: '#c9d1d9',
+      labelBoxBkgColor: '#161b22',
+      labelBoxBorderColor: '#30363d',
+      labelTextColor: '#c9d1d9',
+      loopTextColor: '#c9d1d9',
+      noteBkgColor: '#21262d',
+      noteBorderColor: '#30363d',
+      noteTextColor: '#c9d1d9',
+    },
+    flowchart: { curve: 'basis', htmlLabels: true },
+    sequence: { actorMargin: 80, messageMargin: 40 },
+  });
+</script>
+
+</body>
+</html>

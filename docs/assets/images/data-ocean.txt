@@ -1,0 +1,11 @@
+IMAGE: data-ocean.png
+DIMENSIONS: 1200 x 600px
+USED ON: dataocean.bizfirstai.com (future) and Platform page Data section
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Deep dark green-black background (#080F08). A vast, deep-looking database visualization. Multiple stacked layers of glowing data tables spread across the image like a topographical map seen from above, rendered in Brand Green (#16A34A) and bright green tones (#22C55E). Key stat labels float above the layers: "605+ Tables", "48 Domains", "1,200+ Foreign Keys", "2,500+ Indexes". The overall visual feels like looking into a deep ocean of structured data — orderly, vast, powerful. Subtle grid lines in very dark green. A soft green glow from below suggesting depth. No clutter. Premium data platform aesthetic.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Dark navy background (#0A0F1E). A vast, deep-looking database visualization. Multiple stacked layers of glowing data tables spread across the image like a topographical map seen from above, rendered in Electric Indigo and soft blue tones. Key stat labels float above the layers: "605+ Tables", "48 Domains", "1,200+ Foreign Keys", "2,500+ Indexes". The overall visual feels like looking into a deep ocean of structured data — orderly, vast, powerful. Subtle grid lines in very dark indigo. A soft glow from below suggesting depth. No clutter. Premium data platform aesthetic.

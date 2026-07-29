@@ -1,0 +1,220 @@
+/* ============================================================
+   b-tech-highlights.css — BizFirstAi
+   Technology Highlights section — 3 badge groups
+   ============================================================ */
+
+.b-tech-highlights__groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--b-space-10);
+  margin-top: var(--b-space-16);
+}
+
+.b-tech-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-4);
+}
+
+.b-tech-group__label {
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-semibold);
+  color: var(--b-color-primary);
+  letter-spacing: var(--b-letter-spacing-wider);
+  text-transform: uppercase;
+  padding-bottom: var(--b-space-3);
+  border-bottom: 1px solid var(--b-border-default);
+}
+
+.b-tech-group__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--b-space-2);
+}
+
+.b-tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--b-space-2);
+  padding: var(--b-space-2) var(--b-space-3);
+  background: var(--b-bg-surface);
+  border: 1px solid var(--b-border-default);
+  border-radius: var(--b-radius-md);
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-medium);
+  color: var(--b-text-secondary);
+  transition: all var(--b-transition-fast);
+}
+
+.b-tech-badge:hover {
+  border-color: var(--b-color-primary);
+  color: var(--b-color-primary);
+  background: var(--b-color-primary-subtle);
+}
+
+.b-tech-badge--stat {
+  background: var(--b-color-primary-subtle);
+  border-color: var(--b-border-primary);
+  color: var(--b-color-primary-light);
+}
+
+.b-tech-badge__logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .b-tech-highlights__groups {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .b-tech-highlights__groups {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Enterprise Love Section ──────────────────────────────── */
+.b-enterprise-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--b-space-6);
+  margin-top: var(--b-space-16);
+}
+
+.b-enterprise-card {
+  background: var(--b-card-bg);
+  border: 1px solid var(--b-card-border);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-4);
+  transition: border-color var(--b-transition-normal), transform var(--b-transition-normal);
+}
+
+.b-enterprise-card:hover {
+  border-color: var(--b-color-primary);
+  transform: translateY(-4px);
+}
+
+.b-enterprise-card__icon {
+  width: 44px;
+  height: 44px;
+  background: var(--b-color-primary-subtle);
+  border-radius: var(--b-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.b-enterprise-card__icon svg {
+  width: 22px;
+  height: 22px;
+  color: var(--b-color-primary);
+}
+
+.b-enterprise-card h3 {
+  font-size: var(--b-font-size-base);
+  font-weight: var(--b-font-weight-semibold);
+  color: var(--b-text-primary);
+  margin: 0;
+}
+
+.b-enterprise-card p {
+  font-size: var(--b-font-size-sm);
+  color: var(--b-text-muted);
+  line-height: var(--b-line-height-relaxed);
+  margin: 0;
+}
+
+/* ── Stack Logo Grid ──────────────────────────────────────── */
+.b-stack-logos {
+  margin-top: var(--b-space-20);
+  padding-top: var(--b-space-16);
+  border-top: 1px solid var(--b-border-subtle);
+}
+
+.b-stack-logos__heading {
+  font-size: var(--b-font-size-lg);
+  font-weight: var(--b-font-weight-semibold);
+  color: var(--b-text-primary);
+  text-align: center;
+  margin-bottom: var(--b-space-10);
+}
+
+.b-logo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--b-space-3);
+  justify-content: center;
+}
+
+.b-logo-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--b-space-2);
+  padding: var(--b-space-4) var(--b-space-5);
+  background: var(--b-bg-surface);
+  border: 1px solid var(--b-border-default);
+  border-radius: var(--b-radius-lg);
+  min-width: 88px;
+  transition: border-color var(--b-transition-fast), background var(--b-transition-fast);
+}
+
+.b-logo-tile:hover {
+  border-color: var(--b-color-primary);
+  background: var(--b-color-primary-subtle);
+}
+
+.b-logo-tile__img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Local SVGs are black — invert to white on dark bg */
+.b-logo-tile__img--local {
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+
+.b-logo-tile:hover .b-logo-tile__img--local {
+  opacity: 1;
+  filter: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(90deg);
+}
+
+.b-logo-tile__name {
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-medium);
+  color: var(--b-text-muted);
+  white-space: nowrap;
+}
+
+.b-logo-tile:hover .b-logo-tile__name {
+  color: var(--b-color-primary);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .b-enterprise-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .b-enterprise-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .b-logo-tile {
+    min-width: 76px;
+    padding: var(--b-space-3) var(--b-space-4);
+  }
+}

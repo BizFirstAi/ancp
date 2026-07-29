@@ -1,0 +1,11 @@
+IMAGE: how-it-works-flow.png
+DIMENSIONS: 1200 x 400px
+USED ON: Home page Section 6
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Deep dark green-black background (#080F08). A horizontal 4-step process flow diagram. Four large rounded squares connected by right-pointing arrows with glowing green lines (#16A34A). Each step box has: a large icon at top (step 1: pencil/design icon, step 2: rocket/deploy icon, step 3: eye/monitor icon, step 4: share/publish icon), a step number in Brand Green (#16A34A), a bold white headline, and muted green-grey subtext. Step 1 "Design", Step 2 "Deploy", Step 3 "Monitor", Step 4 "Publish". Arrows between steps are animated-looking with a glowing dot mid-arrow. The flow reads left to right cleanly. Enterprise minimal style.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Dark navy background (#0A0F1E). A horizontal 4-step process flow diagram. Four large rounded squares connected by right-pointing arrows with glowing indigo lines. Each step box has: a large icon at top (step 1: pencil/design icon, step 2: rocket/deploy icon, step 3: eye/monitor icon, step 4: share/publish icon), a step number in Electric Indigo (#6366F1), a bold white headline, and muted grey subtext. Step 1 "Design", Step 2 "Deploy", Step 3 "Monitor", Step 4 "Publish". Arrows between steps are animated-looking with a glowing dot mid-arrow. The flow reads left to right cleanly. Enterprise minimal style.

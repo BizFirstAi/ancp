@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANCP — Agentic Node Communication Protocol Specification v1.0.2</title>
+<style>
+  :root {
+    --bg:        #0d1117;
+    --bg2:       #161b22;
+    --bg3:       #21262d;
+    --border:    #30363d;
+    --text:      #e6edf3;
+    --text-dim:  #8b949e;
+    --accent:    #58a6ff;
+    --accent2:   #3fb950;
+    --warn:      #d29922;
+    --error:     #f85149;
+    --purple:    #bc8cff;
+    --teal:      #39d353;
+    --code-bg:   #1f2937;
+    --radius:    8px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px; line-height: 1.7;
+    display: flex; min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Sidebar ── */
+  nav {
+    width: 260px; min-width: 260px;
+    background: var(--bg2); border-right: 1px solid var(--border);
+    padding: 2rem 0; position: fixed; top: 0; left: 0; bottom: 0;
+    overflow-y: auto; z-index: 100;
+  }
+  nav .logo {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+  nav .logo img { width: 140px; display: block; margin-bottom: 0.75rem; }
+  nav .logo h1 { font-size: 1.1rem; color: var(--accent); font-weight: 700; }
+  nav .logo p  { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.25rem; }
+  nav ul { list-style: none; }
+  nav ul li a {
+    display: block; padding: 0.35rem 1.5rem;
+    color: var(--text-dim); text-decoration: none; font-size: 0.85rem;
+    border-left: 3px solid transparent; transition: all 0.15s;
+  }
+  nav ul li a:hover { color: var(--accent); border-left-color: var(--accent); background: rgba(88,166,255,0.06); }
+  nav ul li.section > a { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; cursor: default; margin-top: 1rem; }
+  nav ul li.section > a:hover { border-left-color: transparent; background: none; color: var(--text); }
+  nav ul li.sub a { padding-left: 2.5rem; }
+
+  /* ── Main content ── */
+  main {
+    margin-left: 260px; padding: 3rem 3.5rem;
+    max-width: 1100px; width: 100%;
+  }
+
+  /* ── Headings ── */
+  h1 { font-size: 2.4rem; font-weight: 800; color: var(--accent); margin-bottom: 0.5rem; }
+  h2 { font-size: 1.6rem; font-weight: 700; color: var(--text);   border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin: 3rem 0 1.2rem; }
+  h3 { font-size: 1.15rem; font-weight: 600; color: var(--accent); margin: 2rem 0 0.75rem; }
+  h4 { font-size: 1rem; font-weight: 600; color: var(--text); margin: 1.5rem 0 0.5rem; }
+
+  /* ── Paragraphs ── */
+  p { margin-bottom: 1rem; color: var(--text-dim); }
+  p strong { color: var(--text); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Cover ── */
+  .cover {
+    background: linear-gradient(135deg, var(--bg2) 0%, #0d1b2a 100%);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 3rem; margin-bottom: 3rem;
+    position: relative; overflow: hidden;
+  }
+  .cover::before {
+    content: "ANCP"; position: absolute; right: 2rem; top: 1rem;
+    font-size: 8rem; font-weight: 900; color: rgba(88,166,255,0.04);
+    letter-spacing: -0.05em; pointer-events: none;
+  }
+  .cover .badge {
+    display: inline-block; background: var(--accent); color: #0d1117;
+    font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.7rem;
+    border-radius: 20px; letter-spacing: 0.04em; margin-bottom: 1rem;
+  }
+  .cover h1 { color: var(--text); font-size: 2.8rem; line-height: 1.2; }
+  .cover .subtitle { font-size: 1.1rem; color: var(--accent); margin-top: 0.5rem; }
+  .meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+  .meta-item { background: var(--bg3); border-radius: var(--radius); padding: 1rem; border: 1px solid var(--border); }
+  .meta-item .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); }
+  .meta-item .value { font-size: 1rem; font-weight: 600; color: var(--accent); margin-top: 0.25rem; }
+
+  /* ── Callout boxes ── */
+  .callout {
+    border-radius: var(--radius); padding: 1rem 1.25rem;
+    margin: 1.5rem 0; border-left: 4px solid;
+  }
+  .callout.info    { background: rgba(88,166,255,0.08);  border-color: var(--accent); }
+  .callout.success { background: rgba(63,185,80,0.08);   border-color: var(--accent2); }
+  .callout.warn    { background: rgba(210,153,34,0.08);  border-color: var(--warn); }
+  .callout.danger  { background: rgba(248,81,73,0.08);   border-color: var(--error); }
+  .callout .title  { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+  .callout.info    .title { color: var(--accent); }
+  .callout.success .title { color: var(--accent2); }
+  .callout.warn    .title { color: var(--warn); }
+  .callout.danger  .title { color: var(--error); }
+
+  /* ── Code blocks ── */
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    overflow-x: auto; margin: 1rem 0; font-size: 0.82rem;
+    font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+    line-height: 1.6;
+  }
+  code {
+    background: var(--code-bg); border: 1px solid var(--border);
+    padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.82rem;
+    font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+    color: var(--purple);
+  }
+  pre code { background: none; border: none; padding: 0; color: var(--text); }
+
+  /* ── Tables ── */
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+  th { background: var(--bg3); color: var(--text); font-weight: 600; text-align: left; padding: 0.7rem 1rem; border: 1px solid var(--border); }
+  td { padding: 0.6rem 1rem; border: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+  tr:hover td { background: rgba(88,166,255,0.03); }
+
+  /* ── Pattern cards ── */
+  .pattern-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+  .pattern-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.25rem; transition: border-color 0.2s;
+  }
+  .pattern-card:hover { border-color: var(--accent); }
+  .pattern-card .name { font-weight: 700; color: var(--accent); font-size: 1rem; }
+  .pattern-card .http { display: inline-block; font-size: 0.72rem; background: var(--bg3); padding: 0.2rem 0.5rem; border-radius: 4px; margin: 0.4rem 0; color: var(--text-dim); }
+  .pattern-card p    { font-size: 0.85rem; margin-top: 0.5rem; }
+
+  /* ── Address mode pills ── */
+  .pill-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+  .pill { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 0.3rem 0.85rem; font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+
+  /* ── Flow diagram ── */
+  .flow {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    font-family: monospace; font-size: 0.82rem;
+    white-space: pre; overflow-x: auto; color: var(--text-dim);
+    line-height: 1.5; margin: 1.5rem 0;
+  }
+
+  /* ── Section divider ── */
+  .section-number {
+    display: inline-block; background: var(--accent); color: #0d1117;
+    font-size: 0.72rem; font-weight: 800; padding: 0.2rem 0.6rem;
+    border-radius: 4px; letter-spacing: 0.04em; margin-right: 0.5rem;
+  }
+
+  /* ── Print ── */
+  @media print {
+    nav { display: none; }
+    main { margin-left: 0; padding: 1.5rem; }
+    body { background: white; color: black; }
+    pre, code { background: #f5f5f5; color: #333; border-color: #ddd; }
+    .cover { background: #f0f4ff; }
+    h1, h2, h3 { color: #1a1a2e; }
+    a { color: #0066cc; }
+    .pattern-card, .meta-item { background: #f9f9f9; }
+  }
+
+  /* ── Mobile responsive ── */
+  @media (max-width: 768px) {
+    .meta-grid,
+    .pattern-grid { grid-template-columns: 1fr; }
+
+    nav {
+      position: static;
+      width: 100%;
+      min-width: 0;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      bottom: auto;
+      height: auto;
+      overflow-y: visible;
+      overflow-x: auto;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    nav .logo { padding: 0 1rem 0; border-bottom: none; margin-bottom: 0; }
+    nav .logo img { width: 100px; }
+    nav ul { display: flex; flex-wrap: wrap; padding: 0 0.5rem; }
+    nav ul li a { padding: 0.3rem 0.75rem; white-space: nowrap; border-left: none; border-bottom: 2px solid transparent; }
+    nav ul li a:hover { border-left-color: transparent; border-bottom-color: var(--accent); }
+    nav ul li.section > a { display: none; }
+    main {
+      margin-left: 0;
+      padding: 1.5rem 1rem;
+      max-width: 100%;
+    }
+    body { display: block; overflow-x: hidden; }
+  }
+
+  @media (max-width: 480px) {
+    main { padding: 1rem 0.75rem; }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════ SIDEBAR ══════════════════════════════════ -->
+<nav>
+  <div class="logo">
+    <img src="https://www.bizfirstai.com/website/images/logo.png" alt="BizFirst AI"/>
+    <h1>ANCP</h1>
+    <p>Agentic Node Communication Protocol</p>
+  </div>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#goals">Design Goals</a></li>
+    <li class="section"><a>Wire Format</a></li>
+    <li class="sub"><a href="#ienvelope">IEnvelope</a></li>
+    <li class="sub"><a href="#ancp-extension">ANCP Extension</a></li>
+    <li class="class section"><a>Addressing</a></li>
+    <li class="sub"><a href="#node-address">NodeAddress</a></li>
+    <li class="sub"><a href="#address-modes">Addressing Modes</a></li>
+    <li class="sub"><a href="#group-routing">Group Routing</a></li>
+    <li class="section"><a>Message Patterns</a></li>
+    <li class="sub"><a href="#fire-and-forget">Fire-and-Forget</a></li>
+    <li class="sub"><a href="#request-reply">Request-Reply</a></li>
+    <li class="sub"><a href="#streaming">Streaming (SSE)</a></li>
+    <li class="sub"><a href="#task-start">Task-Start</a></li>
+    <li class="section"><a>Transport</a></li>
+    <li class="sub"><a href="#http-transport">HTTP Transport</a></li>
+    <li class="sub"><a href="#headers">Headers</a></li>
+    <li class="sub"><a href="#endpoints">Endpoints</a></li>
+    <li class="section"><a>Security</a></li>
+    <li class="sub"><a href="#auth">Authentication</a></li>
+    <li class="sub"><a href="#acl">ACL Policy</a></li>
+    <li class="sub"><a href="#did-auth">DID Auth</a></li>
+    <li class="section"><a>Components</a></li>
+    <li class="sub"><a href="#client">AncpClient</a></li>
+    <li class="sub"><a href="#node-capability">NodeCapability</a></li>
+    <li class="sub"><a href="#registry">Registry</a></li>
+    <li class="sub"><a href="#heartbeat">Heartbeat</a></li>
+    <li class="sub"><a href="#discovery">Discovery Doc</a></li>
+    <li class="sub"><a href="#observability">Observability</a></li>
+    <li class="section"><a>Payments</a></li>
+    <li class="sub"><a href="#payment-flow">Payment Flow</a></li>
+    <li class="sub"><a href="#receipt-store">Receipt Store</a></li>
+    <li class="section"><a>Integration</a></li>
+    <li class="sub"><a href="#di-registration">DI Registration</a></li>
+    <li class="sub"><a href="#base-executor">BaseNodeExecutor</a></li>
+    <li class="sub"><a href="#autonomous">Autonomous Nodes</a></li>
+    <li class="sub"><a href="#testing">Testing</a></li>
+    <li class="section"><a>Reference</a></li>
+    <li class="sub"><a href="#error-codes">Error Codes</a></li>
+    <li class="sub"><a href="#status-codes">HTTP Status Codes</a></li>
+    <li class="sub"><a href="#changelog">Changelog</a></li>
+    <li class="sub"><a href="#contributors">Contributors</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════ MAIN ══════════════════════════════════ -->
+<main>
+
+<!-- Cover -->
+<div class="cover">
+  <div class="badge">SPECIFICATION v1.0.2</div>
+  <h1>Agentic Node<br/>Communication Protocol</h1>
+  <div class="subtitle">ANCP — BizFirst Reference Implementation</div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="label">Version</div><div class="value">0.9.0</div></div>
+    <div class="meta-item"><div class="label">Status</div><div class="value">Draft</div></div>
+    <div class="meta-item"><div class="label">Date</div><div class="value">2026-03-16</div></div>
+    <div class="meta-item"><div class="label">Platform</div><div class="value">.NET 9 / C# 13</div></div>
+    <div class="meta-item"><div class="label">Wire Format</div><div class="value">IEnvelope (JSON)</div></div>
+    <div class="meta-item"><div class="label">Transport</div><div class="value">HTTP/HTTPS + SSE</div></div>
+  </div>
+</div>
+
+<!-- ─────────────────────── 1. OVERVIEW ─────────────────────── -->
+<section id="overview">
+<h2><span class="section-number">01</span> Overview</h2>
+
+<p>The <strong>Agentic Node Communication Protocol (ANCP)</strong> is an open, HTTP-based protocol that defines how <strong>autonomous software agents</strong> — called <em>nodes</em> — communicate with each other within and across the BizFirst platform. ANCP is the standardized language that allows every node to call, respond to, stream from, and coordinate with every other node, regardless of where they are hosted.</p>
+
+<p>ANCP is not a new wire format. All messages use the platform-standard <strong>IEnvelope</strong> — the universal BizFirst message container. ANCP adds a metadata extension block (<code>metadata["ncp"]</code>) inside the envelope that carries protocol-specific fields like action names, routing information, and task identifiers.</p>
+
+<div class="callout info">
+  <div class="title">Part of the BizFirst Discovery Specification</div>
+  ANCP is a <strong>sub-specification</strong> of the broader <strong>BizFirst Discovery Specification</strong> — BizFirst's overarching data formatting and inter-service communication standard. The Discovery Specification defines the canonical envelope format (IEnvelope), service discovery contracts, capability manifests, and the extensibility model that ANCP builds upon. All ANCP messages are valid Discovery Specification messages; ANCP adds the agent-to-agent coordination layer on top.
+</div>
+
+<div class="callout info">
+  <div class="title">Key Principle</div>
+  ANCP is an <strong>application-layer protocol over HTTP</strong>. Every ANCP call is a standard HTTP request to a well-known endpoint. There is no custom TCP layer, no binary framing, and no proprietary transport — just JSON over HTTPS.
+</div>
+
+<h3>What ANCP Provides</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Capability</th><th>Description</th></tr>
+  <tr><td><strong>4 message patterns</strong></td><td>Fire-and-forget, Request-Reply, Streaming (SSE), Task-Start</td></tr>
+  <tr><td><strong>8 addressing modes</strong></td><td>NodeId, ResId, DID, EVM address, GroupId, GroupResId, OperateID, Direct URL</td></tr>
+  <tr><td><strong>3 auth modes</strong></td><td>JWT, API-Key, DID Proof — validated in priority order</td></tr>
+  <tr><td><strong>Payment gating</strong></td><td>EVM on-chain payment → signed receipt → capability access</td></tr>
+  <tr><td><strong>Discovery</strong></td><td><code>/.well-known/ncp.json</code> — machine-readable capability manifest</td></tr>
+  <tr><td><strong>Observability</strong></td><td>OpenTelemetry spans + metrics on both caller and receiver sides</td></tr>
+  <tr><td><strong>Group routing</strong></td><td>RoundRobin, Random, FirstAvailable, Broadcast across node groups</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ─────────────────────── 2. GOALS ─────────────────────── -->
+<section id="goals">
+<h2><span class="section-number">02</span> Design Goals</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Goal</th><th>Approach</th></tr>
+  <tr><td>Universal node interop</td><td>Any node can call any other node using a standard interface</td></tr>
+  <tr><td>No new wire format</td><td>Reuse IEnvelope — existing serialization, logging, and tooling applies</td></tr>
+  <tr><td>SRP compliance</td><td>One concern per file: AncpClient delegates to AncpEnvelopeBuilder, AncpEndpointCache, IAncpTransport, AncpObservabilityWriter</td></tr>
+  <tr><td>Production-ready defaults</td><td>In-memory stores ship as defaults; Redis/DB stores are drop-in replacements via TryAddSingleton</td></tr>
+  <tr><td>Security by default</td><td>Auth required on all non-system actions; DID proof audience pinned to endpoint URL</td></tr>
+  <tr><td>Testability</td><td>FakeAncpTransport eliminates HTTP in tests; NullAncpNodeCapability for light nodes</td></tr>
+  <tr><td>Autonomous economy</td><td>First-class payment gating: nodes price capabilities, accept crypto, issue signed receipts</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ─────────────────────── 3. IENVELOPE ─────────────────────── -->
+<section id="ienvelope">
+<h2><span class="section-number">03</span> IEnvelope — Wire Format</h2>
+
+<p>Every ANCP message is a JSON object conforming to the <strong>IEnvelope</strong> schema. The same schema is used for requests, responses, SSE chunks, task-status envelopes, and error responses.</p>
+
+<pre>
+{
+  "meta": {
+    "id":           "corr-uuid-here",        // Correlation ID (required)
+    "topic":        "ncp:7:42:call",          // Routing topic
+    "timestamp":    "2026-03-16T10:30:00Z",   // ISO-8601 UTC
+    "nodeProtocol": "ncp",                    // MUST be "ncp" for ANCP messages
+    "protocol":     null                      // Transport field — do NOT set to "ncp"
+  },
+  "body": {
+    "data": {
+      "metadata": {
+        "messageType": {
+          "type":    "ncp",
+          "subType": "request-reply",          // Message pattern
+          "handler": "AncpHandler"
+        },
+        "source": { "name": "CallerNode", "system": "ANCP" },
+        "extensions": {
+          "ncp": {                             // AncpMetadataExtension
+            "version":        "1.0",
+            "action":         "get-payroll-status",
+            "targetNodeId":   42,
+            "targetTenantId": 7,
+            "targetRole":     "default",
+            "callerNodeId":   55,
+            "callerTenantId": 8,
+            "callerDid":      "did:bizfirst:tenant8:node:55"
+          }
+        }
+      },
+      "data":  { ... },    // Request payload or response data
+      "error": null        // AncpError if call failed
+    }
+  }
+}
+</pre>
+
+<div class="callout warn">
+  <div class="title">Important: protocol vs nodeProtocol</div>
+  <code>meta.nodeProtocol</code> must be set to <code>"ncp"</code> for all ANCP messages.<br/>
+  <code>meta.protocol</code> is the transport layer field (e.g. <code>"signal-r"</code>) and must <strong>NOT</strong> be set to <code>"ncp"</code>.
+</div>
+
+<section id="ancp-extension">
+<h3>AncpMetadataExtension Fields</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Field</th><th>Type</th><th>Direction</th><th>Description</th></tr>
+  <tr><td><code>version</code></td><td>string</td><td>Both</td><td>Protocol version. Always <code>"1.0"</code>.</td></tr>
+  <tr><td><code>action</code></td><td>string</td><td>Both</td><td>Action name being invoked (e.g. <code>"get-payroll-status"</code>).</td></tr>
+  <tr><td><code>targetNodeId</code></td><td>int?</td><td>Request</td><td>Target node's ProcessElementID.</td></tr>
+  <tr><td><code>targetTenantId</code></td><td>int?</td><td>Request</td><td>Target node's tenant.</td></tr>
+  <tr><td><code>targetRole</code></td><td>string</td><td>Request</td><td>Identity role requested on target. Default: <code>"default"</code>.</td></tr>
+  <tr><td><code>callerNodeId</code></td><td>int?</td><td>Request</td><td>Caller node's ProcessElementID.</td></tr>
+  <tr><td><code>callerResId</code></td><td>string?</td><td>Request</td><td>Caller node's ResId (GUID).</td></tr>
+  <tr><td><code>callerDid</code></td><td>string?</td><td>Request</td><td>Caller DID (for DID auth mode).</td></tr>
+  <tr><td><code>callerEvmAddress</code></td><td>string?</td><td>Request</td><td>Caller's EVM wallet address.</td></tr>
+  <tr><td><code>callerOperateId</code></td><td>string?</td><td>Request</td><td>Caller's OperateID.</td></tr>
+  <tr><td><code>callerTenantId</code></td><td>int?</td><td>Request</td><td>Caller tenant. Used for cross-tenant identity checks.</td></tr>
+  <tr><td><code>receiverNodeId</code></td><td>int?</td><td>Response</td><td>Receiver's nodeId. Set on all responses.</td></tr>
+  <tr><td><code>durationMs</code></td><td>long?</td><td>Response</td><td>Server processing time in ms.</td></tr>
+  <tr><td><code>taskId</code></td><td>string?</td><td>Response</td><td>Assigned task ID. Set on task-accepted responses.</td></tr>
+  <tr><td><code>taskState</code></td><td>string?</td><td>Response</td><td>Task state: <code>pending|running|completed|failed|cancelled</code>.</td></tr>
+  <tr><td><code>taskProgress</code></td><td>int?</td><td>Response</td><td>Task progress 0–100.</td></tr>
+  <tr><td><code>taskStatusUrl</code></td><td>string?</td><td>Response</td><td>Relative URL for polling task status.</td></tr>
+  <tr><td><code>sequence</code></td><td>int?</td><td>Response</td><td>Chunk sequence number in streaming responses.</td></tr>
+</table>
+</div>
+</section>
+</section>
+
+<!-- ─────────────────────── 4. ADDRESSING ─────────────────────── -->
+<section id="node-address">
+<h2><span class="section-number">04</span> Node Addressing</h2>
+
+<p><strong>NodeAddress</strong> identifies a target node or node group for an ANCP call. It is immutable, created exclusively through static factory methods, and carries exactly one active addressing mode per instance.</p>
+
+<pre>
+// NodeId — same server, same tenant
+NodeAddress.FromNodeId(tenantId: 7, nodeId: 42)
+
+// ResId — cross-server, same tenant
+NodeAddress.FromResId(tenantId: 7, resId: Guid.Parse("..."))
+
+// DID — cross-tenant, identity-based
+NodeAddress.FromDid("did:bizfirst:tenant7:node:42")
+
+// EVM address — blockchain identity
+NodeAddress.FromEvmAddress("0xAbCd...1234", chainId: 137)
+
+// Node group (round-robin by default)
+NodeAddress.FromNodeGroupId(tenantId: 7, groupId: 10)
+NodeAddress.FromNodeGroupResId(tenantId: 7, groupResId: Guid.Parse("..."))
+
+// OperateID — federated operator identity
+NodeAddress.FromOperateId("op:acme:billing-engine-1")
+
+// Direct URL — bypass registry entirely
+NodeAddress.FromDirectUrl("https://partner.example.com", nodeId: 42, tenantId: 7)
+</pre>
+
+<section id="address-modes">
+<h3>Addressing Modes</h3>
+<div class="pill-grid">
+  <span class="pill">NodeId</span>
+  <span class="pill">ResId</span>
+  <span class="pill">Did</span>
+  <span class="pill">BlockchainAddress</span>
+  <span class="pill">NodeGroupId</span>
+  <span class="pill">NodeGroupResId</span>
+  <span class="pill">OperateID</span>
+  <span class="pill">Direct</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <tr><th>Mode</th><th>Use Case</th><th>Registry Required</th></tr>
+  <tr><td><code>NodeId</code></td><td>Same-server, same-tenant call. NodeId = ProcessElementID.</td><td>Yes (local lookup)</td></tr>
+  <tr><td><code>ResId</code></td><td>Cross-server, same-tenant call via globally unique GUID.</td><td>Yes</td></tr>
+  <tr><td><code>Did</code></td><td>Cross-tenant, identity-based. TenantId inferred from DID document.</td><td>Yes</td></tr>
+  <tr><td><code>BlockchainAddress</code></td><td>Identifies a node by its EVM wallet. Chain-agnostic by default.</td><td>Yes</td></tr>
+  <tr><td><code>NodeGroupId</code></td><td>Route to a node group by integer ID. Supports routing strategies.</td><td>Yes</td></tr>
+  <tr><td><code>NodeGroupResId</code></td><td>Route to a cross-server node group by GUID.</td><td>Yes</td></tr>
+  <tr><td><code>OperateID</code></td><td>Federated identity via OperateID.com. Enables cross-platform routing.</td><td>Yes</td></tr>
+  <tr><td><code>Direct</code></td><td>Bypass registry entirely — caller provides full endpoint URL.</td><td>No</td></tr>
+</table>
+</div>
+</section>
+
+<section id="group-routing">
+<h3>Node Group Routing Strategies</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Strategy</th><th>Behaviour</th><th>Allowed Patterns</th></tr>
+  <tr><td><code>RoundRobin</code></td><td>Cycle through online members in order. Thread-safe via atomic counter.</td><td>All 4 patterns</td></tr>
+  <tr><td><code>Random</code></td><td>Pick a random online member each call.</td><td>All 4 patterns</td></tr>
+  <tr><td><code>FirstAvailable</code></td><td>Use the first member with status "online".</td><td>All 4 patterns</td></tr>
+  <tr><td><code>Broadcast</code></td><td>Fan out to ALL online members in parallel (Task.WhenAll). Per-member failures swallowed.</td><td>Fire-and-forget only</td></tr>
+</table>
+</div>
+</section>
+</section>
+
+<!-- ─────────────────────── 5. MESSAGE PATTERNS ─────────────────────── -->
+<section>
+<h2><span class="section-number">05</span> Message Patterns</h2>
+
+<div class="pattern-grid">
+  <div class="pattern-card">
+    <div class="name">Fire-and-Forget</div>
+    <div class="http">POST /ncp/nodes/{id}/invoke → 202 Accepted</div>
+    <p>Caller sends a request and does not wait for a result. The node acknowledges receipt with <strong>202</strong> and processes asynchronously. No response body. Ideal for notifications, triggers, and event fanout.</p>
+  </div>
+  <div class="pattern-card">
+    <div class="name">Request-Reply</div>
+    <div class="http">POST /ncp/nodes/{id}/invoke → 200 OK + IEnvelope</div>
+    <p>Synchronous call-response. Caller blocks until the node returns a result. Response is a full <strong>IEnvelope</strong> with the result in <code>body.data.data</code>. Ideal for queries and commands with immediate results.</p>
+  </div>
+  <div class="pattern-card">
+    <div class="name">Streaming (SSE)</div>
+    <div class="http">POST /ncp/nodes/{id}/invoke → 200 + text/event-stream</div>
+    <p>Node returns a sequence of chunks via <strong>Server-Sent Events</strong>. Each <code>data:</code> line is a complete IEnvelope. Terminates with a <code>stream-complete</code> envelope. Ideal for AI-generated content and large result sets.</p>
+  </div>
+  <div class="pattern-card">
+    <div class="name">Task-Start</div>
+    <div class="http">POST /ncp/nodes/{id}/invoke → 202 + task-accepted IEnvelope</div>
+    <p>Node starts a long-running background task and immediately returns a <strong>taskId</strong>. Caller polls <code>GET /ncp/nodes/{id}/tasks/{taskId}</code> for status. Ideal for payroll runs, reports, and AI agent workflows.</p>
+  </div>
+</div>
+
+<section id="fire-and-forget">
+<h3>Fire-and-Forget — Request &amp; Response</h3>
+<h4>Request</h4>
+<pre>
+POST /ncp/nodes/42/invoke
+X-Ancp-Version: 1.0
+Authorization: Bearer {jwt}
+
+{
+  "meta": { "id": "corr-001", "nodeProtocol": "ncp", "timestamp": "..." },
+  "body": { "data": {
+    "metadata": {
+      "messageType": { "type": "ncp", "subType": "fire-and-forget" },
+      "extensions": { "ncp": { "version": "1.0", "action": "trigger-recalc" } }
+    },
+    "data": { "employeeId": 123 }
+  }}
+}
+</pre>
+<h4>Response</h4>
+<pre>HTTP/1.1 202 Accepted
+(no body)</pre>
+</section>
+
+<section id="request-reply">
+<h3>Request-Reply — Request &amp; Response</h3>
+<h4>Request</h4>
+<pre>
+POST /ncp/nodes/42/invoke
+X-Ancp-Version: 1.0
+Authorization: Bearer {jwt}
+
+{
+  "meta": { "id": "corr-002", "nodeProtocol": "ncp", "timestamp": "..." },
+  "body": { "data": {
+    "metadata": {
+      "messageType": { "type": "ncp", "subType": "request-reply" },
+      "extensions": { "ncp": { "version": "1.0", "action": "get-payroll-status",
+        "callerNodeId": 55, "callerTenantId": 8 } }
+    },
+    "data": { "employeeId": 123 }
+  }}
+}
+</pre>
+<h4>Response (200 OK)</h4>
+<pre>
+HTTP/1.1 200 OK
+X-Ancp-Version: 1.0
+X-Ancp-Correlation-Id: corr-002
+X-Ancp-Node-Id: 42
+
+{
+  "meta": { "id": "corr-002", "nodeProtocol": "ncp", ... },
+  "body": { "data": {
+    "metadata": {
+      "messageType": { "type": "ncp", "subType": "response" },
+      "extensions": { "ncp": { "version": "1.0", "action": "get-payroll-status",
+        "receiverNodeId": 42, "durationMs": 12 } }
+    },
+    "data": { "employeeId": 123, "status": "Active", "lastRunAt": "2026-03-01T00:00:00Z" }
+  }}
+}
+</pre>
+</section>
+
+<section id="streaming">
+<h3>Streaming (SSE) — Response Format</h3>
+<p>Each chunk is a <code>data:</code> SSE line containing a serialized IEnvelope with <code>subType: "stream-chunk"</code>. The stream terminates with a <code>stream-complete</code> envelope.</p>
+<pre>
+HTTP/1.1 200 OK
+Content-Type: text/event-stream
+Cache-Control: no-cache
+X-Ancp-Version: 1.0
+
+event: chunk
+data: {"meta":{"id":"corr-003","nodeProtocol":"ncp",...},"body":{"data":{"metadata":{"messageType":{"subType":"stream-chunk"},"extensions":{"ncp":{"sequence":1}}},"data":{"department":"Engineering","total":142000}}}}
+
+event: chunk
+data: {"meta":{"id":"corr-003","nodeProtocol":"ncp",...},"body":{"data":{"metadata":{"messageType":{"subType":"stream-chunk"},"extensions":{"ncp":{"sequence":2}}},"data":{"department":"Finance","total":89000}}}}
+
+event: complete
+data: {"meta":{"id":"corr-003","nodeProtocol":"ncp",...},"body":{"data":{"metadata":{"messageType":{"subType":"stream-complete"},"extensions":{"ncp":{"sequence":2,"durationMs":847}}}}}}
+</pre>
+</section>
+
+<section id="task-start">
+<h3>Task-Start — Accepted &amp; Polling</h3>
+<h4>Initial Response (202)</h4>
+<pre>
+HTTP/1.1 202 Accepted
+Location: /ncp/nodes/42/tasks/task-a1b2c3d4
+
+{
+  "meta": { "id": "corr-004", "nodeProtocol": "ncp", ... },
+  "body": { "data": {
+    "metadata": {
+      "messageType": { "subType": "task-accepted" },
+      "extensions": { "ncp": { "taskId": "task-a1b2c3d4", "taskState": "pending",
+        "taskStatusUrl": "/ncp/nodes/42/tasks/task-a1b2c3d4" } }
+    }
+  }}
+}
+</pre>
+<h4>Poll Status — GET /ncp/nodes/42/tasks/task-a1b2c3d4</h4>
+<pre>
+{
+  "meta": { ... },
+  "body": { "data": {
+    "metadata": {
+      "messageType": { "subType": "task-status" },
+      "extensions": { "ncp": { "taskId": "task-a1b2c3d4", "taskState": "running",
+        "taskProgress": 42 } }
+    }
+  }}
+}
+</pre>
+</section>
+</section>
+
+<!-- ─────────────────────── 6. TRANSPORT ─────────────────────── -->
+<section id="http-transport">
+<h2><span class="section-number">06</span> HTTP Transport</h2>
+
+<section id="headers">
+<h3>Required Headers</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Header</th><th>Direction</th><th>Value</th><th>Required</th></tr>
+  <tr><td><code>X-Ancp-Version</code></td><td>Request</td><td><code>1.0</code></td><td>Always</td></tr>
+  <tr><td><code>Authorization</code></td><td>Request</td><td><code>Bearer {jwt}</code></td><td>For JWT auth</td></tr>
+  <tr><td><code>X-Ancp-Api-Key</code></td><td>Request</td><td>API key value</td><td>For API-Key auth</td></tr>
+  <tr><td><code>X-Ancp-Did-Proof</code></td><td>Request</td><td>Compact JWT DID proof</td><td>For DID auth</td></tr>
+  <tr><td><code>X-Ancp-Payment-Receipt</code></td><td>Request</td><td><code>{receiptId}:{signature}</code></td><td>For payment-gated actions</td></tr>
+  <tr><td><code>X-Ancp-Version</code></td><td>Response</td><td><code>1.0</code></td><td>Always</td></tr>
+  <tr><td><code>X-Ancp-Correlation-Id</code></td><td>Response</td><td>Correlation ID from request</td><td>On 200/202 with body</td></tr>
+  <tr><td><code>X-Ancp-Node-Id</code></td><td>Response</td><td>Receiver's nodeId</td><td>On 200 responses</td></tr>
+</table>
+</div>
+</section>
+
+<section id="endpoints">
+<h3>Endpoint Map</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+  <tr><td><code>POST</code></td><td><code>/ncp/nodes/{nodeId:int}/invoke</code></td><td>Invoke any action. Handles all 4 patterns.</td></tr>
+  <tr><td><code>GET</code></td><td><code>/ncp/nodes/{nodeId:int}/tasks/{taskId}</code></td><td>Poll task status.</td></tr>
+  <tr><td><code>DELETE</code></td><td><code>/ncp/nodes/{nodeId:int}/tasks/{taskId}</code></td><td>Request task cancellation.</td></tr>
+  <tr><td><code>GET</code></td><td><code>/.well-known/ncp.json</code></td><td>Discovery document (optional).</td></tr>
+</table>
+</div>
+</section>
+</section>
+
+<!-- ─────────────────────── 7. SECURITY ─────────────────────── -->
+<section id="auth">
+<h2><span class="section-number">07</span> Authentication</h2>
+
+<p>The receiver validates credentials in strict priority order: <strong>JWT → API-Key → DID Proof</strong>. The first matching credential wins. If none match, <code>401 Unauthorized</code> is returned with no body (for security).</p>
+
+<div class="flow">
+Incoming Request
+     │
+     ├─ Authorization: Bearer {token}?  →  JWT validation (IAncpAuthValidator)
+     │       ├─ Valid     → AncpCallerIdentity (Mode=Jwt, Roles=[...])
+     │       └─ Invalid   → AncpAuthFailedException → 401
+     │
+     ├─ X-Ancp-Api-Key header present?  →  ApiKey lookup in AncpApiKeyConfig.KeyToRoles
+     │       ├─ Known key   → AncpCallerIdentity (Mode=ApiKey, Roles=[...])
+     │       └─ Unknown key → AncpAuthFailedException → 401
+     │
+     └─ X-Ancp-Did-Proof header present?  →  DID proof validation
+             ├─ Valid (aud = NodeEndpointUrl) → AncpCallerIdentity (Mode=Did, Roles=[])
+             └─ Invalid / wrong aud          → AncpAuthFailedException → 401
+</div>
+
+<section id="did-auth">
+<h3>DID Proof Validation</h3>
+<p>The DID proof is a compact JWT signed by the caller's DID key. The receiver validates:</p>
+<ol style="margin: 1rem 0 1rem 2rem; color: var(--text-dim);">
+  <li>JWT signature against the caller's DID document verification method</li>
+  <li><code>iss</code> matches the caller's DID</li>
+  <li><code>aud</code> MUST equal the receiver's <code>NodeEndpointUrl</code> — prevents cross-node replay attacks</li>
+  <li>Not expired (uses <code>exp</code> claim)</li>
+  <li>DID method is in <code>AllowedMethods</code></li>
+</ol>
+<div class="callout danger">
+  <div class="title">Security: Cross-Node Replay Prevention</div>
+  The DID proof audience (<code>aud</code>) MUST equal <code>config.NodeEndpointUrl</code> exactly. A proof issued for Node A cannot be replayed against Node B, even if the same caller DID is trusted on both nodes.
+</div>
+</section>
+
+<section id="acl">
+<h3>ACL Policy</h3>
+<p>After authentication, the receiver checks whether the caller's identity holds the required role for the requested pattern:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Pattern</th><th>Required Role</th></tr>
+  <tr><td>request-reply</td><td><code>invoke</code></td></tr>
+  <tr><td>fire-and-forget</td><td><code>invoke</code></td></tr>
+  <tr><td>task-start</td><td><code>invoke</code></td></tr>
+  <tr><td>streaming</td><td><code>stream</code></td></tr>
+</table>
+</div>
+<p>An <strong>open node</strong> (no ACL entries configured) allows all authenticated callers. DID-authenticated callers are also checked against explicit DID ACL entries.</p>
+</section>
+</section>
+
+<!-- ─────────────────────── 8. CLIENT ─────────────────────── -->
+<section id="client">
+<h2><span class="section-number">08</span> AncpClient</h2>
+
+<p>The <strong>AncpClient</strong> is the caller-side API. Register it once as a Singleton and inject <code>IAncpClient</code> wherever you need to call another node.</p>
+
+<pre>
+// Registration
+builder.Services.AddAncpClient(opts =>
+{
+    opts.DefaultTenantId     = 7;
+    opts.RegistryBaseUrl     = "https://registry.bizfirst.internal";
+    opts.RequestReplyTimeout = TimeSpan.FromSeconds(30);
+    opts.Auth = new AncpAuthOptions { BearerToken = myJwtToken };
+});
+</pre>
+
+<pre>
+// Fire-and-forget
+await _ancpClient.FireAndForgetAsync(
+    NodeAddress.FromNodeId(tenantId: 7, nodeId: 42),
+    action:  "trigger-recalc",
+    payload: new { employeeId = 123 });
+
+// Request-reply
+var response = await _ancpClient.InvokeAsync&lt;PayrollStatusResponse&gt;(
+    NodeAddress.FromNodeId(7, 42),
+    action:  "get-payroll-status",
+    payload: new { employeeId = 123 });
+
+// Streaming
+await foreach (var chunk in _ancpClient.StreamAsync&lt;PayrollLine&gt;(
+    NodeAddress.FromNodeId(7, 42), "stream-payroll-lines", req))
+{
+    Console.WriteLine(chunk.Department);
+}
+
+// Task-start
+var handle = await _ancpClient.StartTaskAsync(
+    NodeAddress.FromNodeId(7, 42),
+    action:  "run-full-payroll",
+    payload: new { payrollPeriodId = "2026-03" });
+
+var status = await _ancpClient.GetTaskStatusAsync&lt;PayrollRunResult&gt;(handle);
+</pre>
+
+<h3>Endpoint Resolution</h3>
+<p>AncpClient resolves endpoints in this order:</p>
+<ol style="margin: 1rem 0 1rem 2rem; color: var(--text-dim);">
+  <li>If <code>NodeAddress.Mode == Direct</code>, use the provided URL directly — no registry call.</li>
+  <li>Check <strong>AncpEndpointCache</strong> (TTL-based, default 5 min). Return cached endpoint if fresh.</li>
+  <li>Call <strong>IAncpRegistryClient</strong> → <code>GET {registryBaseUrl}/resolve?{queryString}</code>.</li>
+  <li>Cache the result and proceed.</li>
+</ol>
+</section>
+
+<!-- ─────────────────────── 9. NODE CAPABILITY ─────────────────────── -->
+<section id="node-capability">
+<h2><span class="section-number">09</span> IAncpNodeCapability</h2>
+
+<p>The <strong>IAncpNodeCapability</strong> is the receiver-side API. Node authors register action handlers against it in <code>ConfigureAncp()</code>. The capability is injected as the protected <code>Ancp</code> property on <code>BaseNodeExecutor</code>.</p>
+
+<pre>
+protected override void ConfigureAncp(IAncpNodeCapability ncp)
+{
+    // Request-reply
+    ncp.OnInvoke&lt;GetStatusRequest, StatusResponse&gt;(
+        "get-status",
+        async ctx => await _service.GetStatusAsync(ctx.Payload!.Id));
+
+    // Fire-and-forget
+    ncp.OnFireAndForget&lt;TriggerRequest&gt;(
+        "trigger",
+        ctx => _service.TriggerAsync(ctx.Payload!.Id));
+
+    // Streaming
+    ncp.OnStream&lt;StreamRequest, LineItem&gt;(
+        "stream-lines",
+        ctx => _service.StreamAsync(ctx.Payload!.PeriodId, ctx.CancellationToken));
+
+    // Long-running task
+    ncp.OnTask&lt;RunRequest, RunResult&gt;(
+        "run-full",
+        async (ctx, ct) => await _service.RunAsync(ctx.Payload!.PeriodId, ct));
+}
+</pre>
+
+<h3>Receiver Pipeline (7 Steps)</h3>
+<div class="flow">
+POST /ncp/nodes/{nodeId}/invoke
+  │
+  1. X-Ancp-Version check         → 400 INVALID_VERSION
+  2. IEnvelope deserialization     → 400 INVALID_ENVELOPE
+  3. Node lookup in registry       → 404 NODE_NOT_FOUND
+  4. Authentication (JWT/Key/DID)  → 401 (no body)
+  5. ACL check                     → 403
+  6. Action dispatch               → 404 ACTION_NOT_FOUND / 422 PATTERN_MISMATCH
+  7. Format IEnvelope response     → 200 / 202 / SSE
+</div>
+</section>
+
+<!-- ─────────────────────── 10. REGISTRY & HEARTBEAT ─────────────────────── -->
+<section id="registry">
+<h2><span class="section-number">10</span> Registry &amp; Heartbeat</h2>
+
+<p>The <strong>ANCP Registry</strong> is a central service that maps node identities to endpoint URLs. Nodes register themselves at startup via heartbeat and deregister on shutdown. The registry is queried by <code>AncpClient</code> during endpoint resolution.</p>
+
+<section id="heartbeat">
+<h3>Heartbeat Service</h3>
+<p>The <code>AncpHeartbeatService</code> is a <code>BackgroundService</code> that runs for the lifetime of the host. It periodically sends heartbeats for all registered ANCP nodes:</p>
+<pre>
+// Heartbeat payload (POST {registryBaseUrl}/heartbeat)
+{
+  "nodeId":            42,
+  "tenantId":          7,
+  "endpoint":          "https://server2.bizfirst.internal/ncp/nodes/42/invoke",
+  "resId":             "a1b2c3d4-e5f6-...",
+  "did":               "did:bizfirst:tenant7:node:42",
+  "supportedPatterns": ["fire-and-forget", "request-reply", "streaming", "task-start"],
+  "registeredActions": ["get-payroll-status", "run-full-payroll", "stream-payroll-lines"]
+}
+</pre>
+<div class="table-wrap">
+<table>
+  <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
+  <tr><td><code>HeartbeatIntervalSeconds</code></td><td>30</td><td>How often heartbeats are sent.</td></tr>
+  <tr><td><code>OfflineAfterSeconds</code></td><td>90</td><td>Registry marks node offline after this many seconds with no heartbeat.</td></tr>
+</table>
+</div>
+</section>
+</section>
+
+<!-- ─────────────────────── 11. DISCOVERY ─────────────────────── -->
+<section id="discovery">
+<h2><span class="section-number">11</span> Discovery Document</h2>
+
+<p>When <code>ExposeDiscoveryDocument = true</code> (the default), the receiver exposes a machine-readable capability manifest at <code>GET /.well-known/ncp.json</code>:</p>
+
+<pre>
+{
+  "ncpVersion":     "1.0",
+  "nodeId":         42,
+  "tenantId":       7,
+  "did":            "did:bizfirst:tenant7:node:42",
+  "autonomousMode": true,
+  "aiModel":        "claude-sonnet-4-6",
+  "authModes":      ["jwt", "api-key"],
+  "systemActions":  ["ancp.ping", "ancp.capabilities", "ancp.negotiate", "ancp.status"],
+  "nodes": [
+    {
+      "nodeId":    42,
+      "tenantId":  7,
+      "actions": [
+        { "name": "get-payroll-status", "pattern": "request-reply",  "requiresAuth": true },
+        { "name": "run-full-payroll",   "pattern": "task-start",     "requiresAuth": true },
+        { "name": "stream-payroll",     "pattern": "streaming",       "requiresAuth": true }
+      ]
+    }
+  ]
+}
+</pre>
+</section>
+
+<!-- ─────────────────────── 12. OBSERVABILITY ─────────────────────── -->
+<section id="observability">
+<h2><span class="section-number">12</span> Observability</h2>
+
+<h3>Activity Sources</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Source</th><th>Project</th><th>Spans</th></tr>
+  <tr><td><code>BizFirst.Ancp.Client</code></td><td>Ancp.Client</td><td><code>ancp.call</code> — one per outbound call</td></tr>
+  <tr><td><code>BizFirst.Ancp.Node</code></td><td>Ancp.Node</td><td><code>ancp.receive</code> — one per inbound call</td></tr>
+</table>
+</div>
+
+<h3>Meter: BizFirst.Ancp</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Metric</th><th>Type</th><th>Tags</th></tr>
+  <tr><td><code>ancp.client.calls</code></td><td>Counter</td><td>action, pattern, status</td></tr>
+  <tr><td><code>ancp.client.errors</code></td><td>Counter</td><td>action, error_type</td></tr>
+  <tr><td><code>ancp.client.duration</code></td><td>Histogram (ms)</td><td>action, pattern</td></tr>
+  <tr><td><code>ancp.client.chunks</code></td><td>Counter</td><td>action</td></tr>
+  <tr><td><code>ancp.node.calls</code></td><td>Counter</td><td>nodeId, action, pattern</td></tr>
+  <tr><td><code>ancp.node.errors</code></td><td>Counter</td><td>nodeId, error_type</td></tr>
+  <tr><td><code>ancp.node.auth_failures</code></td><td>Counter</td><td>nodeId, auth_mode</td></tr>
+  <tr><td><code>ancp.node.chunks_sent</code></td><td>Counter</td><td>nodeId, action</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ─────────────────────── 13. PAYMENTS ─────────────────────── -->
+<section id="payment-flow">
+<h2><span class="section-number">13</span> Payment Flow</h2>
+
+<p>Autonomous nodes can gate access to capabilities behind <strong>EVM on-chain payments</strong>. The full flow is:</p>
+
+<div class="flow">
+Node A (caller)                              Node B (autonomous receiver)
+     │
+     │─── ancp.capabilities ─────────────────► Discover available actions + prices
+     │◄── action list with priceUsdc ─────────
+     │
+     │─── ancp.payment-info ──────────────────► Get EVM wallet address
+     │◄── { evmAddress, acceptedTokens } ──────
+     │
+     │    [Send USDC on-chain to 0xAbCd...]
+     │
+     │─── ancp.pay ──────────────────────────► Submit tx hash
+     │    { txHash, forAction, amount }         Verify on-chain (3 confirmations)
+     │◄── { receiptId, validUntil, signature } Issue signed receipt
+     │
+     │─── run-payroll ─────────────────────►  Paid action call
+     │    X-Ancp-Payment-Receipt: rcpt-...:sig  Receipt validated → dispatch
+     │◄── 202 Accepted + taskId ─────────────
+</div>
+
+<section id="receipt-store">
+<h3>IAncpReceiptStore — Dual-Layer Replay Protection</h3>
+<p>Two independent layers prevent any payment from being used more than once:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Layer</th><th>Key</th><th>Protects Against</th></tr>
+  <tr><td>Layer 1</td><td><code>receiptId</code> (UUID)</td><td>Receipt replay — reusing the same receipt for a second call</td></tr>
+  <tr><td>Layer 2</td><td><code>txHash</code> (on-chain)</td><td>TxHash replay — submitting the same tx hash twice to get two receipts</td></tr>
+</table>
+</div>
+<p>The <code>ancp.pay</code> handler checks <code>IsTxHashAlreadyRedeemedAsync</code> before issuing, and calls <code>MarkTxHashRedeemedAsync</code> atomically with receipt creation.</p>
+</section>
+</section>
+
+<!-- ─────────────────────── 14. DI REGISTRATION ─────────────────────── -->
+<section id="di-registration">
+<h2><span class="section-number">14</span> DI Registration</h2>
+
+<h3>Receiver (Node B)</h3>
+<pre>
+// Program.cs
+builder.Services.AddAncpNodeCapability(opts =>
+{
+    opts.BaseUrl                 = "https://server2.bizfirst.internal";
+    opts.ExposeDiscoveryDocument = true;
+    opts.Registry.BaseUrl        = "https://registry.bizfirst.internal";
+    opts.Registry.HeartbeatIntervalSeconds = 30;
+});
+
+app.UseAncp();  // Maps /ncp endpoints and /.well-known/ncp.json
+</pre>
+
+<h3>Caller (Node A)</h3>
+<pre>
+builder.Services.AddAncpClient(opts =>
+{
+    opts.DefaultTenantId     = 7;
+    opts.RegistryBaseUrl     = "https://registry.bizfirst.internal";
+    opts.RequestReplyTimeout = TimeSpan.FromSeconds(30);
+    opts.StreamingTimeout    = TimeSpan.FromSeconds(300);
+});
+</pre>
+
+<h3>Registered Services</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Interface</th><th>Implementation</th><th>Lifetime</th><th>Notes</th></tr>
+  <tr><td><code>IAncpNodeRegistry</code></td><td><code>AncpNodeRegistry</code></td><td>Singleton</td><td>Node B</td></tr>
+  <tr><td><code>IAncpAuthValidator</code></td><td><code>AncpAuthValidator</code></td><td>Singleton</td><td>Node B</td></tr>
+  <tr><td><code>IJwtValidator</code></td><td><code>DefaultJwtValidator</code></td><td>Singleton</td><td>Replace for custom IdP</td></tr>
+  <tr><td><code>IDidResolver</code></td><td><code>DefaultDidResolver</code></td><td>Singleton</td><td>Replace for production DID</td></tr>
+  <tr><td><code>IAncpTaskStore</code></td><td><code>InMemoryAncpTaskStore</code></td><td>Singleton</td><td>Replace with Redis for multi-instance</td></tr>
+  <tr><td><code>IAncpReceiptStore</code></td><td><code>InMemoryAncpReceiptStore</code></td><td>Singleton</td><td>Replace with persistent store</td></tr>
+  <tr><td><code>IAncpRegistryClient</code></td><td><code>HttpAncpRegistryClient</code></td><td>Singleton</td><td>Both Node A and B</td></tr>
+  <tr><td><code>IAncpTransport</code></td><td><code>HttpAncpTransport</code></td><td>Singleton</td><td>Node A; replace with FakeAncpTransport in tests</td></tr>
+  <tr><td><code>IAncpClient</code></td><td><code>AncpClient</code></td><td>Singleton</td><td>Node A</td></tr>
+  <tr><td><code>AncpEndpointCache</code></td><td><code>AncpEndpointCache</code></td><td>Singleton</td><td>Node A</td></tr>
+  <tr><td><code>IHostedService</code></td><td><code>AncpHeartbeatService</code></td><td>Singleton</td><td>Node B</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ─────────────────────── 15. BASE EXECUTOR ─────────────────────── -->
+<section id="base-executor">
+<h2><span class="section-number">15</span> BaseNodeExecutor Integration</h2>
+
+<p>ANCP integration is surfaced in <code>BaseNodeExecutor</code> as a partial class (<code>BaseNodeExecutor.Ancp.cs</code>):</p>
+
+<pre>
+public abstract partial class BaseNodeExecutor
+{
+    // Never null — NullAncpNodeCapability for light nodes
+    protected IAncpNodeCapability Ancp { get; private set; } = NullAncpNodeCapability.Instance;
+
+    // Null if AddAncpClient() not registered
+    protected IAncpClient? AncpClient { get; private set; }
+
+    // Override to register handlers — called once at startup
+    protected virtual void ConfigureAncp(IAncpNodeCapability ncp) { }
+
+    // Called by ProcessEngine infrastructure — do not call directly
+    internal void InitializeAncp(IAncpNodeCapability capability, IAncpClient? client);
+}
+</pre>
+
+<div class="table-wrap">
+<table>
+  <tr><th>Scenario</th><th>Ancp value</th><th>ConfigureAncp called</th></tr>
+  <tr><td>ANCP enabled, AddAncpNodeCapability registered</td><td>AncpNodeCapability</td><td>Yes, once</td></tr>
+  <tr><td>ANCP disabled (not registered)</td><td>NullAncpNodeCapability</td><td>No</td></tr>
+  <tr><td>Test host with mock</td><td>Custom mock</td><td>Yes</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ─────────────────────── 16. AUTONOMOUS NODES ─────────────────────── -->
+<section id="autonomous">
+<h2><span class="section-number">16</span> Autonomous Nodes</h2>
+
+<p>An <strong>autonomous node</strong> operates independently 24/7. It processes ANCP calls without human intervention, advertises its capabilities, gates access behind payment, and makes outbound calls to other nodes. Autonomous nodes implement all 6 standard system actions.</p>
+
+<h3>System Actions</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Action</th><th>Pattern</th><th>Auth</th><th>Description</th></tr>
+  <tr><td><code>ancp.ping</code></td><td>request-reply</td><td>No</td><td>Reachability and health check. Returns uptimeMs, version, echo.</td></tr>
+  <tr><td><code>ancp.capabilities</code></td><td>request-reply</td><td>No</td><td>List all registered actions with pattern, auth, and price info.</td></tr>
+  <tr><td><code>ancp.negotiate</code></td><td>request-reply</td><td>Optional</td><td>Pre-call negotiation. Returns supported/unsupported actions with payment terms.</td></tr>
+  <tr><td><code>ancp.payment-info</code></td><td>request-reply</td><td>No</td><td>EVM address, accepted tokens, and full price list.</td></tr>
+  <tr><td><code>ancp.pay</code></td><td>request-reply</td><td>Yes</td><td>Submit tx hash → receive signed receipt. Requires on-chain verification.</td></tr>
+  <tr><td><code>ancp.status</code></td><td>request-reply</td><td>No</td><td>Runtime health, load, active tasks, AI model, autonomous mode flag.</td></tr>
+</table>
+</div>
+
+<div class="callout info">
+  <div class="title">System Action Prefix</div>
+  System actions are prefixed <code>ancp.</code> and are reserved. User-defined actions must not use this prefix.
+</div>
+
+<h3>Registering System Actions</h3>
+<pre>
+ncp.AddSystemActions(nodeEntry, new AncpSystemActionsConfig
+{
+    Version      = "2.5.1",
+    Environment  = "production",
+    IsAutonomous = true,
+    AiModel      = "claude-sonnet-4-6",
+    PriceList = [
+        new AncpPriceDef { Action = "run-payroll", Pattern = "task-start",  PriceUsdc = 10.00m },
+        new AncpPriceDef { Action = "stream-report", Pattern = "streaming", PriceUsdc = 2.50m  }
+    ],
+    Payment = new AncpPaymentServiceConfig
+    {
+        EvmAddress     = "0xAbCd1234...",
+        ChainId        = 137,
+        PreferredToken = "USDC"
+    }
+});
+</pre>
+</section>
+
+<!-- ─────────────────────── 17. TESTING ─────────────────────── -->
+<section id="testing">
+<h2><span class="section-number">17</span> Testing</h2>
+
+<h3>FakeAncpTransport</h3>
+<p>Replace the real HTTP transport in tests. No HTTP calls are made.</p>
+<pre>
+var fakeTransport = new FakeAncpTransport();
+
+// Setup responses
+fakeTransport.SetupResponse(
+    urlPattern: "/invoke",
+    responseData: new PayrollStatusResponse { Status = "Active" });
+
+fakeTransport.SetupStream(
+    urlPattern: "/invoke",
+    chunks: [new PayrollLine { Dept = "Eng", Total = 142_000 }]);
+
+fakeTransport.SetupError(
+    urlPattern: "/invoke",
+    error: new HttpRequestException("Network failure"));
+
+// After the test
+Assert.Single(fakeTransport.CapturedRequests);
+Assert.Contains("get-payroll-status", fakeTransport.CapturedRequests[0].Body);
+</pre>
+
+<h3>Testing Action Handlers Directly</h3>
+<pre>
+var taskStore = new InMemoryAncpTaskStore();
+var cap       = new AncpNodeCapability(taskStore);
+var node      = new PayrollEngineNode(mockPayrollService, mockTaxCalc);
+node.InitializeAncp(cap, ancpClient: null);
+
+var ctx = new AncpActionContext
+{
+    Action  = "get-payroll-status",
+    Pattern = "request-reply",
+    Payload = JsonSerializer.SerializeToElement(new { employeeId = 42 }),
+    CallerIdentity = new AncpCallerIdentity { Mode = AncpAuthMode.ApiKey, Roles = ["invoke"] }
+};
+
+var result = await cap.DispatchAsync(ctx);
+
+Assert.Equal(AncpDispatchResultKind.Response, result.Kind);
+</pre>
+</section>
+
+<!-- ─────────────────────── 18. ERROR CODES ─────────────────────── -->
+<section id="error-codes">
+<h2><span class="section-number">18</span> Error Codes</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Code</th><th>HTTP</th><th>Meaning</th></tr>
+  <tr><td><code>INVALID_VERSION</code></td><td>400</td><td><code>X-Ancp-Version</code> header missing or value is not "1.0".</td></tr>
+  <tr><td><code>INVALID_ENVELOPE</code></td><td>400</td><td>Request body is not a valid IEnvelope JSON, or <code>action</code>/<code>subType</code> are missing.</td></tr>
+  <tr><td><code>NODE_NOT_FOUND</code></td><td>404</td><td>No ANCP-enabled node with the given nodeId is registered on this host.</td></tr>
+  <tr><td><code>ACTION_NOT_FOUND</code></td><td>404</td><td>The action name is not registered on this node.</td></tr>
+  <tr><td><code>PATTERN_MISMATCH</code></td><td>422</td><td>The action exists but was registered with a different pattern than what was requested.</td></tr>
+  <tr><td><code>TASK_NOT_FOUND</code></td><td>404</td><td>The taskId is not found in the task store.</td></tr>
+  <tr><td><code>INVOKE_ERROR</code></td><td>500</td><td>Unhandled exception in the action handler.</td></tr>
+  <tr><td><code>AUTH_FAILED</code></td><td>401</td><td>No auth credentials provided, or credentials are invalid. No body.</td></tr>
+  <tr><td><code>TX_NOT_CONFIRMED</code></td><td>200*</td><td>Payment tx has insufficient confirmations. Receipt not issued. (*ancp.pay returns 200 with error body)</td></tr>
+  <tr><td><code>AMOUNT_MISMATCH</code></td><td>200*</td><td>Payment amount received on-chain does not match the required price.</td></tr>
+  <tr><td><code>TX_ALREADY_REDEEMED</code></td><td>200*</td><td>The tx hash was already used to issue a receipt (replay protection).</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ─────────────────────── 19. HTTP STATUS CODES ─────────────────────── -->
+<section id="status-codes">
+<h2><span class="section-number">19</span> HTTP Status Code Reference</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Status</th><th>Pattern</th><th>Meaning</th></tr>
+  <tr><td>200 OK</td><td>request-reply, streaming</td><td>Success. Body is IEnvelope (or SSE stream).</td></tr>
+  <tr><td>202 Accepted</td><td>fire-and-forget</td><td>Acknowledged. No body.</td></tr>
+  <tr><td>202 Accepted</td><td>task-start</td><td>Task queued. Body is task-accepted IEnvelope with taskId.</td></tr>
+  <tr><td>400 Bad Request</td><td>All</td><td>Invalid version header or malformed IEnvelope. Body: <code>{"error":{"code":"...","message":"..."}}</code>.</td></tr>
+  <tr><td>401 Unauthorized</td><td>All</td><td>Auth failure. No body.</td></tr>
+  <tr><td>403 Forbidden</td><td>All</td><td>ACL check failed — caller lacks required role.</td></tr>
+  <tr><td>404 Not Found</td><td>All</td><td>Node or action not found. Body: error object.</td></tr>
+  <tr><td>422 Unprocessable</td><td>All</td><td>Pattern mismatch. Body: error object with expected pattern.</td></tr>
+  <tr><td>500 Internal Error</td><td>All</td><td>Unhandled exception in handler. Body: error object.</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ─────────────────────── 20. CHANGELOG ─────────────────────── -->
+<section id="changelog">
+<h2><span class="section-number">20</span> Changelog</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Version</th><th>Date</th><th>Changes</th></tr>
+  <tr>
+    <td>0.9.0</td>
+    <td>2026-03-16</td>
+    <td>
+      Initial draft. 4 message patterns, 8 addressing modes, 3 auth modes, payment gating,
+      discovery document, OpenTelemetry observability, FakeAncpTransport test double,
+      BaseNodeExecutor integration, autonomous node system actions.
+    </td>
+  </tr>
+</table>
+</div>
+
+<div class="callout success">
+  <div class="title">BizFirst Reference Implementation</div>
+  This specification is implemented across three .NET 9 library projects:<br/>
+  <code>BizFirst.Ancp.Abstractions</code> — interfaces, DTOs, IEnvelope<br/>
+  <code>BizFirst.Ancp.Client</code> — AncpClient, transport, registry client<br/>
+  <code>BizFirst.Ancp.Node</code> — receiver pipeline, auth, discovery, heartbeat
+</div>
+</section>
+
+<!-- ─────────────────────── 21. CONTRIBUTORS ─────────────────────── -->
+<section id="contributors">
+<h2><span class="section-number">21</span> Contributors</h2>
+<p style="margin-bottom:1.25rem;color:var(--text-dim);">
+  The following individuals contributed to the design, architecture, and implementation of
+  the ANCP specification and BizFirst reference implementation.
+</p>
+<div class="table-wrap">
+<table>
+  <tr>
+    <th style="width:3rem">#</th>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">1</td>
+    <td><strong style="color:var(--accent)">Binoy Jose</strong></td>
+    <td>Principal Architect</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">2</td>
+    <td><strong>Shilja Jose</strong></td>
+    <td>Technical Architect</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">3</td>
+    <td><strong>Dhanya Joseph</strong></td>
+    <td>Product Owner</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">4</td>
+    <td><strong>Maha Siva</strong></td>
+    <td>Junior Engineer</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">5</td>
+    <td><strong>Sabarinath</strong></td>
+    <td>Software Engineer</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">6</td>
+    <td><strong>Cijo Jose</strong></td>
+    <td>Technical Architect</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">7</td>
+    <td><strong>Saji Jose</strong></td>
+    <td>Technical Architect</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">8</td>
+    <td><strong>Anit M George</strong></td>
+    <td>Software Engineer</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">9</td>
+    <td><strong>Ahsan P A</strong></td>
+    <td>Software Engineer</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">10</td>
+    <td><strong>Aswathy Raj</strong></td>
+    <td>Technical Lead</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">11</td>
+    <td><strong>Namita Jos</strong></td>
+    <td>Technical Lead</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">12</td>
+    <td><strong>Benoy Varghese</strong></td>
+    <td>Project Management</td>
+  </tr>
+  <tr>
+    <td style="color:var(--text-dim)">12</td>
+    <td><strong>Jonathon Chambless</strong></td>
+    <td>Business - Real Estate</td>
+  </tr>
+</table>
+</div>
+</section>
+
+</main>
+</body>
+</html>

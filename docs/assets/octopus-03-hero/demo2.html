@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BizFirstAi — Octopus Hero Demo 2</title>
+
+  <link rel="stylesheet" href="../css/octopus/index.css">
+  <link rel="stylesheet" href="./octopus-hero.css">
+  <link rel="stylesheet" href="../slider-content/slider-content.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #080F08; color: #F0FDF4; }
+
+    /* ── Scroll driver — height set by JS ────────────────────── */
+    #scrollDriver {
+      position: relative;
+    }
+
+    /* ── Sticky hero ─────────────────────────────────────────── */
+    .hero-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      overflow: hidden;
+    }
+
+    /* ── Col 1: Hero content ──── */
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 48px;
+      z-index: 10;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #16A34A;
+      margin-bottom: 20px;
+    }
+
+    .hero-headline {
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #F0FDF4;
+      margin-bottom: 20px;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: #16A34A;
+    }
+
+    .hero-subhead {
+      font-size: 1rem;
+      color: #86EFAC;
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 12px 28px;
+      background: #16A34A;
+      color: #fff;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      padding: 12px 28px;
+      background: transparent;
+      color: #D1FAE5;
+      border: 1px solid rgba(22, 163, 74, 0.35);
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ── Col 2: Octopus + text slider overlay ─────────────────── */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Octopus fills the right column */
+    .hero-right octopus-hero-section {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Text slider overlaid on the right edge, absolutely */
+    .hero-right text-slider {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 260px;
+      height: 100%;
+      background: rgba(8, 15, 8, 0.55);
+      backdrop-filter: blur(12px);
+      border-left: 1px solid rgba(45, 212, 191, 0.08);
+      z-index: 20;
+    }
+
+    /* ── Spacer below hero ────────────────────────────────────── */
+    .section-spacer {
+      height: 100vh;
+      background: #080F08;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(45, 212, 191, 0.3);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tall scroll driver: height = (slides × 100 + 100)vh, set by JS -->
+  <div id="scrollDriver">
+    <div class="hero-sticky">
+
+      <!-- Col 1: Hero content -->
+      <div class="hero-left">
+        <p class="hero-eyebrow">One Unified Platform</p>
+        <h1 class="hero-headline">One Platform.<br><em>Replaces 5+ Tools.</em></h1>
+        <p class="hero-subhead">Stop stitching tools together. Build, orchestrate, secure and launch — all from BizFirstAi.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-primary">Get Started Free</a>
+          <a href="#" class="btn-secondary">Explore Platform</a>
+        </div>
+      </div>
+
+      <!-- Col 2: Octopus animation + text slider overlay -->
+      <div class="hero-right">
+        <!-- Octopus — purely the animation, no page content -->
+        <octopus-hero-section></octopus-hero-section>
+
+        <!-- Text slider — independent component, scroll-driven -->
+        <text-slider scroll-driver="scrollDriver">
+
+          <div class="ts-slide">
+            <span class="ts-number">01 / 05</span>
+            <span class="ts-label">Workflow Engine</span>
+            <h3 class="ts-title">Replace<br><em>n8n & Zapier</em></h3>
+            <p class="ts-desc">Visual workflows. Auto-scaling. Zero-downtime deploys.</p>
+          </div>
+
+          <div class="ts-slide">
+            <span class="ts-number">02 / 05</span>
+            <span class="ts-label">AI Orchestration</span>
+            <h3 class="ts-title">Replace<br><em>LangChain</em></h3>
+            <p class="ts-desc">Multi-model routing. Memory. Streaming.</p>
+          </div>
+
+          <div class="ts-slide">
+            <span class="ts-number">03 / 05</span>
+            <span class="ts-label">Identity Platform</span>
+            <h3 class="ts-title">Replace<br><em>Auth0 & Okta</em></h3>
+            <p class="ts-desc">SSO, SAML, RBAC. SOC2 compliant.</p>
+          </div>
+
+          <div class="ts-slide">
+            <span class="ts-number">04 / 05</span>
+            <span class="ts-label">Integration Hub</span>
+            <h3 class="ts-title">Replace<br><em>MuleSoft</em></h3>
+            <p class="ts-desc">1000+ connectors. Real-time webhooks.</p>
+          </div>
+
+          <div class="ts-slide">
+            <span class="ts-number">05 / 05</span>
+            <span class="ts-label">Observability</span>
+            <h3 class="ts-title">Replace<br><em>Datadog</em></h3>
+            <p class="ts-desc">Full-stack traces, logs and metrics.</p>
+          </div>
+
+        </text-slider>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section-spacer">SCROLL UP TO REPLAY</div>
+
+  <script src="./octopus-hero.js"></script>
+  <script src="../slider-content/slider-content.js"></script>
+
+  <script>
+    // Set scroll driver height: one viewport per slide + 1 extra viewport
+    const SLIDES = document.querySelectorAll('.ts-slide').length;
+    document.getElementById('scrollDriver').style.height = (SLIDES * 100 + 100) + 'vh';
+  </script>
+
+</body>
+</html>

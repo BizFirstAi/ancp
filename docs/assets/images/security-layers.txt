@@ -1,0 +1,11 @@
+IMAGE: security-layers.png
+DIMENSIONS: 1000 x 700px
+USED ON: passport.bizfirstai.com (future) and Platform Security section
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Deep dark green-black background (#080F08). A layered security visualization showing concentric shield layers. Outermost layer labeled "OWASP Top 10". Next layer labeled "HIPAA / SOC2 / GDPR". Next layer labeled "Multi-Tenancy + Row-Level Security". Inner layer labeled "RBAC + SSO". Center glowing core labeled "Passport". Each layer is a semi-transparent ring in varying shades of Brand Green — darker outer rings, brighter inner rings (#16A34A to #22C55E). The center core pulses with a strong green glow suggesting a protected, trusted identity core. Clean, technical, trustworthy. No clipart locks — abstract geometric security rings only.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Dark navy background (#0A0F1E). A layered security visualization showing concentric shield layers. Outermost layer labeled "OWASP Top 10". Next layer labeled "HIPAA / SOC2 / GDPR". Next layer labeled "Multi-Tenancy + Row-Level Security". Inner layer labeled "RBAC + SSO". Center glowing core labeled "Passport". Each layer is a semi-transparent ring in varying shades of Electric Indigo — darker outer rings, brighter inner rings. The center core pulses with a strong indigo glow suggesting a protected, trusted identity core. Clean, technical, trustworthy. No clipart locks — abstract geometric security rings only.

@@ -1,0 +1,79 @@
+/* ============================================================
+   b-icons.css — BizFirstAi
+   Icon and icon container styles with b- prefix
+   ============================================================ */
+
+/* ── Icon SVG Container ──────────────────────────────────– */
+.b-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.75rem;
+  color: var(--b-color-primary);
+  flex-shrink: 0;
+}
+
+.b-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ── Icon Variants ───────────────────────────────────────– */
+.b-icon--sm {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.b-icon--lg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* ── Product Icon (Circular background) ──────────────────– */
+.b-product-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto var(--b-space-6) auto;
+  color: var(--b-color-primary);
+  background: var(--b-product-icon-bg);
+  border-radius: 50%;
+}
+
+.b-product-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ── Icon in Cards ───────────────────────────────────────– */
+.b-benefit-card .b-icon,
+.b-security-item .b-icon {
+  margin-right: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────– */
+@media (max-width: 480px) {
+  .b-product-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .b-product-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}

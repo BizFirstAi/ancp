@@ -1,0 +1,11 @@
+IMAGE: hero-ecosystem.png
+DIMENSIONS: 1440 x 900px
+USED ON: Home page hero section (behind headline)
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Deep dark green-black background (#080F08). A large, glowing network diagram showing 12 interconnected product nodes arranged in a circular constellation pattern. Each node is a softly glowing rounded square with a subtle Brand Green (#16A34A) border and inner glow. Thin animated-looking connection lines in green (#16A34A) link all nodes together with small glowing dots travelling along the lines suggesting data flow. The center of the constellation pulses with a soft green radial glow. The overall composition is centered, symmetrical, and breathtaking. Ultra-minimal labels in white on each node. Deep space-like atmosphere with a very subtle green tint to the dark. No text overlay needed — image is a background. Cinematic lighting, 4K quality, enterprise SaaS aesthetic.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Dark navy background (#0A0F1E). A large, glowing network diagram showing 12 interconnected product nodes arranged in a circular constellation pattern. Each node is a softly glowing rounded square with a subtle Electric Indigo (#6366F1) border and inner glow. Thin animated-looking connection lines in indigo (#6366F1) link all nodes together with small glowing dots travelling along the lines suggesting data flow. The center of the constellation pulses with a soft indigo radial glow. The overall composition is centered, symmetrical, and breathtaking. Ultra-minimal labels in white on each node. Deep space-like atmosphere. No text overlay needed — image is a background. Cinematic lighting, 4K quality, enterprise SaaS aesthetic.

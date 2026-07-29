@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANCP — Getting Started Guide</title>
+  <style>
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --surface2:  #1c2128;
+      --border:    #30363d;
+      --accent:    #58a6ff;
+      --accent2:   #79c0ff;
+      --green:     #3fb950;
+      --yellow:    #d29922;
+      --red:       #f85149;
+      --purple:    #bc8cff;
+      --text:      #e6edf3;
+      --text-muted:#8b949e;
+      --code-bg:   #161b22;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      display: flex;
+      overflow-x: hidden;
+    }
+    /* ── Sidebar ─────────────────────────────────────── */
+    nav {
+      width: 260px;
+      min-width: 260px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .nav-logo {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .nav-logo img { height: 32px; }
+    .nav-logo .title { font-weight: 700; font-size: 14px; color: var(--accent); margin-top: 8px; }
+    .nav-logo .sub { font-size: 11px; color: var(--text-muted); }
+    nav a {
+      display: block;
+      padding: 6px 20px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.15s, background 0.15s;
+      border-radius: 4px;
+      margin: 1px 8px;
+    }
+    nav a:hover { color: var(--text); background: var(--surface2); }
+    nav a.active { color: var(--accent); background: rgba(88,166,255,0.08); }
+    .nav-section {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 16px 20px 6px;
+    }
+    /* ── Main content ────────────────────────────────── */
+    main {
+      flex: 1;
+      max-width: 860px;
+      padding: 48px 56px;
+      overflow-x: auto;
+    }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+    h2 { font-size: 1.35rem; font-weight: 600; margin: 48px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); color: var(--accent2); }
+    h3 { font-size: 1.05rem; font-weight: 600; margin: 28px 0 8px; color: var(--text); }
+    p  { margin-bottom: 12px; color: var(--text); }
+    ul, ol { margin: 8px 0 12px 20px; }
+    li { margin-bottom: 4px; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
+      color: var(--accent2);
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 12px 0 20px;
+      position: relative;
+    }
+    pre code { background: none; border: none; padding: 0; color: var(--text); font-size: 13px; }
+    .lang-tag {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    /* Syntax colours (simple) */
+    .kw { color: #ff7b72; }
+    .ty { color: #79c0ff; }
+    .st { color: #a5d6ff; }
+    .cm { color: #8b949e; }
+    .nu { color: #79c0ff; }
+    .me { color: #d2a8ff; }
+    .at { color: #ffa657; }
+
+    .callout {
+      border-left: 4px solid var(--accent);
+      background: rgba(88,166,255,0.06);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 16px;
+      margin: 20px 0;
+    }
+    .callout.warn  { border-color: var(--yellow); background: rgba(210,153,34,0.06); }
+    .callout.tip   { border-color: var(--green);  background: rgba(63,185,80,0.06);  }
+    .callout .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; color: var(--accent); }
+    .callout.warn .label { color: var(--yellow); }
+    .callout.tip  .label { color: var(--green); }
+    .callout p { margin: 0; }
+
+    .steps { counter-reset: step; }
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+    .step-num {
+      counter-increment: step;
+      background: var(--accent);
+      color: #0d1117;
+      border-radius: 50%;
+      width: 28px;
+      min-width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .step-body { flex: 1; }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: rgba(88,166,255,0.12);
+      color: var(--accent);
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .badge.green { background: rgba(63,185,80,0.12); color: var(--green); }
+    .badge.yellow { background: rgba(210,153,34,0.12); color: var(--yellow); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 13px;
+    }
+    th {
+      background: var(--surface2);
+      color: var(--text-muted);
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    .hero {
+      background: linear-gradient(135deg, rgba(88,166,255,0.08) 0%, rgba(188,140,255,0.06) 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 40px;
+    }
+    .hero h1 { font-size: 2.2rem; margin-bottom: 12px; }
+    .hero p { color: var(--text-muted); font-size: 15px; max-width: 640px; }
+    .pill-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .pill span { color: var(--accent); font-weight: 600; }
+
+    /* ── Table overflow wrapper ── */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0 24px; }
+    .table-wrap table { margin: 0; }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 768px) {
+      body { display: block; }
+      nav {
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        position: static;
+        overflow-y: visible;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0;
+      }
+      nav a { padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+      .nav-logo { padding: 8px 16px; border-bottom: none; margin-bottom: 0; border-right: 1px solid var(--border); }
+      .nav-section { display: none; }
+      main { max-width: 100%; padding: 24px 16px; overflow-x: hidden; }
+    }
+
+    @media (max-width: 480px) {
+      nav { overflow-x: auto; flex-wrap: nowrap; }
+      main { padding: 16px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ SIDEBAR ════════════════ -->
+<nav>
+  <div class="nav-logo">
+    <img src="https://www.bizfirstai.com/website/images/logo.png" alt="BizFirst AI" />
+    <div class="title">ANCP</div>
+    <div class="sub">Getting Started Guide · v1.0.2</div>
+  </div>
+
+  <div class="nav-section">Quick Start</div>
+  <a href="#overview">Overview</a>
+  <a href="#install">Installation</a>
+  <a href="#concepts">Key Concepts</a>
+
+  <div class="nav-section">Server (C#)</div>
+  <a href="#server-setup">Project Setup</a>
+  <a href="#server-register">Register a Node</a>
+  <a href="#server-patterns">Message Patterns</a>
+  <a href="#server-auth">Authentication</a>
+  <a href="#server-payment">Payment Gating</a>
+  <a href="#server-di">Full DI Example</a>
+
+  <div class="nav-section">Client (C#)</div>
+  <a href="#client-setup">AncpClient Setup</a>
+  <a href="#client-invoke">Invoke Actions</a>
+  <a href="#client-stream">Streaming</a>
+  <a href="#client-tasks">Long Tasks</a>
+
+  <div class="nav-section">TypeScript / React</div>
+  <a href="#ts-install">Install Packages</a>
+  <a href="#ts-client">AncpClient Usage</a>
+  <a href="#react-provider">React Provider</a>
+  <a href="#react-hooks">Hooks Reference</a>
+
+  <div class="nav-section">Reference</div>
+  <a href="#auth-modes">Auth Modes</a>
+  <a href="#system-actions">System Actions</a>
+  <a href="#testing">Testing</a>
+  <a href="#observability">Observability</a>
+</nav>
+
+<!-- ════════════════ MAIN ════════════════ -->
+<main>
+
+  <!-- ── Hero ── -->
+  <div class="hero">
+    <h1>ANCP Getting Started</h1>
+    <p>
+      The <strong>Agentic Node Communication Protocol</strong> lets AI agents, services, and frontends
+      communicate through a unified protocol supporting 4 message patterns, 3 auth modes, and built-in
+      payment gating. Part of the <strong>BizFirst Discovery Specification</strong>.
+    </p>
+    <div class="pill-row">
+      <div class="pill">.NET <span>9</span></div>
+      <div class="pill">C# <span>13</span></div>
+      <div class="pill">TypeScript <span>5</span></div>
+      <div class="pill">React <span>18</span></div>
+      <div class="pill">Spec <span>v1.0.2</span></div>
+    </div>
+  </div>
+
+  <!-- ── Overview ── -->
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      ANCP is a <strong>wire-level communication layer</strong> for agentic systems. Every message —
+      request, response, stream chunk, task update — is carried in a standard
+      <code>IEnvelope</code> with ANCP metadata in the extensions block.
+    </p>
+
+    <h3>4 Message Patterns</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Pattern</th><th>HTTP</th><th>Use Case</th></tr>
+      <tr><td><code>request-reply</code></td><td>POST → 200</td><td>Synchronous query/command</td></tr>
+      <tr><td><code>fire-and-forget</code></td><td>POST → 202</td><td>Event / log / one-way notification</td></tr>
+      <tr><td><code>streaming</code></td><td>POST → SSE</td><td>AI token streaming, real-time reports</td></tr>
+      <tr><td><code>task-start</code></td><td>POST → 202 + taskId</td><td>Long-running background jobs with polling</td></tr>
+    </table>
+    </div>
+
+    <h3>8 Addressing Modes</h3>
+    <p>
+      Nodes are addressed by <code>NodeId</code>, <code>ResId</code>, <code>DID</code>,
+      <code>BlockchainAddress</code>, <code>NodeGroupId</code>, <code>NodeGroupResId</code>,
+      <code>OperateID</code>, or <code>Direct</code> URL.
+    </p>
+  </section>
+
+  <!-- ── Install ── -->
+  <section id="install">
+    <h2>Installation</h2>
+
+    <h3>NuGet (C#)</h3>
+    <p>Add the projects to your solution or reference them as NuGet packages:</p>
+    <pre><code><span class="cm"># Receiver (node hosting)</span>
+dotnet add reference BizFirst.Ancp.Node
+
+<span class="cm"># Client (call remote nodes)</span>
+dotnet add reference BizFirst.Ancp.Client</code></pre>
+
+    <h3>npm (TypeScript / React)</h3>
+    <pre><code>npm install @bizfirst/ancp-core
+npm install @bizfirst/ancp-react   <span class="cm"># React hooks (optional)</span></code></pre>
+  </section>
+
+  <!-- ── Concepts ── -->
+  <section id="concepts">
+    <h2>Key Concepts</h2>
+
+    <h3>IEnvelope</h3>
+    <p>
+      Every ANCP message wraps its payload in an <code>IEnvelope</code>.
+      ANCP metadata (action, pattern, caller identity, task state) lives in
+      <code>body.data.metadata.extensions["ncp"]</code>. The envelope format is defined
+      by the BizFirst Discovery Specification.
+    </p>
+
+    <h3>Node vs Client</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Role</th><th>Package</th><th>Responsibility</th></tr>
+      <tr><td>Node (receiver)</td><td><code>BizFirst.Ancp.Node</code></td><td>Hosts actions, validates auth, dispatches to handlers</td></tr>
+      <tr><td>Client (caller)</td><td><code>BizFirst.Ancp.Client</code></td><td>Builds envelopes, resolves addresses, sends HTTP requests</td></tr>
+    </table>
+    </div>
+
+    <h3>IAncpNodeCapability</h3>
+    <p>
+      The fluent API for registering action handlers on a node. Each action maps to exactly
+      one message pattern and one handler function.
+    </p>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SERVER SECTION
+  ═══════════════════════════════════════ -->
+
+  <section id="server-setup">
+    <h2>Server — Project Setup</h2>
+    <p>
+      In your ASP.NET Core application (using <code>Microsoft.NET.Sdk.Web</code>),
+      add the ANCP receiver via the DI extension in <code>Program.cs</code>:
+    </p>
+    <pre><code><span class="kw">var</span> builder = WebApplication.<span class="me">CreateBuilder</span>(args);
+
+builder.Services.<span class="me">AddAncp</span>(ancp =>
+{
+    ancp.<span class="me">AddNode</span>(<span class="at">nodeId:</span> <span class="nu">42</span>, <span class="at">tenantId:</span> <span class="nu">7</span>, node =>
+    {
+        node.Auth.<span class="me">UseApiKey</span>(keys =>
+        {
+            keys.<span class="me">Add</span>(<span class="st">"bfk_secret123"</span>, [<span class="st">"invoke"</span>]);
+        });
+
+        node.Capability
+            .<span class="me">OnInvoke</span>&lt;<span class="ty">MyRequest</span>, <span class="ty">MyResponse</span>&gt;(<span class="st">"my-action"</span>, <span class="at">ctx</span> =>
+                <span class="ty">Task</span>.<span class="me">FromResult</span>(<span class="kw">new</span> <span class="ty">MyResponse</span> { Result = <span class="st">"ok"</span> }));
+    });
+});
+
+<span class="kw">var</span> app = builder.<span class="me">Build</span>();
+app.<span class="me">MapAncpReceiver</span>();   <span class="cm">// Registers /ncp/nodes/{nodeId}/invoke etc.</span>
+app.<span class="me">Run</span>();</code></pre>
+  </section>
+
+  <section id="server-register">
+    <h2>Server — Register a Node</h2>
+    <p>Each call to <code>AddNode()</code> registers a logical ANCP node with its own config:</p>
+
+    <pre><code>ancp.<span class="me">AddNode</span>(<span class="at">nodeId:</span> <span class="nu">100</span>, <span class="at">tenantId:</span> <span class="nu">1</span>, node =>
+{
+    <span class="cm">// Auth</span>
+    node.Auth.<span class="me">UseJwt</span>(<span class="at">issuer:</span> <span class="st">"https://auth.bizfirst.internal"</span>,
+                       <span class="at">audience:</span> <span class="st">"ancp"</span>);
+
+    <span class="cm">// Node metadata for system actions</span>
+    node.SystemActions.<span class="me">Configure</span>(cfg =>
+    {
+        cfg.Version     = <span class="st">"2.1.0"</span>;
+        cfg.Environment = <span class="st">"production"</span>;
+        cfg.AiModel     = <span class="st">"claude-sonnet-4-6"</span>;
+        cfg.IsAutonomous = <span class="kw">true</span>;
+    });
+
+    <span class="cm">// Handlers</span>
+    node.Capability
+        .<span class="me">OnInvoke</span>&lt;<span class="ty">OrderQuery</span>, <span class="ty">OrderResult</span>&gt;(<span class="st">"get-order"</span>, HandleGetOrder)
+        .<span class="me">OnFireAndForget</span>&lt;<span class="ty">LogEvent</span>&gt;(<span class="st">"log-event"</span>, HandleLogEvent)
+        .<span class="me">OnStream</span>&lt;<span class="ty">ReportRequest</span>, <span class="ty">ReportChunk</span>&gt;(<span class="st">"generate-report"</span>, HandleReport)
+        .<span class="me">OnTask</span>&lt;<span class="ty">PayrollInput</span>, <span class="ty">PayrollResult</span>&gt;(<span class="st">"run-payroll"</span>, HandlePayroll);
+});</code></pre>
+  </section>
+
+  <section id="server-patterns">
+    <h2>Server — Message Pattern Handlers</h2>
+
+    <h3>request-reply</h3>
+    <pre><code><span class="kw">private static</span> <span class="ty">Task</span>&lt;<span class="ty">OrderResult</span>&gt; <span class="me">HandleGetOrder</span>(<span class="ty">AncpActionContext</span>&lt;<span class="ty">OrderQuery</span>&gt; ctx)
+{
+    <span class="kw">var</span> order = _orderService.<span class="me">Get</span>(ctx.Payload.OrderId);
+    <span class="kw">return</span> <span class="ty">Task</span>.<span class="me">FromResult</span>(<span class="kw">new</span> <span class="ty">OrderResult</span>
+    {
+        OrderId = order.Id,
+        Status  = order.Status,
+        Total   = order.Total
+    });
+}</code></pre>
+
+    <h3>fire-and-forget</h3>
+    <pre><code><span class="kw">private static</span> <span class="ty">Task</span> <span class="me">HandleLogEvent</span>(<span class="ty">AncpActionContext</span>&lt;<span class="ty">LogEvent</span>&gt; ctx)
+{
+    _logger.<span class="me">LogInformation</span>(<span class="st">"Event: {Event} User: {User}"</span>,
+        ctx.Payload.EventType, ctx.CallerIdentity.Subject);
+    <span class="kw">return</span> <span class="ty">Task</span>.CompletedTask;
+}</code></pre>
+
+    <h3>streaming</h3>
+    <pre><code><span class="kw">private static async</span> <span class="ty">IAsyncEnumerable</span>&lt;<span class="ty">ReportChunk</span>&gt; <span class="me">HandleReport</span>(
+    <span class="ty">AncpActionContext</span>&lt;<span class="ty">ReportRequest</span>&gt; ctx)
+{
+    <span class="kw">await foreach</span> (<span class="kw">var</span> row <span class="kw">in</span> _reportService.<span class="me">StreamAsync</span>(ctx.Payload.Filters))
+    {
+        <span class="kw">yield return new</span> <span class="ty">ReportChunk</span> { Row = row };
+        <span class="kw">await</span> <span class="ty">Task</span>.<span class="me">Delay</span>(<span class="nu">10</span>); <span class="cm">// optional pacing</span>
+    }
+}</code></pre>
+
+    <h3>task-start (long-running)</h3>
+    <pre><code><span class="kw">private static async</span> <span class="ty">Task</span>&lt;<span class="ty">PayrollResult</span>&gt; <span class="me">HandlePayroll</span>(
+    <span class="ty">AncpActionContext</span>&lt;<span class="ty">PayrollInput</span>&gt; ctx,
+    <span class="ty">CancellationToken</span> ct)
+{
+    <span class="cm">// Use ctx.TaskContext to report progress (if injected)</span>
+    <span class="kw">var</span> result = <span class="kw">await</span> _payrollEngine.<span class="me">RunAsync</span>(ctx.Payload.Month, ct);
+    <span class="kw">return new</span> <span class="ty">PayrollResult</span>
+    {
+        EmployeesProcessed = result.Count,
+        TotalPaid          = result.Total
+    };
+}</code></pre>
+
+    <div class="callout tip">
+      <div class="label">Tip</div>
+      <p>Task handlers receive a <code>CancellationToken</code> that is triggered when the task is cancelled via <code>DELETE /ncp/nodes/{id}/tasks/{taskId}</code>. Always pass it through to database / HTTP calls.</p>
+    </div>
+  </section>
+
+  <section id="server-auth">
+    <h2>Server — Authentication</h2>
+    <p>Each node can accept multiple auth modes simultaneously. The first matching credential wins.</p>
+
+    <h3>JWT (Bearer token)</h3>
+    <pre><code>node.Auth.<span class="me">UseJwt</span>(cfg =>
+{
+    cfg.Issuer            = <span class="st">"https://auth.bizfirst.internal"</span>;
+    cfg.Audience          = <span class="st">"ancp"</span>;
+    cfg.Algorithms        = [<span class="st">"RS256"</span>];
+    <span class="cm">// JWK JSON or PEM string for signature validation</span>
+    cfg.PublicKeyOrJwksUrl = File.<span class="me">ReadAllText</span>(<span class="st">"keys/public.jwk"</span>);
+});</code></pre>
+
+    <h3>API Key</h3>
+    <pre><code>node.Auth.<span class="me">UseApiKey</span>(cfg =>
+{
+    <span class="cm">// Map keys to roles. Hash keys in production.</span>
+    cfg.Keys[<span class="st">"bfk_prod_abc123"</span>] = [<span class="st">"invoke"</span>, <span class="st">"stream"</span>];
+    cfg.Keys[<span class="st">"bfk_admin_xyz"</span>]   = [<span class="st">"invoke"</span>, <span class="st">"admin"</span>];
+});</code></pre>
+
+    <h3>DID Proof (Cross-node)</h3>
+    <pre><code>node.Auth.<span class="me">UseDid</span>(cfg =>
+{
+    cfg.AllowedMethods     = [<span class="st">"bizfirst"</span>, <span class="st">"key"</span>, <span class="st">"web"</span>];
+    cfg.MaxProofAgeMinutes = <span class="nu">5</span>;
+    cfg.NodeEndpointUrl    = <span class="st">"https://api.bizfirst.internal"</span>;
+});
+
+<span class="cm">// Register a real IDidResolver for production DID auth</span>
+services.<span class="me">AddSingleton</span>&lt;<span class="ty">IDidResolver</span>, <span class="ty">BizFirstDidResolver</span>&gt;();</code></pre>
+
+    <div class="callout warn">
+      <div class="label">Security</div>
+      <p>
+        Always configure a <code>PublicKeyOrJwksUrl</code> (JWK JSON) for JWT mode in production.
+        Without it the <code>DefaultJwtValidator</code> skips signature verification.
+        For DID auth, register a real <code>IDidResolver</code> — the default resolver always returns null.
+      </p>
+    </div>
+  </section>
+
+  <section id="server-payment">
+    <h2>Server — Payment Gating</h2>
+    <p>Gate actions behind on-chain USDC payments using the <code>ancp.pay</code> flow:</p>
+
+    <pre><code>node.Capability
+    .<span class="me">AddSystemActions</span>(nodeEntry, systemActionsConfig)
+    .<span class="me">AddPaymentAction</span>(nodeEntry,
+        config: <span class="kw">new</span> <span class="ty">AncpPaymentGateConfig</span>
+        {
+            EvmAddress            = <span class="st">"0xYourNodeWallet"</span>,
+            RequiredConfirmations = <span class="nu">3</span>,
+            SigningKeySecret      = secrets[<span class="st">"ancp-signing-key"</span>],
+            PriceList = [
+                <span class="kw">new</span> <span class="ty">PaymentPriceDef</span>
+                {
+                    Action             = <span class="st">"run-payroll"</span>,
+                    PriceUsdc          = <span class="nu">5.00m</span>,
+                    ReceiptValiditySec = <span class="nu">300</span>
+                }
+            ]
+        },
+        receiptStore: services.<span class="me">GetRequiredService</span>&lt;<span class="ty">IAncpReceiptStore</span>&gt;(),
+        web3:         services.<span class="me">GetRequiredService</span>&lt;<span class="ty">IWeb3Provider</span>&gt;());</code></pre>
+
+    <p>Clients pay by calling <code>ancp.pay</code> first, then pass the received <code>receiptId</code> in their action calls.</p>
+  </section>
+
+  <section id="server-di">
+    <h2>Server — Full DI Example</h2>
+    <pre><code><span class="cm">// Program.cs</span>
+<span class="kw">var</span> builder = WebApplication.<span class="me">CreateBuilder</span>(args);
+
+builder.Services
+    .<span class="me">AddAncp</span>(ancp =>
+    {
+        ancp.<span class="me">AddNode</span>(<span class="at">nodeId:</span> <span class="nu">42</span>, <span class="at">tenantId:</span> <span class="nu">7</span>, node =>
+        {
+            node.Auth.<span class="me">UseJwt</span>(<span class="at">issuer:</span> <span class="st">"https://auth.co"</span>, <span class="at">audience:</span> <span class="st">"ancp"</span>);
+
+            node.Capability
+                .<span class="me">OnInvoke</span>&lt;<span class="ty">PingRequest</span>, <span class="ty">PingResponse</span>&gt;(<span class="st">"my-ping"</span>,
+                    ctx => <span class="ty">Task</span>.<span class="me">FromResult</span>(<span class="kw">new</span> <span class="ty">PingResponse</span> { Echo = ctx.Payload.Echo }))
+                .<span class="me">OnStream</span>&lt;<span class="ty">SearchRequest</span>, <span class="ty">SearchResult</span>&gt;(<span class="st">"search"</span>, HandleSearch);
+        });
+    })
+    .<span class="me">AddSingleton</span>&lt;<span class="ty">IAncpReceiptStore</span>, <span class="ty">InMemoryAncpReceiptStore</span>&gt;()
+    .<span class="me">AddSingleton</span>&lt;<span class="ty">IDidResolver</span>, <span class="ty">DefaultDidResolver</span>&gt;();
+
+<span class="kw">var</span> app = builder.<span class="me">Build</span>();
+app.<span class="me">UseHttpsRedirection</span>();
+app.<span class="me">MapAncpReceiver</span>();
+app.<span class="me">Run</span>();</code></pre>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CLIENT SECTION
+  ═══════════════════════════════════════ -->
+
+  <section id="client-setup">
+    <h2>Client — AncpClient Setup (C#)</h2>
+    <pre><code><span class="cm">// Program.cs</span>
+builder.Services.<span class="me">AddAncpClient</span>(options =>
+{
+    options.BaseUrl    = <span class="st">"https://api.bizfirst.internal"</span>;
+    options.NodeId     = <span class="nu">42</span>;
+    options.TenantId   = <span class="nu">7</span>;
+    options.Auth.ApiKey = <span class="st">"bfk_prod_abc123"</span>;
+});
+
+<span class="cm">// Then inject IAncpClient wherever needed</span>
+<span class="kw">public class</span> <span class="ty">OrderService</span>(<span class="ty">IAncpClient</span> ancp)
+{
+    <span class="kw">public async</span> <span class="ty">Task</span>&lt;<span class="ty">OrderResult</span>&gt; <span class="me">GetOrderAsync</span>(<span class="kw">string</span> orderId)
+        => <span class="kw">await</span> ancp.<span class="me">InvokeAsync</span>&lt;<span class="ty">OrderQuery</span>, <span class="ty">OrderResult</span>&gt;(
+            <span class="st">"get-order"</span>, <span class="kw">new</span> <span class="ty">OrderQuery</span> { OrderId = orderId });
+}</code></pre>
+  </section>
+
+  <section id="client-invoke">
+    <h2>Client — Invoke Actions (C#)</h2>
+
+    <h3>Request-Reply</h3>
+    <pre><code><span class="kw">var</span> result = <span class="kw">await</span> ancpClient.<span class="me">InvokeAsync</span>&lt;<span class="ty">OrderQuery</span>, <span class="ty">OrderResult</span>&gt;(
+    action:  <span class="st">"get-order"</span>,
+    payload: <span class="kw">new</span> <span class="ty">OrderQuery</span> { OrderId = <span class="st">"ORD-123"</span> });</code></pre>
+
+    <h3>Fire-and-Forget</h3>
+    <pre><code><span class="kw">await</span> ancpClient.<span class="me">FireAndForgetAsync</span>&lt;<span class="ty">LogEvent</span>&gt;(
+    <span class="st">"log-event"</span>,
+    <span class="kw">new</span> <span class="ty">LogEvent</span> { EventType = <span class="st">"user-login"</span>, UserId = <span class="nu">7</span> });</code></pre>
+
+    <h3>Addressing — By NodeId</h3>
+    <pre><code><span class="kw">var</span> address = <span class="ty">NodeAddress</span>.<span class="me">FromNodeId</span>(<span class="at">tenantId:</span> <span class="nu">7</span>, <span class="at">nodeId:</span> <span class="nu">42</span>);
+<span class="kw">var</span> result  = <span class="kw">await</span> ancpClient.<span class="me">InvokeAsync</span>&lt;<span class="ty">Q</span>, <span class="ty">R</span>&gt;(<span class="st">"action"</span>, payload, address);</code></pre>
+
+    <h3>Addressing — By DID</h3>
+    <pre><code><span class="kw">var</span> address = <span class="ty">NodeAddress</span>.<span class="me">FromDid</span>(<span class="st">"did:bizfirst:node:42"</span>);
+<span class="kw">var</span> result  = <span class="kw">await</span> ancpClient.<span class="me">InvokeAsync</span>&lt;<span class="ty">Q</span>, <span class="ty">R</span>&gt;(<span class="st">"action"</span>, payload, address);</code></pre>
+  </section>
+
+  <section id="client-stream">
+    <h2>Client — Streaming (C#)</h2>
+    <pre><code><span class="kw">await foreach</span> (<span class="kw">var</span> chunk <span class="kw">in</span>
+    ancpClient.<span class="me">StreamAsync</span>&lt;<span class="ty">ReportRequest</span>, <span class="ty">ReportChunk</span>&gt;(
+        <span class="st">"generate-report"</span>,
+        <span class="kw">new</span> <span class="ty">ReportRequest</span> { Year = <span class="nu">2026</span> }))
+{
+    Console.<span class="me">WriteLine</span>(chunk.Row);
+}</code></pre>
+  </section>
+
+  <section id="client-tasks">
+    <h2>Client — Long-Running Tasks (C#)</h2>
+    <pre><code><span class="cm">// Start the task — returns immediately with a taskId</span>
+<span class="kw">var</span> taskId = <span class="kw">await</span> ancpClient.<span class="me">StartTaskAsync</span>&lt;<span class="ty">PayrollInput</span>&gt;(
+    <span class="st">"run-payroll"</span>,
+    <span class="kw">new</span> <span class="ty">PayrollInput</span> { Month = <span class="st">"2026-03"</span> });
+
+<span class="cm">// Poll until terminal state (Completed / Failed / Cancelled)</span>
+<span class="kw">var</span> finalStatus = <span class="kw">await</span> ancpClient.<span class="me">WaitForTaskAsync</span>&lt;<span class="ty">PayrollResult</span>&gt;(
+    taskId,
+    <span class="at">pollIntervalMs:</span> <span class="nu">2000</span>,
+    <span class="at">timeoutMs:</span>      <span class="nu">120_000</span>);
+
+<span class="kw">if</span> (finalStatus.State == <span class="ty">AncpTaskState</span>.Completed)
+    Console.<span class="me">WriteLine</span>(<span class="st">$"Paid {finalStatus.Result.EmployeesProcessed} employees"</span>);
+
+<span class="cm">// Cancel a running task</span>
+<span class="kw">await</span> ancpClient.<span class="me">CancelTaskAsync</span>(taskId);</code></pre>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TYPESCRIPT / REACT
+  ═══════════════════════════════════════ -->
+
+  <section id="ts-install">
+    <h2>TypeScript — Install Packages</h2>
+    <pre><code>npm install @bizfirst/ancp-core           <span class="cm"># Core client — browser + Node.js</span>
+npm install @bizfirst/ancp-react          <span class="cm"># React 18 hooks</span></code></pre>
+  </section>
+
+  <section id="ts-client">
+    <h2>TypeScript — AncpClient Usage</h2>
+
+    <h3>Request-Reply</h3>
+    <pre><code><span class="kw">import</span> { <span class="ty">AncpClient</span> } <span class="kw">from</span> <span class="st">'@bizfirst/ancp-core'</span>;
+
+<span class="kw">const</span> client = <span class="kw">new</span> <span class="ty">AncpClient</span>({
+  baseUrl: <span class="st">'https://api.bizfirst.internal'</span>,
+  nodeId:  <span class="nu">42</span>,
+  auth:    { apiKey: <span class="st">'bfk_...'</span> },
+});
+
+<span class="kw">const</span> result = <span class="kw">await</span> client.<span class="me">invoke</span>(<span class="st">'get-order'</span>, { orderId: <span class="st">'ORD-123'</span> });
+console.<span class="me">log</span>(result.status);</code></pre>
+
+    <h3>Streaming</h3>
+    <pre><code><span class="kw">for await</span> (<span class="kw">const</span> chunk <span class="kw">of</span> client.<span class="me">stream</span>(<span class="st">'generate-report'</span>, { year: <span class="nu">2026</span> })) {
+  console.<span class="me">log</span>(chunk);
+}</code></pre>
+
+    <h3>Long Tasks</h3>
+    <pre><code><span class="kw">const</span> taskId     = <span class="kw">await</span> client.<span class="me">startTask</span>(<span class="st">'run-payroll'</span>, { month: <span class="st">'2026-03'</span> });
+<span class="kw">const</span> finalStatus = <span class="kw">await</span> client.<span class="me">waitForTask</span>(taskId, { pollIntervalMs: <span class="nu">2000</span> });
+console.<span class="me">log</span>(finalStatus.state); <span class="cm">// 'Completed'</span></code></pre>
+
+    <h3>System Actions</h3>
+    <pre><code><span class="kw">const</span> ping = <span class="kw">await</span> client.<span class="me">ping</span>();
+<span class="kw">const</span> caps = <span class="kw">await</span> client.<span class="me">getCapabilities</span>();
+<span class="kw">const</span> doc  = <span class="kw">await</span> client.<span class="me">discover</span>(); <span class="cm">// /.well-known/ncp.json</span></code></pre>
+  </section>
+
+  <section id="react-provider">
+    <h2>React — Provider Setup</h2>
+    <p>Wrap your app (or a subtree) with <code>&lt;AncpProvider&gt;</code>:</p>
+    <pre><code><span class="kw">import</span> { <span class="ty">AncpProvider</span> } <span class="kw">from</span> <span class="st">'@bizfirst/ancp-react'</span>;
+
+<span class="kw">function</span> <span class="me">App</span>() {
+  <span class="kw">return</span> (
+    &lt;<span class="ty">AncpProvider</span> options={{
+      baseUrl: <span class="st">'https://api.bizfirst.internal'</span>,
+      nodeId:  <span class="nu">42</span>,
+      auth:    { jwtToken: token },
+    }}&gt;
+      &lt;<span class="ty">YourApp</span> /&gt;
+    &lt;/<span class="ty">AncpProvider</span>&gt;
+  );
+}
+
+<span class="cm">// For testing — inject a FakeAncpClient</span>
+<span class="kw">import</span> { <span class="ty">FakeAncpClient</span> } <span class="kw">from</span> <span class="st">'@bizfirst/ancp-core'</span>;
+<span class="kw">const</span> fake = <span class="kw">new</span> <span class="ty">FakeAncpClient</span>();
+fake.<span class="me">setupResponse</span>(<span class="st">'get-order'</span>, { status: <span class="st">'Active'</span> });
+
+&lt;<span class="ty">AncpProvider</span> client={fake}&gt;&lt;<span class="ty">MyComponent</span> /&gt;&lt;/<span class="ty">AncpProvider</span>&gt;</code></pre>
+  </section>
+
+  <section id="react-hooks">
+    <h2>React — Hooks Reference</h2>
+
+    <h3>useAncpInvoke — Request-Reply</h3>
+    <pre><code><span class="kw">const</span> { invoke, isLoading, data, error, reset } =
+  <span class="me">useAncpInvoke</span>&lt;<span class="ty">OrderQuery</span>, <span class="ty">OrderResult</span>&gt;(<span class="st">'get-order'</span>);
+
+<span class="kw">const</span> <span class="me">handleClick</span> = <span class="kw">async</span> () => {
+  <span class="kw">const</span> result = <span class="kw">await</span> <span class="me">invoke</span>({ orderId: <span class="st">'ORD-123'</span> });
+  console.<span class="me">log</span>(result.status);
+};</code></pre>
+
+    <h3>useAncpStream — Streaming</h3>
+    <pre><code><span class="kw">const</span> { start, stop, chunks, isStreaming, isDone, error } =
+  <span class="me">useAncpStream</span>&lt;<span class="ty">ReportRequest</span>, <span class="ty">ReportChunk</span>&gt;(<span class="st">'generate-report'</span>);
+
+<span class="kw">await</span> <span class="me">start</span>({ year: <span class="nu">2026</span> });
+<span class="cm">// chunks[] updates in real-time as SSE data arrives</span></code></pre>
+
+    <h3>useAncpTask — Long Tasks</h3>
+    <pre><code><span class="kw">const</span> { run, status, isPolling, error } =
+  <span class="me">useAncpTask</span>&lt;<span class="ty">PayrollInput</span>&gt;(<span class="st">'run-payroll'</span>);
+
+<span class="kw">const</span> <span class="me">handleRun</span> = <span class="kw">async</span> () => {
+  <span class="kw">const</span> finalStatus = <span class="kw">await</span> <span class="me">run</span>(
+    { month: <span class="st">'2026-03'</span> },
+    { pollIntervalMs: <span class="nu">2000</span>, timeoutMs: <span class="nu">120_000</span> }
+  );
+  <span class="kw">if</span> (finalStatus.state === <span class="st">'Completed'</span>) <span class="me">showSuccess</span>();
+};</code></pre>
+
+    <h3>useAncpCapabilities — Discovery</h3>
+    <pre><code><span class="kw">const</span> { actions, payableActions, isLoading, refresh } = <span class="me">useAncpCapabilities</span>();
+
+<span class="kw">return</span> (
+  &lt;ul&gt;
+    {actions.<span class="me">map</span>(a => &lt;li key={a.action}&gt;{a.action} ({a.pattern})&lt;/li&gt;)}
+  &lt;/ul&gt;
+);</code></pre>
+
+    <h3>useAncpPing — Reachability</h3>
+    <pre><code><span class="kw">const</span> { isReachable, isLoading } = <span class="me">useAncpPing</span>();
+<span class="kw">if</span> (!isLoading &amp;&amp; !isReachable) <span class="kw">return</span> &lt;<span class="ty">NodeOfflineBanner</span> /&gt;;</code></pre>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       REFERENCE
+  ═══════════════════════════════════════ -->
+
+  <section id="auth-modes">
+    <h2>Auth Modes Reference</h2>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Mode</th><th>Header</th><th>Priority</th><th>Use Case</th></tr>
+      <tr><td>JWT</td><td><code>Authorization: Bearer &lt;token&gt;</code></td><td>1st (highest)</td><td>Human users, external IdPs (Auth0, Keycloak)</td></tr>
+      <tr><td>API Key</td><td><code>X-Ancp-Api-Key: bfk_...</code></td><td>2nd</td><td>Service-to-service, CI/CD pipelines</td></tr>
+      <tr><td>DID Proof</td><td><code>X-Ancp-Did-Proof: &lt;jwt&gt;</code></td><td>3rd</td><td>Cross-node calls where caller has a DID</td></tr>
+    </table>
+    </div>
+    <p>
+      DID proofs are JWT tokens signed by the caller's DID key. The audience MUST equal the
+      target node's endpoint URL to prevent replay attacks.
+    </p>
+  </section>
+
+  <section id="system-actions">
+    <h2>System Actions Reference</h2>
+    <p>All nodes automatically expose these <code>ancp.*</code> system actions:</p>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Action</th><th>Pattern</th><th>Description</th></tr>
+      <tr><td><code>ancp.ping</code></td><td>request-reply</td><td>Health check — returns nodeId, uptime, version</td></tr>
+      <tr><td><code>ancp.capabilities</code></td><td>request-reply</td><td>Lists all registered actions with patterns and pricing</td></tr>
+      <tr><td><code>ancp.negotiate</code></td><td>request-reply</td><td>Pre-call capability negotiation — checks if actions exist</td></tr>
+      <tr><td><code>ancp.payment-info</code></td><td>request-reply</td><td>Returns node's EVM address, accepted tokens, price list</td></tr>
+      <tr><td><code>ancp.pay</code></td><td>request-reply</td><td>Submit a payment txHash and receive a signed receipt</td></tr>
+      <tr><td><code>ancp.status</code></td><td>request-reply</td><td>Operational status — environment, model, accepting calls</td></tr>
+    </table>
+    </div>
+    <p>Discovery document at <code>GET /.well-known/ncp.json</code> lists all nodes and their capabilities.</p>
+  </section>
+
+  <section id="testing">
+    <h2>Testing</h2>
+
+    <h3>C# — Unit Tests with Mock</h3>
+    <pre><code><span class="kw">var</span> mockStore   = <span class="kw">new</span> <span class="ty">Mock</span>&lt;<span class="ty">IAncpTaskStore</span>&gt;();
+<span class="kw">var</span> capability  = <span class="kw">new</span> <span class="ty">AncpNodeCapability</span>(mockStore.Object);
+
+capability.<span class="me">OnInvoke</span>&lt;<span class="ty">Req</span>, <span class="ty">Res</span>&gt;(<span class="st">"my-action"</span>,
+    ctx => <span class="ty">Task</span>.<span class="me">FromResult</span>(<span class="kw">new</span> <span class="ty">Res</span> { Ok = <span class="kw">true</span> }));
+
+<span class="kw">var</span> result = <span class="kw">await</span> capability.<span class="me">DispatchAsync</span>(<span class="kw">new</span> <span class="ty">AncpActionContext</span>
+{
+    Action  = <span class="st">"my-action"</span>,
+    Pattern = <span class="st">"request-reply"</span>,
+    Payload = <span class="ty">JsonSerializer</span>.<span class="me">SerializeToElement</span>(<span class="kw">new</span> <span class="ty">Req</span>())
+});
+
+<span class="ty">Assert</span>.<span class="me">Equal</span>(<span class="ty">AncpDispatchResultKind</span>.Response, result.Kind);</code></pre>
+
+    <h3>TypeScript — FakeAncpClient</h3>
+    <pre><code><span class="kw">import</span> { <span class="ty">FakeAncpClient</span> } <span class="kw">from</span> <span class="st">'@bizfirst/ancp-core'</span>;
+
+<span class="kw">const</span> fake = <span class="kw">new</span> <span class="ty">FakeAncpClient</span>();
+fake.<span class="me">setupResponse</span>(<span class="st">'get-order'</span>, { status: <span class="st">'Active'</span>, total: <span class="nu">99.99</span> });
+fake.<span class="me">setupError</span>(<span class="st">'bad-action'</span>, <span class="kw">new</span> <span class="ty">AncpError</span>(<span class="st">'Unauthorized'</span>, <span class="nu">401</span>));
+fake.<span class="me">setupStream</span>(<span class="st">'generate-report'</span>, [chunk1, chunk2, chunk3]);
+
+<span class="kw">const</span> result = <span class="kw">await</span> fake.<span class="me">invoke</span>(<span class="st">'get-order'</span>, { orderId: <span class="st">'ORD-1'</span> });
+
+<span class="cm">// Assert what was called</span>
+expect(fake.capturedCalls[<span class="nu">0</span>].action).<span class="me">toBe</span>(<span class="st">'get-order'</span>);</code></pre>
+
+    <h3>React — Testing with FakeAncpClient</h3>
+    <pre><code><span class="kw">import</span> { render } <span class="kw">from</span> <span class="st">'@testing-library/react'</span>;
+<span class="kw">import</span> { <span class="ty">FakeAncpClient</span> } <span class="kw">from</span> <span class="st">'@bizfirst/ancp-core'</span>;
+<span class="kw">import</span> { <span class="ty">AncpProvider</span> } <span class="kw">from</span> <span class="st">'@bizfirst/ancp-react'</span>;
+
+<span class="kw">const</span> fake = <span class="kw">new</span> <span class="ty">FakeAncpClient</span>();
+fake.<span class="me">setupResponse</span>(<span class="st">'get-order'</span>, { status: <span class="st">'Active'</span> });
+
+<span class="me">render</span>(
+  &lt;<span class="ty">AncpProvider</span> client={fake}&gt;
+    &lt;<span class="ty">OrderStatus</span> orderId=<span class="st">"ORD-1"</span> /&gt;
+  &lt;/<span class="ty">AncpProvider</span>&gt;
+);</code></pre>
+  </section>
+
+  <section id="observability">
+    <h2>Observability</h2>
+    <p>ANCP is instrumented with OpenTelemetry out of the box:</p>
+
+    <div class="table-wrap">
+    <table>
+      <tr><th>Signal</th><th>Source</th><th>Details</th></tr>
+      <tr><td>Traces</td><td><code>BizFirst.Ancp.Node</code> (ActivitySource)</td><td>One span per incoming ANCP call with action, pattern, nodeId tags</td></tr>
+      <tr><td>Traces</td><td><code>BizFirst.Ancp.Client</code> (ActivitySource)</td><td>One span per outgoing call with target address and duration</td></tr>
+      <tr><td>Metrics</td><td><code>BizFirst.Ancp</code> (Meter)</td><td><code>ancp.node.calls.total</code>, <code>ancp.node.auth.failures</code>, <code>ancp.node.stream.chunks</code></td></tr>
+    </table>
+    </div>
+
+    <h3>Register with OpenTelemetry</h3>
+    <pre><code>builder.Services.<span class="me">AddOpenTelemetry</span>()
+    .<span class="me">WithTracing</span>(tracing =>
+    {
+        tracing
+            .<span class="me">AddSource</span>(<span class="st">"BizFirst.Ancp.Node"</span>)
+            .<span class="me">AddSource</span>(<span class="st">"BizFirst.Ancp.Client"</span>)
+            .<span class="me">AddOtlpExporter</span>();
+    })
+    .<span class="me">WithMetrics</span>(metrics =>
+    {
+        metrics
+            .<span class="me">AddMeter</span>(<span class="st">"BizFirst.Ancp"</span>)
+            .<span class="me">AddOtlpExporter</span>();
+    });</code></pre>
+
+    <div class="callout tip">
+      <div class="label">Production checklist</div>
+      <p>
+        1. Configure JWT <code>PublicKeyOrJwksUrl</code> for signature validation. <br/>
+        2. Replace <code>DefaultDidResolver</code> with a real resolver for DID auth. <br/>
+        3. Replace <code>InMemoryAncpTaskStore</code> / <code>InMemoryAncpReceiptStore</code> with Redis-backed stores for multi-instance deployments. <br/>
+        4. Store <code>SigningKeySecret</code> in a secrets manager (Azure Key Vault, AWS Secrets Manager). <br/>
+        5. Set <code>RequiredConfirmations ≥ 3</code> for payment gating on mainnet.
+      </p>
+    </div>
+  </section>
+
+  <footer style="margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12px;">
+    <p>ANCP Getting Started Guide · Part of the <strong>BizFirst Discovery Specification</strong> · v1.0.2</p>
+    <p style="margin-top:4px;">© 2026 BizFirst AI · Specification contributors: Binoy Jose, Shilja Jose, Namita Jos, Benoy Varghese and team.</p>
+  </footer>
+
+</main>
+
+<script>
+  // Highlight active nav link based on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/* ============================================================
+   b-buttons.css — BizFirstAi
+   Button and CTA component styles with b- prefix
+   ============================================================ */
+
+/* ── Button Base ──────────────────────────────────────────– */
+.b-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--b-space-3) var(--b-space-8);
+  border-radius: var(--b-radius-full);
+  font-weight: var(--b-font-weight-semibold);
+  font-size: var(--b-font-size-base);
+  transition: all var(--b-transition-normal);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* ── Primary Button ───────────────────────────────────────– */
+.b-btn-primary {
+  background: linear-gradient(135deg, var(--b-color-primary), var(--b-color-primary-hover));
+  color: var(--b-bg-base);
+  border-color: transparent;
+}
+
+.b-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
+}
+
+/* ── Secondary Button ─────────────────────────────────────– */
+.b-btn-secondary {
+  background: transparent;
+  color: var(--b-color-primary);
+  border: 1px solid var(--b-color-primary);
+}
+
+.b-btn-secondary:hover {
+  background: var(--b-btn-secondary-hover-bg);
+  border-color: var(--b-color-primary-hover);
+  color: var(--b-color-primary-hover);
+}
+
+/* ── Size Variants ────────────────────────────────────────– */
+.b-btn-large {
+  padding: var(--b-space-6) var(--b-space-16);
+  font-size: var(--b-font-size-lg);
+}
+
+.b-btn-small {
+  padding: var(--b-space-2) var(--b-space-4);
+  font-size: var(--b-font-size-sm);
+}
+
+/* ── State Variants ───────────────────────────────────────– */
+.b-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.b-btn:active {
+  transform: translateY(1px);
+}
+
+/* ── CTA Button Group ─────────────────────────────────────– */
+.b-btn-group {
+  display: flex;
+  gap: var(--b-space-6);
+  flex-wrap: wrap;
+}
+
+/* ── Responsive ───────────────────────────────────────────– */
+@media (max-width: 768px) {
+  .b-btn-group {
+    flex-direction: column;
+  }
+
+  .b-btn-large {
+    width: 100%;
+  }
+}

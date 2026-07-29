@@ -1,0 +1,185 @@
+/* ============================================================
+   b-contact.css — BizFirstAi
+   Contact page — paths, form, support, location
+   ============================================================ */
+
+/* ── Contact Paths (3 cards) ─────────────────────────────── */
+.b-contact-paths {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--b-space-6);
+  margin-top: var(--b-space-16);
+}
+
+.b-contact-path {
+  background: var(--b-card-bg);
+  border: 1px solid var(--b-card-border);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-4);
+  transition: all var(--b-transition-normal);
+}
+
+.b-contact-path:hover {
+  border-color: var(--b-color-primary);
+  background: var(--b-card-hover-bg);
+  transform: translateY(-4px);
+}
+
+.b-contact-path__icon {
+  width: 48px;
+  height: 48px;
+  background: var(--b-color-primary-subtle);
+  border: 1px solid var(--b-border-primary);
+  border-radius: var(--b-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--b-color-primary);
+  flex-shrink: 0;
+}
+
+.b-contact-path__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.b-contact-path__title {
+  font-size: var(--b-font-size-lg);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-text-primary);
+}
+
+.b-contact-path__desc {
+  font-size: var(--b-font-size-sm);
+  color: var(--b-text-muted);
+  line-height: var(--b-line-height-relaxed);
+  flex: 1;
+}
+
+/* ── Contact Form + Info Layout ──────────────────────────── */
+.b-contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--b-space-12);
+  margin-top: var(--b-space-16);
+  align-items: start;
+}
+
+.b-contact-form {
+  background: var(--b-card-bg);
+  border: 1px solid var(--b-card-border);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-10);
+}
+
+.b-contact-form__title {
+  font-size: var(--b-font-size-xl);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-text-primary);
+  margin-bottom: var(--b-space-8);
+}
+
+.b-contact-form__success {
+  display: none;
+  padding: var(--b-space-6);
+  background: var(--b-color-primary-subtle);
+  border: 1px solid var(--b-border-primary);
+  border-radius: var(--b-radius-lg);
+  color: var(--b-color-primary-light);
+  font-size: var(--b-font-size-base);
+  font-weight: var(--b-font-weight-medium);
+  text-align: center;
+}
+
+/* ── Side Info Panels ─────────────────────────────────────── */
+.b-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-6);
+}
+
+.b-contact-info-panel {
+  background: var(--b-card-bg);
+  border: 1px solid var(--b-card-border);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-8);
+}
+
+.b-contact-info-panel__title {
+  font-size: var(--b-font-size-md);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-text-primary);
+  margin-bottom: var(--b-space-4);
+}
+
+.b-contact-info-panel__body {
+  font-size: var(--b-font-size-sm);
+  color: var(--b-text-muted);
+  line-height: var(--b-line-height-relaxed);
+}
+
+.b-contact-info-panel__email {
+  display: inline-block;
+  margin-top: var(--b-space-3);
+  color: var(--b-color-primary);
+  font-weight: var(--b-font-weight-medium);
+  font-size: var(--b-font-size-sm);
+  transition: color var(--b-transition-fast);
+}
+
+.b-contact-info-panel__email:hover {
+  color: var(--b-color-primary-light);
+}
+
+.b-contact-location-list {
+  list-style: none;
+  margin: var(--b-space-3) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-2);
+}
+
+.b-contact-location-list li {
+  font-size: var(--b-font-size-sm);
+  color: var(--b-text-muted);
+  padding-left: var(--b-space-5);
+  position: relative;
+}
+
+.b-contact-location-list li::before {
+  content: '·';
+  position: absolute;
+  left: var(--b-space-2);
+  color: var(--b-color-primary);
+  font-weight: var(--b-font-weight-bold);
+}
+
+.b-contact-location-list li.b-contact-location-list--hq {
+  color: var(--b-text-secondary);
+  font-weight: var(--b-font-weight-medium);
+}
+
+.b-contact-location-list li.b-contact-location-list--hq::before {
+  content: '★';
+  font-size: 10px;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .b-contact-layout {
+    grid-template-columns: 1fr;
+  }
+  .b-contact-paths {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .b-contact-paths {
+    grid-template-columns: 1fr;
+  }
+}

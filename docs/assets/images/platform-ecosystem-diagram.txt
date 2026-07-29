@@ -1,0 +1,11 @@
+IMAGE: platform-ecosystem-diagram.png
+DIMENSIONS: 1200 x 800px
+USED ON: Platform page, Section 2
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Deep dark green-black background (#080F08). A precise, clean architecture diagram showing 12 product nodes grouped into 5 labeled categories. Categories are: "Build UI App" (Atlas Forms, Edge Interact, Edge Stream), "Orchestrate AI" (Flow, Octopus, ANCP, BizFirst Observe), "Secure" (Passport, OperateAi), "Launch SaaS" (MarketHub, Install Hub), "Data" (Data Ocean). Each category is enclosed in a subtle rounded rectangle with a soft green border (#16A34A). Nodes are connected by glowing directional arrows in Brand Green (#16A34A) showing integration flow. A central hub or ring connects all categories. White product name labels, green category labels. Clean, technical, like an AWS architecture diagram but beautiful and dark. No clutter. Enterprise-grade precision.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Dark navy background (#0A0F1E). A precise, clean architecture diagram showing 12 product nodes grouped into 5 labeled categories. Categories are: "Build UI App" (Atlas Forms, Edge Interact, Edge Stream), "Orchestrate AI" (Flow, Octopus, ANCP, BizFirst Observe), "Secure" (Passport, OperateAi), "Launch SaaS" (MarketHub, Install Hub), "Data" (Data Ocean). Each category is enclosed in a subtle rounded rectangle with a soft indigo border. Nodes are connected by glowing directional arrows in Electric Indigo (#6366F1) showing integration flow. A central hub or ring connects all categories. White product name labels, indigo category labels. Clean, technical, like an AWS architecture diagram but beautiful and dark. No clutter. Enterprise-grade precision.

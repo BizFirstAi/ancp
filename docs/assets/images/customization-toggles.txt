@@ -1,0 +1,11 @@
+IMAGE: customization-toggles.png
+DIMENSIONS: 1000 x 600px
+USED ON: Home page Section 7
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Dark green-tinted surface panel (#0C150C) with subtle border in Brand Green (#16A34A). A clean UI mockup showing a settings panel with grouped toggle switches. Groups labeled: "Observability Provider" (toggles for Prometheus ON, Datadog OFF, New Relic OFF), "LLM Provider" (OpenAI ON, Anthropic ON, LangChain OFF), "Identity Provider" (Passport ON, Auth0 OFF, Okta OFF), "Messaging Channel" (Email ON, Slack OFF, Teams OFF). Toggle switches that are ON glow in Brand Green (#16A34A). Toggle switches that are OFF are grey. Clean sans-serif typography in white. Rounded card style. Subtle drop shadow. Looks like a real premium SaaS settings panel. No gradients — flat with green glow accents only.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Dark surface panel (#1E293B) with subtle border in Electric Indigo. A clean UI mockup showing a settings panel with grouped toggle switches. Groups labeled: "Observability Provider" (toggles for Prometheus ON, Datadog OFF, New Relic OFF), "LLM Provider" (OpenAI ON, Anthropic ON, LangChain OFF), "Identity Provider" (Passport ON, Auth0 OFF, Okta OFF), "Messaging Channel" (Email ON, Slack OFF, Teams OFF). Toggle switches that are ON glow in Electric Indigo (#6366F1). Toggle switches that are OFF are grey. Clean sans-serif typography in white. Rounded card style. Subtle drop shadow. Looks like a real premium SaaS settings panel. No gradients — flat with glow accents only.

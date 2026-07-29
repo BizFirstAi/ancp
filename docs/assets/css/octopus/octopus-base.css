@@ -1,0 +1,293 @@
+/*
+ * octopus-base.css
+ * Base/foundation styles for all octopus components
+ *
+ * Provides:
+ * - Progress bar styles
+ * - Typography defaults
+ * - Common animations
+ * - Utility classes
+ *
+ * Each component can override these with component-specific styles
+ */
+
+/* ── Progress Bar (Universal) ───────────────────────────────── */
+/* Pattern: [component] .oct-progress */
+
+[class*='octopus'] .oct-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--oct-green, #16A34A);
+  box-shadow: 0 0 10px var(--oct-green-glow, rgba(22,163,74,0.25));
+  z-index: var(--oct-z-fixed, 999);
+  width: 0;
+  transition: width var(--oct-duration-fast) linear;
+  pointer-events: none;
+}
+
+/* Fallback for specific components */
+octopus-stage .oct-progress {
+  background: var(--oct-teal-bright);
+  box-shadow: 0 0 10px var(--oct-teal-glow);
+}
+
+/* ── Typography Base ────────────────────────────────────────– */
+/* Base text styles for all octopus components */
+
+[class*='octopus'] {
+  font-family: var(--oct-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--oct-text);
+}
+
+/* Headings */
+[class*='octopus'] h1,
+[class*='octopus'] h2,
+[class*='octopus'] h3,
+[class*='octopus'] h4,
+[class*='octopus'] h5,
+[class*='octopus'] h6 {
+  font-weight: var(--oct-weight-extrabold);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+[class*='octopus'] h1 {
+  font-size: clamp(48px, 9vw, 96px);
+  line-height: 1.0;
+}
+
+[class*='octopus'] h2 {
+  font-size: clamp(28px, 5vw, 56px);
+  line-height: 1.1;
+}
+
+[class*='octopus'] h3 {
+  font-size: clamp(20px, 4vw, 32px);
+  line-height: 1.15;
+}
+
+/* Emphasis in headings */
+[class*='octopus'] h1 em,
+[class*='octopus'] h2 em,
+[class*='octopus'] h3 em {
+  font-style: normal;
+  color: var(--oct-teal);
+  font-weight: var(--oct-weight-extrabold);
+}
+
+/* Paragraphs */
+[class*='octopus'] p {
+  margin: 0;
+  line-height: 1.65;
+  color: var(--oct-dimmed);
+  font-size: clamp(14px, 2vw, 16px);
+}
+
+/* Links */
+[class*='octopus'] a {
+  color: var(--oct-teal-bright);
+  text-decoration: none;
+  transition: color var(--oct-duration-normal);
+}
+
+[class*='octopus'] a:hover {
+  color: var(--oct-green);
+}
+
+/* ── Button Base Styles ─────────────────────────────────────– */
+/* Pattern: [component] .oct-btn, .oct-cta, .oct-button */
+
+[class*='octopus'] [class*='btn'],
+[class*='octopus'] [class*='cta'],
+[class*='octopus'] [class*='button'] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--oct-spacing-sm);
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: var(--oct-weight-semibold);
+  color: #ffffff;
+  background: var(--oct-green);
+  border: none;
+  border-radius: var(--oct-radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--oct-duration-normal), box-shadow var(--oct-duration-normal);
+}
+
+[class*='octopus'] [class*='btn']:hover,
+[class*='octopus'] [class*='cta']:hover,
+[class*='octopus'] [class*='button']:hover {
+  background: #15803d;
+  box-shadow: 0 0 28px var(--oct-green-glow);
+}
+
+/* ── Canvas Base Styles ────────────────────────────────────– */
+/* Pattern: [component] canvas */
+
+[class*='octopus'] canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Container Base Styles ─────────────────────────────────– */
+/* Common container patterns */
+
+[class*='octopus'] [class*='container'],
+[class*='octopus'] [class*='inner'] {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── Section Base Styles ────────────────────────────────────– */
+/* Common section patterns */
+
+[class*='octopus'] [class*='section'] {
+  position: relative;
+  background: var(--oct-bg);
+}
+
+[class*='octopus'] [class*='section']:nth-child(odd) {
+  background: var(--oct-bg-light, #080F08);
+}
+
+/* ── Eyebrow/Label Styles ──────────────────────────────────– */
+/* Pattern: [component] .oct-eyebrow */
+
+[class*='octopus'] .oct-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--oct-spacing-sm);
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: var(--oct-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--oct-teal-bright);
+  border: 1px solid rgba(45, 212, 191, 0.18);
+  border-radius: var(--oct-radius-full);
+  background: rgba(45, 212, 191, 0.05);
+  margin-bottom: var(--oct-spacing-lg);
+}
+
+[class*='octopus'] .oct-eyebrow span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--oct-teal-bright);
+  box-shadow: 0 0 8px var(--oct-teal-glow);
+  animation: oct-pulse var(--oct-duration-very-slow) var(--oct-easing-ease-in-out) infinite;
+}
+
+/* ── Scroll Cue Styles ─────────────────────────────────────– */
+/* Pattern: [component] .oct-scroll-cue */
+
+[class*='octopus'] .oct-scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--oct-spacing-md);
+  color: var(--oct-vdimmed);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: oct-cue var(--oct-duration-very-slow) var(--oct-easing-ease-in-out) infinite;
+}
+
+[class*='octopus'] .oct-scroll-cue svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--oct-teal);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+/* ── Text Visibility/Show States ────────────────────────────– */
+/* Pattern: [component] .show */
+
+[class*='octopus'] .show {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+[class*='octopus'] [class*='hidden'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Utility Classes ────────────────────────────────────────– */
+
+[class*='octopus'] .oct-no-scroll {
+  overflow: hidden;
+}
+
+[class*='octopus'] .oct-pointer-none {
+  pointer-events: none;
+}
+
+[class*='octopus'] .oct-text-center {
+  text-align: center;
+}
+
+[class*='octopus'] .oct-text-left {
+  text-align: left;
+}
+
+[class*='octopus'] .oct-text-right {
+  text-align: right;
+}
+
+/* ── Responsive Base Styles ────────────────────────────────– */
+
+@media (max-width: 768px) {
+  [class*='octopus'] h1 {
+    font-size: clamp(32px, 7vw, 48px);
+  }
+
+  [class*='octopus'] h2 {
+    font-size: clamp(24px, 5vw, 32px);
+  }
+
+  [class*='octopus'] [class*='btn'],
+  [class*='octopus'] [class*='cta'],
+  [class*='octopus'] [class*='button'] {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  [class*='octopus'] h1 {
+    font-size: clamp(24px, 6vw, 32px);
+  }
+
+  [class*='octopus'] h2 {
+    font-size: clamp(20px, 4.5vw, 24px);
+  }
+
+  [class*='octopus'] p {
+    font-size: clamp(12px, 3vw, 14px);
+  }
+}
+
+/* ── Print Styles ──────────────────────────────────────────– */
+
+@media print {
+  [class*='octopus'] canvas {
+    display: none;
+  }
+
+  [class*='octopus'] .oct-progress,
+  [class*='octopus'] [class*='nav'],
+  [class*='octopus'] [class*='header'] {
+    display: none;
+  }
+}

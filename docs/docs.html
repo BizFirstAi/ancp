@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="https://bizfirstai.com/website/assets/Logo/logo-m.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ANCP Documentation — get from zero to your first agent call in 15 minutes. React hooks, C# node handlers, messaging patterns, and authentication modes explained.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ANCP Documentation — Agentic Node Communication Protocol">
+  <meta property="og:description" content="From zero to your first agent call in 15 minutes. Full reference for ANCP messaging patterns, React hooks, and C# node handlers.">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ANCP Documentation">
+  <meta name="twitter:description" content="From zero to your first agent call in 15 minutes.">
+
+  <title>Documentation — ANCP by BizFirstAi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://bizfirstai.com/website/assets/css/b-index.css">
+
+  <style>
+    /* ── Docs two-column layout ──────────────────────────────── */
+    .ancp-docs-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 0;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--b-space-8);
+      min-height: calc(100vh - 60px);
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+    .ancp-docs-sidebar {
+      border-right: 1px solid var(--b-border-subtle);
+      padding: var(--b-space-16) var(--b-space-8) var(--b-space-16) 0;
+      position: sticky;
+      top: 60px;
+      align-self: start;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+    }
+
+    .ancp-docs-nav h4 {
+      font-size: var(--b-font-size-xs);
+      font-weight: var(--b-font-weight-bold);
+      color: var(--b-text-muted);
+      text-transform: uppercase;
+      letter-spacing: var(--b-letter-spacing-wide);
+      margin: var(--b-space-8) 0 var(--b-space-3);
+    }
+
+    .ancp-docs-nav h4:first-child {
+      margin-top: 0;
+    }
+
+    .ancp-docs-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .ancp-docs-nav li {
+      margin-bottom: var(--b-space-1);
+    }
+
+    .ancp-docs-nav a {
+      display: block;
+      padding: var(--b-space-2) var(--b-space-3);
+      border-radius: var(--b-radius-md);
+      font-size: var(--b-font-size-sm);
+      color: var(--b-text-muted);
+      text-decoration: none;
+      transition: all var(--b-transition-fast);
+    }
+
+    .ancp-docs-nav a:hover,
+    .ancp-docs-nav a.ancp-active {
+      color: var(--b-color-primary);
+      background: var(--b-color-primary-subtle);
+    }
+
+    /* ── Content area ────────────────────────────────────────── */
+    .ancp-docs-content {
+      padding: var(--b-space-16) var(--b-space-16) var(--b-space-20);
+    }
+
+    .ancp-docs-content h1 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: var(--b-font-weight-black);
+      color: var(--b-text-primary);
+      margin-bottom: var(--b-space-6);
+    }
+
+    .ancp-docs-content h2 {
+      font-size: var(--b-font-size-2xl);
+      font-weight: var(--b-font-weight-bold);
+      color: var(--b-text-primary);
+      margin: var(--b-space-16) 0 var(--b-space-6);
+      padding-top: var(--b-space-8);
+      border-top: 1px solid var(--b-border-subtle);
+    }
+
+    .ancp-docs-content h2:first-of-type {
+      margin-top: var(--b-space-12);
+      border-top: none;
+    }
+
+    .ancp-docs-content h3 {
+      font-size: var(--b-font-size-xl);
+      font-weight: var(--b-font-weight-semibold);
+      color: var(--b-color-primary);
+      margin: var(--b-space-10) 0 var(--b-space-4);
+    }
+
+    .ancp-docs-content p {
+      color: var(--b-text-muted);
+      font-size: var(--b-font-size-base);
+      line-height: var(--b-line-height-relaxed);
+      margin-bottom: var(--b-space-6);
+    }
+
+    .ancp-docs-content ul {
+      list-style: none;
+      margin: 0 0 var(--b-space-6);
+      padding: 0;
+    }
+
+    .ancp-docs-content ul li {
+      color: var(--b-text-muted);
+      font-size: var(--b-font-size-base);
+      padding: var(--b-space-2) 0 var(--b-space-2) var(--b-space-6);
+      position: relative;
+      line-height: var(--b-line-height-relaxed);
+    }
+
+    .ancp-docs-content ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--b-color-primary);
+      font-weight: var(--b-font-weight-bold);
+    }
+
+    /* ── Code block ──────────────────────────────────────────── */
+    .ancp-code-block {
+      background: var(--b-card-bg);
+      border: 1px solid var(--b-card-border);
+      border-radius: var(--b-radius-xl);
+      overflow: hidden;
+      margin: var(--b-space-6) 0;
+    }
+
+    .ancp-code-block__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--b-space-3) var(--b-space-6);
+      border-bottom: 1px solid var(--b-card-border);
+      background: var(--b-card-hover-bg);
+    }
+
+    .ancp-code-block__lang {
+      font-size: var(--b-font-size-xs);
+      font-weight: var(--b-font-weight-semibold);
+      color: var(--b-color-primary);
+      text-transform: uppercase;
+      letter-spacing: var(--b-letter-spacing-wide);
+    }
+
+    .ancp-code-block pre {
+      margin: 0;
+      padding: var(--b-space-8);
+      overflow-x: auto;
+    }
+
+    .ancp-code-block code {
+      font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+      font-size: var(--b-font-size-sm);
+      color: var(--b-text-primary);
+      line-height: 1.7;
+    }
+
+    /* ── Next steps card row ─────────────────────────────────── */
+    .ancp-docs-next {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--b-space-6);
+      margin-top: var(--b-space-8);
+    }
+
+    .ancp-docs-next__card {
+      background: var(--b-card-bg);
+      border: 1px solid var(--b-card-border);
+      border-radius: var(--b-radius-xl);
+      padding: var(--b-space-6) var(--b-space-8);
+      text-decoration: none;
+      transition: all var(--b-transition-normal);
+      display: block;
+    }
+
+    .ancp-docs-next__card:hover {
+      border-color: var(--b-color-primary);
+      background: var(--b-card-hover-bg);
+      transform: translateY(-4px);
+    }
+
+    .ancp-docs-next__card-label {
+      font-size: var(--b-font-size-xs);
+      font-weight: var(--b-font-weight-bold);
+      color: var(--b-color-primary);
+      text-transform: uppercase;
+      letter-spacing: var(--b-letter-spacing-wide);
+      margin-bottom: var(--b-space-2);
+    }
+
+    .ancp-docs-next__card-title {
+      font-size: var(--b-font-size-base);
+      font-weight: var(--b-font-weight-semibold);
+      color: var(--b-text-primary);
+    }
+
+    /* ── Concept table ───────────────────────────────────────── */
+    .ancp-concept-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--b-space-6) 0;
+    }
+
+    .ancp-concept-table th {
+      text-align: left;
+      padding: var(--b-space-3) var(--b-space-5);
+      font-size: var(--b-font-size-sm);
+      font-weight: var(--b-font-weight-semibold);
+      color: var(--b-color-primary);
+      border-bottom: 1px solid var(--b-card-border);
+    }
+
+    .ancp-concept-table td {
+      padding: var(--b-space-3) var(--b-space-5);
+      font-size: var(--b-font-size-sm);
+      color: var(--b-text-muted);
+      border-bottom: 1px solid var(--b-border-subtle);
+      line-height: var(--b-line-height-relaxed);
+      vertical-align: top;
+    }
+
+    .ancp-concept-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ── Callout note ────────────────────────────────────────── */
+    .ancp-docs-note {
+      background: var(--b-color-primary-subtle);
+      border: 1px solid var(--b-border-primary);
+      border-left: 4px solid var(--b-color-primary);
+      border-radius: var(--b-radius-lg);
+      padding: var(--b-space-5) var(--b-space-6);
+      margin: var(--b-space-6) 0;
+    }
+
+    .ancp-docs-note p {
+      margin: 0;
+      font-size: var(--b-font-size-sm);
+      color: var(--b-text-primary);
+    }
+
+    /* ── Concept table overflow ─────────────────────────────── */
+    .ancp-concept-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: var(--b-space-6) 0;
+    }
+    .ancp-concept-table-wrap .ancp-concept-table {
+      margin: 0;
+      min-width: 480px;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .ancp-docs-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .ancp-docs-sidebar {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--b-border-subtle);
+        padding: var(--b-space-6) 0;
+      }
+
+      /* Compact pill nav on tablet/mobile — no section headings */
+      .ancp-docs-nav h4 {
+        display: none;
+      }
+
+      .ancp-docs-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--b-space-2);
+        padding: var(--b-space-1) 0;
+      }
+
+      .ancp-docs-nav li {
+        margin-bottom: 0;
+      }
+
+      .ancp-docs-nav a {
+        display: inline-block;
+        white-space: nowrap;
+        padding: var(--b-space-1) var(--b-space-3);
+        border: 1px solid var(--b-border-subtle);
+        border-radius: var(--b-radius-full);
+        font-size: var(--b-font-size-xs);
+      }
+
+      .ancp-docs-content {
+        padding: var(--b-space-10) 0 var(--b-space-16);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .ancp-docs-layout {
+        padding-left: var(--b-space-4);
+        padding-right: var(--b-space-4);
+      }
+
+      .ancp-docs-content {
+        padding: var(--b-space-8) 0 var(--b-space-12);
+        /* Prevent any child from blowing out the width */
+        overflow-x: hidden;
+        min-width: 0;
+      }
+
+      .ancp-docs-content h1 {
+        font-size: clamp(1.4rem, 6vw, 1.75rem);
+      }
+
+      .ancp-docs-content h2 {
+        font-size: var(--b-font-size-xl);
+      }
+
+      .ancp-docs-content p,
+      .ancp-docs-content li {
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+
+      /* Code blocks: card scrolls horizontally, pre expands freely inside */
+      .ancp-code-block {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .ancp-code-block pre {
+        padding: var(--b-space-5);
+        font-size: 12px;
+        overflow-x: visible;
+        min-width: max-content;
+      }
+
+      .ancp-docs-next {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ancp-docs-layout {
+        padding-left: var(--b-space-3);
+        padding-right: var(--b-space-3);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header-container"></header>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-hero-section b-hero-bg">
+    <div class="b-container">
+      <div class="b-hero-left">
+        <h1 class="b-hero-headline">ANCP Documentation</h1>
+        <p class="b-hero-subheading">From zero to your first agent call in 15 minutes.</p>
+        <div class="b-hero-ctas">
+          <a href="#quickstart" class="b-btn b-btn-primary b-btn-large">Quick Start</a>
+          <a href="https://community.bizfirstai.com/tag/ancp" class="b-btn b-btn-secondary b-btn-large" target="_blank" rel="noopener">Ask the Community</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       TWO-COLUMN DOCS LAYOUT
+       ════════════════════════════════════════════════════════════ -->
+  <div class="ancp-docs-layout" style="padding-top: var(--b-space-8); padding-bottom: var(--b-space-20); min-width: 0;">
+
+    <!-- SIDEBAR -->
+    <aside class="ancp-docs-sidebar">
+      <nav class="ancp-docs-nav">
+
+        <h4>Quick Start</h4>
+        <ul>
+          <li><a href="#quickstart" class="ancp-active">Overview</a></li>
+          <li><a href="#install">Installation</a></li>
+          <li><a href="#provider-setup">Provider Setup</a></li>
+          <li><a href="#first-call">Your First Call</a></li>
+        </ul>
+
+        <h4>Messaging Patterns</h4>
+        <ul>
+          <li><a href="#patterns-overview">Patterns Overview</a></li>
+          <li><a href="#fire-and-forget">Fire-and-Forget</a></li>
+          <li><a href="#request-reply">Request-Reply</a></li>
+          <li><a href="#streaming">Streaming (SSE)</a></li>
+          <li><a href="#task-start">Task-Start</a></li>
+        </ul>
+
+        <h4>React Hooks</h4>
+        <ul>
+          <li><a href="#ancp-provider">AncpProvider</a></li>
+          <li><a href="#use-ancp-invoke">useAncpInvoke</a></li>
+          <li><a href="#use-ancp-stream">useAncpStream</a></li>
+          <li><a href="#use-ancp-task">useAncpTask</a></li>
+          <li><a href="#use-ancp-capabilities">useAncpCapabilities</a></li>
+        </ul>
+
+        <h4>C# Nodes</h4>
+        <ul>
+          <li><a href="#csharp-handlers">Handler Registration</a></li>
+          <li><a href="#action-context">AncpActionContext</a></li>
+        </ul>
+
+        <h4>Authentication</h4>
+        <ul>
+          <li><a href="#auth-modes">Auth Modes</a></li>
+        </ul>
+
+        <h4>LLM Providers</h4>
+        <ul>
+          <li><a href="#llm-providers">Supported Models</a></li>
+        </ul>
+
+        <h4>Deployment</h4>
+        <ul>
+          <li><a href="#deployment">Architecture Layers</a></li>
+          <li><a href="#discovery">Discovery Endpoint</a></li>
+        </ul>
+
+        <h4>Guides</h4>
+        <ul>
+          <li><a href="./ANCP-gettingStarted.html">Getting Started Guide</a></li>
+          <li><a href="./ANCP-Specification.html">Protocol Specification</a></li>
+          <li><a href="./a2a-vs-ancp.html">A2A vs ANCP</a></li>
+        </ul>
+
+        <h4>Changelog</h4>
+        <ul>
+          <li><a href="./changelog.html">Release Notes</a></li>
+        </ul>
+
+      </nav>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="ancp-docs-content">
+
+      <!-- Quick Start -->
+      <h1 id="quickstart">Getting Started with ANCP</h1>
+      <p>ANCP (Agentic Node Communication Protocol) is the unified, polyglot communication framework for building AI-driven distributed systems. It connects AI agents, workflow nodes, microservices, and frontend applications through a single protocol with four messaging patterns and three authentication modes.</p>
+
+      <div class="ancp-docs-note">
+        <p><strong>Platform requirement:</strong> ANCP is part of the BizFirstAi platform. You will need a BizFirstAi account to use the hosted node runtime. <a href="https://bizfirstai.com/website/contact.html" >Sign up here.</a></p>
+      </div>
+
+      <h2 id="install">Installation</h2>
+      <p>Install both npm packages. <code>@bizfirst/ancp-core</code> provides the base client and types; <code>@bizfirst/ancp-react</code> provides the React hooks.</p>
+
+      <div class="ancp-code-block">
+        <div class="ancp-code-block__header">
+          <span class="ancp-code-block__lang">Shell</span>
+        </div>
+        <pre><code>npm install @bizfirst/ancp-core @bizfirst/ancp-react</code></pre>
+      </div>
+
+      <span id="ancp-provider"></span>
+      <h2 id="provider-setup">AncpProvider Setup</h2>
+      <p>Wrap your React application root with <code>AncpProvider</code>. Every child component can then access ANCP hooks without importing configuration.</p>
+
+      <div class="ancp-code-block">
+        <div class="ancp-code-block__header">
+          <span class="ancp-code-block__lang">TSX</span>
+        </div>
+        <pre><code>import { AncpProvider } from '@bizfirst/ancp-react';
+
+export function App() {
+  return (
+    &lt;AncpProvider
+      baseUrl="https://your-node.bizfirstai.com"
+      nodeId="my-frontend-node"
+      auth={{
+        mode: 'jwt',
+        token: () =&gt; getAuthToken(), // returns Promise&lt;string&gt;
+      }}
+    &gt;
+      &lt;YourApp /&gt;
+    &lt;/AncpProvider&gt;
+  );
+}</code></pre>
+      </div>
+
+      <span id="use-ancp-invoke"></span>
+      <h2 id="first-call">Your First Call — useAncpInvoke</h2>
+      <p>Use <code>useAncpInvoke</code> for request-reply actions. The hook is generic over your payload and result types — TypeScript validates everything at compile time.</p>
+
+      <div class="ancp-code-block">
+        <div class="ancp-code-block__header">
+          <span class="ancp-code-block__lang">TSX</span>
+        </div>
+        <pre><code>import { useAncpInvoke } from '@bizfirst/ancp-react';
+
+interface SearchPayload { query: string; topK: number; }
+interface SearchResult  { items: string[]; total: number; }
+
+export function SearchBox() {
+  const { invoke, isLoading, data, error, reset } =
+    useAncpInvoke&lt;SearchPayload, SearchResult&gt;('search.documents');
+
+  async function handleSearch(query: string) {
+    reset();
+    await invoke({ query, topK: 10 });
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; handleSearch('agentic AI')} disabled={isLoading}&gt;
+        {isLoading ? 'Searching...' : 'Search'}
+      &lt;/button&gt;
+      {error &amp;&amp; &lt;p&gt;Error: {error.message}&lt;/p&gt;}
+      {data &amp;&amp; &lt;p&gt;Found {data.total} results&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+}</code></pre>
+      </div>
+
+      <span id="fire-and-forget"></span>
+      <span id="request-reply"></span>
+      <span id="task-start"></span>
+      <h2 id="patterns-overview">Messaging Patterns</h2>
+      <p>ANCP provides four messaging patterns. Choose the right pattern at the call site — the protocol and transport handle the rest.</p>
+
+      <div class="ancp-concept-table-wrap">
+      <table class="ancp-concept-table">
+        <thead>
+          <tr>
+            <th>Pattern</th>
+            <th>Response</th>
+            <th>Best For</th>
+            <th>HTTP Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fire-and-Forget</td>
+            <td>None</td>
+            <td>Email, background jobs, events</td>
+            <td>202 Accepted</td>
+          </tr>
+          <tr>
+            <td>Request-Reply</td>
+            <td>Typed result</td>
+            <td>Queries, validation, calculations</td>
+            <td>200 OK</td>
+          </tr>
+          <tr>
+            <td>Streaming (SSE)</td>
+            <td>Chunk stream</td>
+            <td>LLM output, reports, exports</td>
+            <td>200 text/event-stream</td>
+          </tr>
+          <tr>
+            <td>Task-Start</td>
+            <td>taskId</td>
+            <td>Batch jobs, long analysis</td>
+            <td>202 + poll endpoint</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <span id="use-ancp-stream"></span>
+      <h3 id="streaming">Streaming — useAncpStream</h3>
+      <p>Use <code>useAncpStream</code> for SSE-backed actions such as LLM chat responses. The hook accumulates chunks in real time and exposes <code>isStreaming</code> and <code>isDone</code> state flags.</p>
+
+      <div class="ancp-code-block">
+        <div class="ancp-code-block__header">
+          <span class="ancp-code-block__lang">TSX</span>
+        </div>
+        <pre><code>import { useAncpStream } from '@bizfirst/ancp-react';
+
+interface ChatPayload { message: string; sessionId: string; }
+interface TextChunk   { token: string; }
+
+export function ChatInterface() {
+  const { start, stop, chunks, isStreaming, isDone } =
+    useAncpStream&lt;ChatPayload, TextChunk&gt;('agent.chat');
+
+  const fullText = chunks.map(c =&gt; c.token).join('');
+
+  return (
+    &lt;div&gt;
+      &lt;button
+        onClick={() =&gt; start({ message: 'Explain ANCP', sessionId: 'abc123' })}
+        disabled={isStreaming}
+      &gt;
+        {isStreaming ? 'Generating...' : 'Ask the Agent'}
+      &lt;/button&gt;
+      {isStreaming &amp;&amp; &lt;button onClick={stop}&gt;Stop&lt;/button&gt;}
+      &lt;pre&gt;{fullText}{isStreaming &amp;&amp; '▌'}&lt;/pre&gt;
+      {isDone &amp;&amp; &lt;p&gt;Response complete.&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+}</code></pre>
+      </div>
+
+      <span id="use-ancp-task"></span>
+      <span id="use-ancp-capabilities"></span>
+      <h2 id="csharp-handlers">C# Handler Registration</h2>
+      <p>On the server side, use the <code>BizFirst.Ancp.Node</code> host to register handlers. Each handler pattern maps to one ANCP messaging pattern.</p>
+
+      <div class="ancp-code-block">
+        <div class="ancp-code-block__header">
+          <span class="ancp-code-block__lang">C#</span>
+        </div>
+        <pre><code>using BizFirst.Ancp.Node;
+
+var ancp = new AncpNodeHost(options);
+
+// Request-Reply — returns a typed result
+Ancp.OnInvoke&lt;SearchPayload, SearchResult&gt;("search.documents", async ctx =&gt;
+{
+    var results = await searchService.QueryAsync(ctx.Payload.Query, ctx.Payload.TopK);
+    return new SearchResult { Items = results, Total = results.Count };
+});
+
+// Fire-and-Forget — returns 202, runs in background
+Ancp.OnFireAndForget&lt;EmailPayload&gt;("email.send", async ctx =&gt;
+{
+    await emailService.SendAsync(ctx.Payload.To, ctx.Payload.Subject, ctx.Payload.Body);
+});
+
+// Streaming — yields chunks as they are produced
+Ancp.OnStream&lt;ChatPayload, TextChunk&gt;("agent.chat", async ctx =&gt;
+{
+    await foreach (var token in llmService.StreamAsync(ctx.Payload.Message))
+    {
+        yield return new TextChunk { Token = token };
+    }
+});
+
+// Task-Start — returns taskId, tracks Running/Completed/Failed/Cancelled
+Ancp.OnTask&lt;BatchPayload, BatchResult&gt;("batch.analyse", async (ctx, ct) =&gt;
+{
+    var result = await batchService.RunAsync(ctx.Payload.DataSetId, ct);
+    return new BatchResult { ProcessedCount = result.Count };
+});
+
+await ancp.StartAsync();</code></pre>
+      </div>
+
+      <h2 id="action-context">AncpActionContext</h2>
+      <p>Every handler receives a fully populated <code>AncpActionContext&lt;T&gt;</code>. Use it to access the caller identity, tenant context, and correlation data without custom middleware.</p>
+
+      <ul>
+        <li><code>Payload</code> — the typed request payload</li>
+        <li><code>NodeId</code> — the receiving node's identifier</li>
+        <li><code>CallerNodeId</code> — the sending node's identifier</li>
+        <li><code>TenantId</code> — the receiving tenant</li>
+        <li><code>CallerTenantId</code> — the calling tenant</li>
+        <li><code>MessageId</code> — unique message identifier</li>
+        <li><code>CorrelationId</code> — distributed trace correlation ID</li>
+        <li><code>Timestamp</code> — message creation time (UTC)</li>
+        <li><code>Extensions</code> — domain-specific metadata dictionary</li>
+      </ul>
+
+      <h2 id="auth-modes">Authentication Modes</h2>
+      <p>ANCP supports three authentication modes. Select the mode that fits your deployment security model.</p>
+
+      <div class="ancp-concept-table-wrap">
+      <table class="ancp-concept-table">
+        <thead>
+          <tr>
+            <th>Mode</th>
+            <th>Description</th>
+            <th>When to Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>JWT</td>
+            <td>Bearer token via Authorization header. Standard OIDC flows supported.</td>
+            <td>User-facing apps, SSO environments, any identity provider</td>
+          </tr>
+          <tr>
+            <td>API Key</td>
+            <td>Static secret passed as a header. Simple and fast.</td>
+            <td>Service-to-service calls, CI pipelines, internal integrations</td>
+          </tr>
+          <tr>
+            <td>DID</td>
+            <td>Decentralised ID — cryptographic identity for autonomous agents.</td>
+            <td>Cross-org federation, agent-to-agent calls, Phase 3 marketplace</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="llm-providers">LLM Providers</h2>
+      <p>Configure the LLM provider directly on the node host. Per-model cost tracking is automatic — input and output token costs are stored per call.</p>
+
+      <ul>
+        <li><strong>Anthropic Claude:</strong> claude-3-5-sonnet-20241022, claude-3-opus-20250219, claude-3-sonnet-20240229, claude-3-haiku-20240307, claude-2.1</li>
+        <li><strong>OpenAI:</strong> gpt-4o, gpt-4-turbo, gpt-4, gpt-3.5-turbo</li>
+        <li><strong>Ollama (self-hosted):</strong> llama2, mistral, neural-chat, any locally served model</li>
+        <li><strong>HuggingFace:</strong> any inference endpoint</li>
+        <li><strong>Custom:</strong> any OpenAI-compatible HTTP endpoint</li>
+      </ul>
+
+      <h2 id="deployment">Architecture Layers</h2>
+      <p>ANCP is structured across three layers. Every message flows through all three on both the client and server sides.</p>
+
+      <div class="ancp-concept-table-wrap">
+      <table class="ancp-concept-table">
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Component</th>
+            <th>Responsibility</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Layer 3</td>
+            <td>Client Applications</td>
+            <td>React apps via ancp-react hooks, chat interfaces, agent dashboards</td>
+          </tr>
+          <tr>
+            <td>Layer 2</td>
+            <td>ANCP Transport</td>
+            <td>HTTP/HTTPS, POST /invoke, SSE streaming, GET /.well-known/ncp.json discovery</td>
+          </tr>
+          <tr>
+            <td>Layer 1</td>
+            <td>ANCP Node Services</td>
+            <td>BizFirst.Ancp.Node C# host, AI Agent Nodes, LLM services, RAG services, Tool services</td>
+          </tr>
+          <tr>
+            <td>Foundation</td>
+            <td>IEnvelope</td>
+            <td>Message format, tenant context, payment tracking, audit logs</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h2 id="discovery">Discovery Endpoint</h2>
+      <p>Every running ANCP node exposes a machine-readable capability document at a well-known URL. Query it with a standard HTTP GET — no authentication required for the discovery endpoint.</p>
+
+      <div class="ancp-code-block">
+        <div class="ancp-code-block__header">
+          <span class="ancp-code-block__lang">Shell</span>
+        </div>
+        <pre><code>GET https://your-node.bizfirstai.com/.well-known/ncp.json
+
+# Returns AncpDiscoveryDocument:
+# {
+#   "nodeId": "my-agent-node",
+#   "version": "0.9.0",
+#   "actions": [
+#     { "name": "search.documents", "pattern": "request-reply" },
+#     { "name": "agent.chat",       "pattern": "streaming"     },
+#     { "name": "batch.analyse",    "pattern": "task-start"    },
+#     { "name": "email.send",       "pattern": "fire-and-forget" },
+#     { "name": "ping",             "pattern": "request-reply" },
+#     { "name": "getCapabilities",  "pattern": "request-reply" }
+#   ]
+# }</code></pre>
+      </div>
+
+      <h2>Next Steps</h2>
+      <p>Ready to go further? Explore these resources:</p>
+
+      <div class="ancp-docs-next">
+        <a href="./ANCP-gettingStarted.html" class="ancp-docs-next__card">
+          <div class="ancp-docs-next__card-label">Guide</div>
+          <div class="ancp-docs-next__card-title">Getting Started</div>
+        </a>
+        <a href="./ANCP-Specification.html" class="ancp-docs-next__card">
+          <div class="ancp-docs-next__card-label">Reference</div>
+          <div class="ancp-docs-next__card-title">Protocol Specification</div>
+        </a>
+        <a href="./a2a-vs-ancp.html" class="ancp-docs-next__card">
+          <div class="ancp-docs-next__card-label">Compare</div>
+          <div class="ancp-docs-next__card-title">A2A vs ANCP</div>
+        </a>
+        <a href="./features.html" class="ancp-docs-next__card">
+          <div class="ancp-docs-next__card-label">Reference</div>
+          <div class="ancp-docs-next__card-title">All Features</div>
+        </a>
+        <a href="./changelog.html" class="ancp-docs-next__card">
+          <div class="ancp-docs-next__card-label">History</div>
+          <div class="ancp-docs-next__card-title">Changelog</div>
+        </a>
+        <a href="https://community.bizfirstai.com/tag/ancp" class="ancp-docs-next__card" target="_blank" rel="noopener">
+          <div class="ancp-docs-next__card-label">Community</div>
+          <div class="ancp-docs-next__card-title">Ask &amp; Discuss</div>
+        </a>
+        <a href="https://bizfirstai.com/website/contact.html" class="ancp-docs-next__card">
+          <div class="ancp-docs-next__card-label">Enterprise</div>
+          <div class="ancp-docs-next__card-title">Talk to Sales</div>
+        </a>
+      </div>
+
+    </main>
+
+  </div>
+
+  <footer id="footer-container"></footer>
+
+  <script src="./shared-layout.js"></script>
+</body>
+</html>

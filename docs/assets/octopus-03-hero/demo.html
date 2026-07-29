@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BizFirstAi — Octopus Hero Test</title>
+
+  <!-- Shared octopus CSS library (variables, animations, base styles) -->
+  <link rel="stylesheet" href="../css/octopus/index.css">
+
+  <!-- Component-specific CSS -->
+  <link rel="stylesheet" href="./octopus-hero.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, sans-serif; }
+
+    .scroll-test {
+      padding: 100px 40px;
+      background: #0C150C;
+      color: #86EFAC;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Octopus Hero Section -->
+  <octopus-hero-section></octopus-hero-section>
+
+  <!-- Scroll Test Sections -->
+  <div class="scroll-test section">
+    <div>
+      <h2>Scroll Section 1</h2>
+      <p>Scroll down to test the octopus animation response</p>
+    </div>
+  </div>
+
+  <div class="scroll-test section">
+    <div>
+      <h2>Scroll Section 2</h2>
+      <p>Watch how the octopus reacts to scrolling</p>
+    </div>
+  </div>
+
+  <div class="scroll-test section">
+    <div>
+      <h2>Scroll Section 3</h2>
+      <p>Keep scrolling...</p>
+    </div>
+  </div>
+
+  <div class="scroll-test section">
+    <div>
+      <h2>Scroll Section 4</h2>
+      <p>Almost there...</p>
+    </div>
+  </div>
+
+  <div class="scroll-test section">
+    <div>
+      <h2>Scroll Section 5</h2>
+      <p>End of test page</p>
+    </div>
+  </div>
+
+  <!-- Load the octopus-hero component -->
+  <script src="./octopus-hero.js"></script>
+
+</body>
+</html>

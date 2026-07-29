@@ -1,0 +1,169 @@
+/*
+ * octopus.css — octopus-02-tenacles Component Styles
+ * Scoped to <octopus-stage> custom element.
+ *
+ * This file contains ONLY component-specific styles.
+ * Shared styles are in C:\CoWork\WebSite\src\assets\css\octopus\
+ *
+ * To use: Include shared library first, then this file
+ *   <link rel="stylesheet" href="./assets/css/octopus/index.css">
+ *   <link rel="stylesheet" href="./octopus-02-tenacles/octopus.css">
+ */
+
+/* ── Host element (component-specific) ──────────────────────── */
+octopus-stage {
+  display: block;
+}
+
+/* ── Sticky canvas section (unique to this component) ─────────── */
+octopus-stage .oct-sticky-outer {
+  position: relative;
+  height: 500vh;
+}
+
+octopus-stage .oct-sticky-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #030C10;
+}
+
+octopus-stage canvas.oct-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: #030C10;
+}
+
+/* ── Stage status label ────────────────────────────────────────── */
+octopus-stage .oct-stage-label {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--oct-vdimmed);
+  z-index: 2;
+  pointer-events: none;
+  transition: color .4s;
+}
+
+/* ── Product labels overlay ────────────────────────────────────── */
+octopus-stage .oct-plabels {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+octopus-stage .oct-plabel {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(.82);
+  text-align: center;
+  opacity: 0;
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+octopus-stage .oct-plabel.on {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+octopus-stage .oct-plabel__name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--oct-teal-bright);
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+
+octopus-stage .oct-plabel__tag {
+  font-size: 10px;
+  color: var(--oct-dimmed);
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+/* ── Outro section (component-specific) ────────────────────────── */
+octopus-stage .oct-outro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 32px;
+  background: var(--oct-bg);
+  color: var(--oct-text);
+  border-top: 1px solid var(--oct-vdimmed);
+}
+
+octopus-stage .oct-outro h2 {
+  margin-bottom: 20px;
+}
+
+octopus-stage .oct-outro h2 em {
+  color: var(--oct-teal);
+}
+
+octopus-stage .oct-outro p {
+  color: var(--oct-dimmed);
+  font-size: 16px;
+  max-width: 440px;
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+octopus-stage .oct-outro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--oct-teal);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, box-shadow .2s;
+}
+
+octopus-stage .oct-outro-btn:hover {
+  background: #0F766E;
+  box-shadow: 0 0 28px var(--oct-teal-glow);
+}
+
+/* ── Intro section (component-specific) ────────────────────────── */
+octopus-stage .oct-intro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 32px;
+  background: var(--oct-bg);
+  color: var(--oct-text);
+}
+
+octopus-stage .oct-intro h1 {
+  margin-bottom: 20px;
+  color: var(--oct-text);
+}
+
+octopus-stage .oct-intro h1 em {
+  color: var(--oct-teal);
+}
+
+octopus-stage .oct-intro p {
+  color: var(--oct-dimmed);
+  max-width: 480px;
+  line-height: 1.65;
+  margin-bottom: 52px;
+}

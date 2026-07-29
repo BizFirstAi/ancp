@@ -1,0 +1,11 @@
+IMAGE: about-hero.png
+DIMENSIONS: 1440 x 600px
+USED ON: About page hero
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Wide panoramic dark image. Left side: subtle stylized silhouette of the Austin Texas skyline in very dark green — barely visible, atmospheric. Right side: abstract flowing code/data streams in Brand Green (#16A34A) suggesting innovation and building. Center: very subtle BizFirstAi logo watermark. Overall mood: ambitious, quiet confidence, builder energy. No faces, no people. Dark, cinematic, enterprise. The image should feel like the cover of a serious technology company's about page. Very subtle green tint throughout the darkness.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Wide panoramic dark image. Left side: subtle stylized silhouette of the Austin Texas skyline in very dark indigo — barely visible, atmospheric. Right side: abstract flowing code/data streams in Electric Indigo (#6366F1) suggesting innovation and building. Center: very subtle BizFirstAi logo watermark. Overall mood: ambitious, quiet confidence, builder energy. No faces, no people. Dark, cinematic, enterprise. The image should feel like the cover of a serious technology company's about page.

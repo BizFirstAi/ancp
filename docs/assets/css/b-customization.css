@@ -1,0 +1,165 @@
+/* ============================================================
+   b-customization.css — BizFirstAi
+   Advanced Customization section — toggle switches + hook grid
+   ============================================================ */
+
+/* ── Two-column layout ───────────────────────────────────── */
+.b-customization__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--b-space-16);
+  margin-top: var(--b-space-16);
+  align-items: start;
+}
+
+/* ── Toggle Panel ─────────────────────────────────────────── */
+.b-toggle-panel {
+  background: var(--b-bg-raised);
+  border: 1px solid var(--b-border-default);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-5);
+}
+
+.b-toggle-panel__heading {
+  font-size: var(--b-font-size-sm);
+  font-weight: var(--b-font-weight-semibold);
+  color: var(--b-text-muted);
+  letter-spacing: var(--b-letter-spacing-wide);
+  text-transform: uppercase;
+  margin-bottom: var(--b-space-2);
+}
+
+.b-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--b-space-3) var(--b-space-4);
+  background: var(--b-bg-surface);
+  border: 1px solid var(--b-border-subtle);
+  border-radius: var(--b-radius-lg);
+  gap: var(--b-space-4);
+}
+
+.b-toggle-row__label {
+  font-size: var(--b-font-size-sm);
+  font-weight: var(--b-font-weight-medium);
+  color: var(--b-text-secondary);
+}
+
+.b-toggle-row__options {
+  display: flex;
+  gap: var(--b-space-2);
+  flex-wrap: wrap;
+}
+
+.b-toggle-chip {
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-medium);
+  padding: var(--b-space-1) var(--b-space-3);
+  border-radius: var(--b-radius-full);
+  border: 1px solid var(--b-border-default);
+  color: var(--b-text-muted);
+  background: transparent;
+  transition: all var(--b-transition-fast);
+}
+
+.b-toggle-chip--on {
+  background: var(--b-color-primary-subtle);
+  border-color: var(--b-color-primary);
+  color: var(--b-color-primary-light);
+}
+
+/* ── Hook Grid ────────────────────────────────────────────── */
+.b-hook-grid__heading {
+  font-size: var(--b-font-size-lg);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-text-primary);
+  margin-bottom: var(--b-space-8);
+}
+
+.b-hook-category {
+  margin-bottom: var(--b-space-8);
+}
+
+.b-hook-category__label {
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-semibold);
+  color: var(--b-color-primary);
+  letter-spacing: var(--b-letter-spacing-wider);
+  text-transform: uppercase;
+  margin-bottom: var(--b-space-3);
+}
+
+.b-hook-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--b-space-2);
+}
+
+.b-hook-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--b-space-2);
+  padding: var(--b-space-2) var(--b-space-3);
+  background: var(--b-bg-surface);
+  border: 1px solid var(--b-border-subtle);
+  border-radius: var(--b-radius-md);
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-medium);
+  color: var(--b-text-muted);
+  transition: all var(--b-transition-fast);
+}
+
+.b-hook-item:hover {
+  border-color: var(--b-color-primary);
+  color: var(--b-color-primary);
+  background: var(--b-color-primary-subtle);
+}
+
+.b-hook-item__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--b-color-primary);
+  flex-shrink: 0;
+}
+
+.b-hook-more {
+  font-size: var(--b-font-size-xs);
+  color: var(--b-text-muted);
+  margin-top: var(--b-space-4);
+  font-style: italic;
+}
+
+.b-customization__cta {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: var(--b-space-4);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .b-customization__layout {
+    grid-template-columns: 1fr;
+    gap: var(--b-space-10);
+  }
+}
+
+@media (max-width: 640px) {
+  .b-toggle-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--b-space-2);
+  }
+
+  .b-toggle-row__options {
+    width: 100%;
+  }
+
+  .b-toggle-panel {
+    padding: var(--b-space-5);
+  }
+}

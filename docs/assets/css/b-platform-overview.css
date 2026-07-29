@@ -1,0 +1,85 @@
+/* ============================================================
+   b-platform-overview.css — BizFirstAi
+   Platform overview section — 5 category product grid
+   ============================================================ */
+
+.b-platform-overview__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--b-space-6);
+  margin-top: var(--b-space-16);
+}
+
+.b-platform-overview__category {
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-3);
+}
+
+.b-platform-overview__cat-label {
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-semibold);
+  color: var(--b-color-primary);
+  letter-spacing: var(--b-letter-spacing-wider);
+  text-transform: uppercase;
+  padding-bottom: var(--b-space-3);
+  border-bottom: 1px solid var(--b-border-default);
+  margin-bottom: var(--b-space-1);
+}
+
+.b-platform-overview__product {
+  background: var(--b-card-bg);
+  border: 1px solid var(--b-card-border);
+  border-radius: var(--b-radius-lg);
+  padding: var(--b-space-4) var(--b-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-2);
+  transition: all var(--b-transition-normal);
+  text-decoration: none;
+}
+
+.b-platform-overview__product:hover {
+  border-color: var(--b-color-primary);
+  background: var(--b-card-hover-bg);
+  transform: translateY(-2px);
+  box-shadow: var(--b-card-shadow-hover);
+}
+
+.b-platform-overview__product-name {
+  font-size: var(--b-font-size-sm);
+  font-weight: var(--b-font-weight-semibold);
+  color: var(--b-text-primary);
+}
+
+.b-platform-overview__product-desc {
+  font-size: var(--b-font-size-xs);
+  color: var(--b-text-muted);
+  line-height: var(--b-line-height-relaxed);
+}
+
+.b-platform-overview__product-link {
+  font-size: var(--b-font-size-xs);
+  color: var(--b-color-primary);
+  margin-top: auto;
+  padding-top: var(--b-space-2);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .b-platform-overview__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .b-platform-overview__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .b-platform-overview__grid {
+    grid-template-columns: 1fr;
+  }
+}

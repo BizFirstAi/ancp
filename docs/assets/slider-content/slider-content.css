@@ -1,0 +1,162 @@
+/*
+ * slider-content.css — TextSlider Component (3D Carousel)
+ * ─────────────────────────────────────────────────────────────────
+ * Circular 3-card carousel: prev · active · next
+ * Side cards rotate 45° on Y-axis and are clipped by the container.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="./assets/slider-content/slider-content.css">
+ */
+
+/* ── Host element ──────────────────────────────────────────────── */
+text-slider {
+  display: block;
+  position: relative;
+  overflow: hidden;           /* clips side cards — nothing shows behind */
+}
+
+/* ── Progress bar (bottom, horizontal) ───────────────────────── */
+.ts-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(to right, #16A34A, #2DD4BF);
+  transition: width 0.4s ease;
+  z-index: 10;
+}
+
+/* ── 3D perspective track ─────────────────────────────────────── */
+.ts-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 560px;
+  perspective-origin: 50% 50%;
+}
+
+/* ── Base slide state (hidden) ────────────────────────────────── */
+.ts-slide {
+  position: absolute;
+  top: 8%;
+  height: 84%;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  backface-visibility: hidden;
+  transition:
+    transform  0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity    0.55s ease,
+    width      0.55s ease,
+    left       0.55s ease,
+    right      0.55s ease;
+}
+
+/* ── Left card: own lane on the left, rotates from left edge ──── */
+.ts-slide--prev {
+  width: 22%;
+  left: 0;
+  right: auto;
+  opacity: 0.6;
+  pointer-events: auto;
+  cursor: pointer;
+  transform-origin: left center;
+  transform: translateY(-22%) rotateY(45deg);
+}
+
+/* ── Center card: own lane in the middle, front-facing ────────── */
+.ts-slide--active {
+  width: 54%;
+  left: 50%;
+  right: auto;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) rotateY(0deg);
+}
+
+/* ── Right card: own lane on the right, rotates from right edge ── */
+.ts-slide--next {
+  width: 22%;
+  right: 0;
+  left: auto;
+  opacity: 0.6;
+  pointer-events: auto;
+  cursor: pointer;
+  transform-origin: right center;
+  transform: translateY(-22%) rotateY(-45deg);
+}
+
+/* ── Slide content ─────────────────────────────────────────────── */
+.ts-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #16A34A;
+  margin-bottom: 5px;
+}
+
+.ts-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #F0FDF4;
+  margin: 0 0 5px;
+}
+
+.ts-title em {
+  font-style: normal;
+  color: #2DD4BF;
+}
+
+.ts-desc {
+  font-size: 0.7rem;
+  color: #86EFAC;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.ts-number {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(45, 212, 191, 0.4);
+  margin-bottom: 5px;
+}
+
+/* ── Dot indicators ────────────────────────────────────────────── */
+.ts-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+}
+
+.ts-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(45, 212, 191, 0.2);
+  cursor: pointer;
+  transition: background 0.3s ease, width 0.3s ease;
+}
+
+.ts-dot--active {
+  background: #2DD4BF;
+  width: 12px;
+}
+
+/* ── Optional border variant ──────────────────────────────────── */
+text-slider.ts-bordered {
+  border-left: 1px solid rgba(45, 212, 191, 0.08);
+}

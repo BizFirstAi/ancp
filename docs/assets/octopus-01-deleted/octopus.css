@@ -1,0 +1,255 @@
+/*
+ * octopus.css — BizFirstAi Octopus Animation Component
+ * Scoped to <octopus-stage> custom element.
+ * All selectors prefixed with octopus-stage to avoid leaking into host page.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ── CSS Custom Properties (ocean theme) ─────────────────────── */
+:root {
+  --oct-bg:          #030C10;
+  --oct-teal:        #0D9488;
+  --oct-teal-bright: #2DD4BF;
+  --oct-teal-glow:   rgba(45,212,191,0.22);
+  --oct-text:        #F0FDFA;
+  --oct-dimmed:      #134E4A;
+  --oct-vdimmed:     #042F2E;
+  --oct-font:        'Inter', -apple-system, sans-serif;
+}
+
+/* ── Host element ─────────────────────────────────────────────── */
+octopus-stage {
+  display: block;
+  font-family: var(--oct-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Progress bar ─────────────────────────────────────────────── */
+octopus-stage .oct-pbar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--oct-teal-bright);
+  box-shadow: 0 0 10px var(--oct-teal-bright);
+  z-index: 999;
+  width: 0;
+  transition: width .08s linear;
+  pointer-events: none;
+}
+
+/* ── Intro section ────────────────────────────────────────────── */
+octopus-stage .oct-intro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 32px;
+  background: var(--oct-bg);
+  color: var(--oct-text);
+}
+
+octopus-stage .oct-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--oct-teal-bright);
+  border: 1px solid rgba(45,212,191,.18);
+  border-radius: 99px;
+  background: rgba(45,212,191,.05);
+  margin-bottom: 28px;
+}
+
+octopus-stage .oct-eyebrow span {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--oct-teal-bright);
+  box-shadow: 0 0 8px var(--oct-teal-bright);
+  animation: oct-pulse 2s ease-in-out infinite;
+}
+
+@keyframes oct-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .3; }
+}
+
+octopus-stage .oct-intro h1 {
+  font-size: clamp(48px, 9vw, 96px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  margin-bottom: 20px;
+  color: var(--oct-text);
+}
+
+octopus-stage .oct-intro h1 em {
+  font-style: normal;
+  color: var(--oct-teal);
+}
+
+octopus-stage .oct-intro p {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--oct-dimmed);
+  max-width: 480px;
+  line-height: 1.65;
+  margin-bottom: 52px;
+}
+
+octopus-stage .oct-scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--oct-vdimmed);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  animation: oct-cue 2.2s ease-in-out infinite;
+}
+
+octopus-stage .oct-scroll-cue svg {
+  width: 22px; height: 22px;
+  stroke: var(--oct-teal);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+@keyframes oct-cue {
+  0%, 100% { transform: translateY(0);   opacity: .5; }
+  50%       { transform: translateY(8px); opacity: 1;  }
+}
+
+/* ── Sticky canvas section ────────────────────────────────────── */
+octopus-stage .oct-sticky-outer {
+  position: relative;
+  height: 500vh;
+}
+
+octopus-stage .oct-sticky-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #030C10;
+}
+
+octopus-stage canvas.oct-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: #030C10;
+}
+
+/* ── Stage status label ───────────────────────────────────────── */
+octopus-stage .oct-stage-label {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--oct-vdimmed);
+  z-index: 2;
+  pointer-events: none;
+  transition: color .4s;
+}
+
+/* ── Product labels overlay ───────────────────────────────────── */
+octopus-stage .oct-plabels {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+octopus-stage .oct-plabel {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(.82);
+  text-align: center;
+  opacity: 0;
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+octopus-stage .oct-plabel.on {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+octopus-stage .oct-plabel__name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--oct-teal-bright);
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+
+octopus-stage .oct-plabel__tag {
+  font-size: 10px;
+  color: var(--oct-dimmed);
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+/* ── Outro section ────────────────────────────────────────────── */
+octopus-stage .oct-outro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 32px;
+  background: var(--oct-bg);
+  color: var(--oct-text);
+  border-top: 1px solid var(--oct-vdimmed);
+}
+
+octopus-stage .oct-outro h2 {
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+octopus-stage .oct-outro h2 em {
+  font-style: normal;
+  color: var(--oct-teal);
+}
+
+octopus-stage .oct-outro p {
+  color: var(--oct-dimmed);
+  font-size: 16px;
+  max-width: 440px;
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+octopus-stage .oct-outro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--oct-teal);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, box-shadow .2s;
+}
+
+octopus-stage .oct-outro-btn:hover {
+  background: #0F766E;
+  box-shadow: 0 0 28px var(--oct-teal-glow);
+}

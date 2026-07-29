@@ -1,0 +1,68 @@
+/* ============================================================
+   b-differentiators.css — BizFirstAi
+   Differentiators stats strip — 6 bold metrics
+   ============================================================ */
+
+.b-differentiators__strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  margin-top: var(--b-space-8);
+}
+
+.b-differentiators__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--b-space-8) var(--b-space-4);
+  border-right: 1px solid var(--b-border-subtle);
+}
+
+.b-differentiators__stat:last-child {
+  border-right: none;
+}
+
+.b-differentiators__number {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: var(--b-font-weight-black);
+  color: var(--b-color-primary);
+  line-height: 1;
+  letter-spacing: var(--b-letter-spacing-tight);
+}
+
+.b-differentiators__label {
+  font-size: var(--b-font-size-sm);
+  color: var(--b-text-muted);
+  margin-top: var(--b-space-2);
+  max-width: 130px;
+  line-height: var(--b-line-height-normal);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .b-differentiators__strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .b-differentiators__stat {
+    border-right: none;
+    border-bottom: 1px solid var(--b-border-subtle);
+  }
+  .b-differentiators__stat:nth-child(3),
+  .b-differentiators__stat:nth-child(6) {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .b-differentiators__strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .b-differentiators__stat {
+    border-bottom: 1px solid var(--b-border-subtle);
+  }
+  .b-differentiators__stat:nth-child(5),
+  .b-differentiators__stat:nth-child(6) {
+    border-bottom: none;
+  }
+}

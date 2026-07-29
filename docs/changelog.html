@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="https://bizfirstai.com/website/assets/Logo/logo-m.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ANCP Changelog — version history and release notes for the Agentic Node Communication Protocol by BizFirstAi.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ANCP Changelog — What's new in every release.">
+  <meta property="og:description" content="Version history and release notes for ANCP, the Agentic Node Communication Protocol by BizFirstAi.">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ANCP Changelog">
+  <meta name="twitter:description" content="What's new in every release of ANCP.">
+
+  <title>Changelog — ANCP by BizFirstAi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://bizfirstai.com/website/assets/css/b-index.css">
+  <style>
+    body { overflow-x: hidden; }
+  </style>
+</head>
+<body>
+
+  <header id="header-container"></header>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-hero-section b-hero-bg">
+    <div class="b-container">
+      <div class="b-hero-left">
+        <h1 class="b-hero-headline">ANCP Changelog</h1>
+        <p class="b-hero-subheading">What's new in every release.</p>
+        <div class="b-hero-ctas">
+          <a href="https://community.bizfirstai.com/tag/ancp" class="b-btn b-btn-secondary b-btn-large" target="_blank" rel="noopener">Discuss on Community</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       TIMELINE
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--alt">
+    <div class="b-container">
+
+      <div class="b-timeline">
+
+        <!-- v0.9.0 -->
+        <div class="b-timeline__item">
+          <div class="b-timeline__dot"></div>
+          <div class="b-timeline__year">April 2026 &nbsp;&middot;&nbsp; v0.9.0 &nbsp;&middot;&nbsp; Pre-Release</div>
+          <div class="b-timeline__title">Production Ready — Enterprise Grade</div>
+          <div class="b-timeline__desc">
+            The pre-release milestone. All four messaging patterns are complete and stable. The React hook library is feature-complete. The C# node host is production-hardened with &gt;90% test coverage. Three authentication modes, payment integration, and the discovery endpoint are all live.
+          </div>
+
+          <div class="b-benefits-grid" style="margin-top: var(--b-space-8);">
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                  </svg>
+                </span>
+                All Four Messaging Patterns
+              </h3>
+              <p>Fire-and-forget, request-reply, streaming (SSE), and task-start are all complete, tested, and stable. Pattern selection is available on every client call.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                </span>
+                React Hooks Complete
+              </h3>
+              <p>The full <code>@bizfirst/ancp-react</code> hook set is available: AncpProvider, useAncpInvoke, useAncpStream, useAncpTask, and useAncpCapabilities. 100% TypeScript strict.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                </span>
+                C# Node Host
+              </h3>
+              <p>The <code>BizFirst.Ancp.Node</code> host is production-hardened with over 90% test coverage across the Abstractions, Node Host, Client, and Tests projects.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                </span>
+                Three Auth Modes
+              </h3>
+              <p>JWT, API Key, and DID (Decentralised ID) authentication modes are all live and configurable per-node. Multi-tenant isolation enforced on every envelope.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </span>
+                Payment Integration
+              </h3>
+              <p>Built-in token cost tracking (TextInputCost + TextOutputCost per 1M tokens) and payment verification for metered AI services is stored automatically on every LLM call.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </span>
+                Discovery Endpoint
+              </h3>
+              <p>Every node now publishes <code>GET /.well-known/ncp.json</code> with a complete AncpDiscoveryDocument listing all registered actions and their patterns.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- v0.8.0 -->
+        <div class="b-timeline__item">
+          <div class="b-timeline__dot"></div>
+          <div class="b-timeline__year">March 2026 &nbsp;&middot;&nbsp; v0.8.0</div>
+          <div class="b-timeline__title">Task Pattern &amp; Streaming</div>
+          <div class="b-timeline__desc">
+            Introduced the task-start messaging pattern for long-running asynchronous operations, and Server-Sent Events streaming for real-time LLM output. Both patterns ship with first-class React hook support: useAncpTask and useAncpStream.
+          </div>
+
+          <div class="b-benefits-grid" style="margin-top: var(--b-space-8);">
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </span>
+                Task-Start Pattern
+              </h3>
+              <p>Returns a taskId immediately with full state machine: Running, Completed, Failed, and Cancelled. Long-running batch operations no longer block the caller or require custom polling logic.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                  </svg>
+                </span>
+                SSE Streaming for LLMs
+              </h3>
+              <p>Real-time token-by-token delivery via Server-Sent Events. LLM responses arrive as they are generated — no buffering, no waiting for the full response before rendering begins.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                </span>
+                useAncpTask &amp; useAncpStream
+              </h3>
+              <p>Two new React hooks ship with this release. <code>useAncpTask</code> manages task lifecycle and polling automatically. <code>useAncpStream</code> accumulates SSE chunks with reactive state updates.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- v0.7.0 -->
+        <div class="b-timeline__item">
+          <div class="b-timeline__dot"></div>
+          <div class="b-timeline__year">February 2026 &nbsp;&middot;&nbsp; v0.7.0</div>
+          <div class="b-timeline__title">Core Protocol</div>
+          <div class="b-timeline__desc">
+            The foundational release. Establishes the IEnvelope message format that all ANCP communication is built on, ships the first two messaging patterns, the TypeScript client, the React provider context, and basic JWT authentication.
+          </div>
+
+          <div class="b-benefits-grid" style="margin-top: var(--b-space-8);">
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                </span>
+                IEnvelope Format
+              </h3>
+              <p>The core message envelope carrying <code>nodeProtocol</code>, <code>messageId</code>, <code>correlationId</code>, <code>action</code>, <code>pattern</code>, <code>timestamp</code>, caller identity, and tenant context on every message.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                  </svg>
+                </span>
+                Request-Reply &amp; Fire-and-Forget
+              </h3>
+              <p>The first two ANCP messaging patterns are live. Request-reply for synchronous operations and fire-and-forget for one-way background work form the protocol foundation.</p>
+            </div>
+
+            <div class="b-benefit-card">
+              <h3>
+                <span class="b-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                  </svg>
+                </span>
+                AncpClient &amp; AncpProvider
+              </h3>
+              <p>The TypeScript <code>AncpClient</code> ships as part of <code>@bizfirst/ancp-core</code>. The React <code>AncpProvider</code> context ships in <code>@bizfirst/ancp-react</code>. Basic JWT authentication supported.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CTA
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-cta-section">
+    <div class="b-container">
+      <h2>Start building on ANCP.</h2>
+      <p>Production ready. v0.9.0 available now.</p>
+      <div class="b-btn-group">
+        <a href="https://bizfirstai.com/website/contact.html" class="b-btn b-btn-primary b-btn-large">Get Started</a>
+        <a href="https://community.bizfirstai.com/tag/ancp" class="b-btn b-btn-secondary b-btn-large" target="_blank" rel="noopener">Join the Community</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer-container"></footer>
+
+  <script src="./shared-layout.js"></script>
+</body>
+</html>

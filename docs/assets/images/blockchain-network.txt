@@ -1,0 +1,11 @@
+IMAGE: blockchain-network.png
+DIMENSIONS: 1000 x 600px
+USED ON: About page — Blockchain & Strategic Investments section
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Deep dark green-black background (#080F08). An abstract blockchain network visualization. Interconnected hexagonal nodes in Brand Green (#16A34A) arranged in a mesh pattern suggesting a decentralized network. Three highlighted nodes labeled "BizFirstAi", "Accumulate Network", "DefiDevs" connected by bold glowing green lines with data particles travelling along them. Other nodes in the mesh are dimmer, suggesting the broader ecosystem. Top-right corner shows a subtle "acc://" URL-style address in white monospace font — hinting at the Accumulate identity system. Dark, cryptographic, trustworthy aesthetic. Not cartoon. Enterprise blockchain visual.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Deep dark navy background (#0A0F1E). An abstract blockchain network visualization. Interconnected hexagonal nodes in Electric Indigo (#6366F1) arranged in a mesh pattern suggesting a decentralized network. Three highlighted nodes labeled "BizFirstAi", "Accumulate Network", "DefiDevs" connected by bold glowing indigo lines with data particles travelling along them. Other nodes in the mesh are dimmer, suggesting the broader ecosystem. Top-right corner shows a subtle "acc://" URL-style address in white monospace font — hinting at the Accumulate identity system. Dark, cryptographic, trustworthy aesthetic. Not cartoon. Enterprise blockchain visual.

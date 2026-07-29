@@ -1,0 +1,151 @@
+/* ============================================================
+   b-sections.css — BizFirstAi
+   Section layout, containers, and structural utilities
+   ============================================================ */
+
+/* ── Section Base ─────────────────────────────────────────– */
+.b-section {
+  padding: var(--b-section-padding-y) 0;
+  position: relative;
+}
+
+.b-section--sm {
+  padding: var(--b-section-padding-y-sm) 0;
+}
+
+/* ── Section Backgrounds ──────────────────────────────────– */
+.b-section--default {
+  background: var(--b-section-bg-default);
+}
+
+/* ── Image background variant ─────────────────────────────– */
+.b-section--img-bg {
+  background-image: url('../images/about-hero.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.b-section--alt {
+  background: var(--b-section-bg-alt);
+}
+
+.b-section--accent {
+  background: var(--b-section-bg-accent);
+}
+
+/* ── Container Variations ─────────────────────────────────– */
+.b-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--b-space-8);
+}
+
+/* ── Section Title & Subtitle ─────────────────────────────– */
+.b-section-title {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: var(--b-space-8);
+  background: linear-gradient(135deg, var(--b-color-primary), var(--b-color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: var(--b-text-primary);
+}
+
+.b-section-subtitle {
+  text-align: center;
+  color: var(--b-text-muted);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  max-width: 600px;
+  margin: 0 auto var(--b-space-20) auto;
+  line-height: var(--b-line-height-relaxed);
+}
+
+/* ── Left-aligned variants (title/subtitle inside a column) ───── */
+.b-section-title--left {
+  text-align: left;
+  margin-bottom: var(--b-space-4);
+}
+
+.b-section-subtitle--left {
+  text-align: left;
+  margin: 0 0 var(--b-space-8) 0;
+  max-width: 100%;
+}
+
+/* ── Two-Column Layout ────────────────────────────────────– */
+.b-section-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--b-space-20);
+  align-items: center;
+  margin-top: var(--b-space-20);
+}
+
+.b-section-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.b-section-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-8);
+}
+
+/* ── Content Images & Media ───────────────────────────────– */
+.b-section-image,
+.b-section-animation {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--b-radius-xl);
+  border: 1px solid var(--b-border-default);
+}
+
+/* ── Immersed image — edges fade into background, engraved look ── */
+.b-section-image--immersed {
+  border: none;
+  border-radius: 0;
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0%,  black 10%, black 90%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%,  black 18%, black 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right,  transparent 0%,  black 10%, black 90%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%,  black 18%, black 82%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* ── Responsive ───────────────────────────────────────────– */
+@media (max-width: 1024px) {
+  .b-section-content {
+    grid-template-columns: 1fr;
+  }
+
+  .b-section {
+    padding: var(--b-space-12) 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .b-container {
+    padding: 0 var(--b-space-6);
+  }
+
+  .b-section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .b-container {
+    padding: 0 var(--b-space-4);
+  }
+
+  .b-section {
+    padding: var(--b-space-10) 0;
+  }
+}

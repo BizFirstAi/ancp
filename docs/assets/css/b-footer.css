@@ -1,0 +1,94 @@
+/* ============================================================
+   b-footer.css — BizFirstAi
+   Footer and footer component styles with b- prefix
+   ============================================================ */
+
+/* ── Footer Base ──────────────────────────────────────────– */
+.b-footer {
+  background: var(--b-footer-bg);
+  border-top: 1px solid var(--b-footer-border);
+  padding: var(--b-space-32) 0 var(--b-space-8) 0;
+}
+
+/* ── Footer Grid Container ────────────────────────────────– */
+.b-footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 25px var(--b-space-8) 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--b-space-12);
+  margin-bottom: var(--b-space-12);
+}
+
+/* ── Footer Section ───────────────────────────────────────– */
+.b-footer-section h4 {
+  color: var(--b-color-primary);
+  margin-bottom: var(--b-space-6);
+  font-size: var(--b-font-size-lg);
+}
+
+.b-footer-section ul {
+  list-style: none;
+}
+
+.b-footer-section li {
+  margin-bottom: var(--b-space-4);
+}
+
+.b-footer-section a {
+  color: var(--b-text-muted);
+  transition: color var(--b-transition-normal);
+  font-size: var(--b-font-size-base);
+}
+
+.b-footer-section a:hover {
+  color: var(--b-color-primary);
+}
+
+/* ── Footer Bottom ────────────────────────────────────────– */
+.b-footer-bottom {
+  text-align: center;
+  padding-top: var(--b-space-8);
+  border-top: 1px solid var(--b-footer-border);
+  color: var(--b-text-muted);
+  font-size: var(--b-font-size-base);
+  margin: 0 var(--b-space-8);
+}
+
+/* ── Responsive ───────────────────────────────────────────– */
+@media (max-width: 768px) {
+  .b-footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--b-space-8);
+  }
+
+  /* Brand spans both columns */
+  .b-footer-container .b-footer-section:first-child {
+    grid-column: 1 / -1;
+    padding-bottom: var(--b-space-6);
+    border-bottom: 1px solid var(--b-footer-border, rgba(255,255,255,0.08));
+    margin-bottom: var(--b-space-2);
+  }
+
+  .b-footer-section h4 {
+    font-size: var(--b-font-size-base);
+    margin-bottom: var(--b-space-4);
+  }
+
+  .b-footer-section li {
+    margin-bottom: var(--b-space-3);
+  }
+
+  .b-footer-bottom {
+    margin: 0 var(--b-space-4);
+    font-size: var(--b-font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .b-footer-container {
+    padding: var(--b-space-6) var(--b-space-5) 0;
+    gap: var(--b-space-6);
+  }
+}

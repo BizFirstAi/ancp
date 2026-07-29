@@ -1,0 +1,279 @@
+/* ============================================================
+   b-timeline.css — BizFirstAi
+   Story timeline + Founders section for About page
+   ============================================================ */
+
+/* ── Timeline ─────────────────────────────────────────────── */
+.b-timeline {
+  position: relative;
+  max-width: 760px;
+  margin: var(--b-space-16) auto 0;
+  padding-left: var(--b-space-8);
+}
+
+.b-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: var(--b-space-4);
+  bottom: var(--b-space-4);
+  width: 2px;
+  background: linear-gradient(to bottom, var(--b-color-primary), transparent);
+}
+
+.b-timeline__item {
+  position: relative;
+  padding-left: var(--b-space-10);
+  padding-bottom: var(--b-space-12);
+}
+
+.b-timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+.b-timeline__dot {
+  position: absolute;
+  left: -4px;
+  top: var(--b-space-1);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--b-color-primary);
+  border: 2px solid var(--b-bg-base);
+  box-shadow: 0 0 8px var(--b-color-primary);
+}
+
+.b-timeline__year {
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-color-primary);
+  letter-spacing: var(--b-letter-spacing-wide);
+  margin-bottom: var(--b-space-2);
+}
+
+.b-timeline__title {
+  font-size: var(--b-font-size-md);
+  font-weight: var(--b-font-weight-semibold);
+  color: var(--b-text-primary);
+  margin-bottom: var(--b-space-3);
+}
+
+.b-timeline__desc {
+  font-size: var(--b-font-size-base);
+  color: var(--b-text-muted);
+  line-height: var(--b-line-height-relaxed);
+}
+
+/* ── Founders Section ─────────────────────────────────────── */
+.b-founders-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--b-space-8);
+  margin-top: var(--b-space-16);
+}
+
+.b-founder-card {
+  background: var(--b-card-bg);
+  border: 1px solid var(--b-card-border);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-4);
+  transition: all var(--b-transition-normal);
+}
+
+.b-founder-card:hover {
+  border-color: var(--b-color-primary);
+  background: var(--b-card-hover-bg);
+  transform: translateY(-4px);
+}
+
+.b-founder-card__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--b-color-primary-subtle);
+  border: 2px solid var(--b-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--b-color-primary);
+}
+
+.b-founder-card__avatar svg {
+  width: 32px;
+  height: 32px;
+}
+
+.b-founder-card__name {
+  font-size: var(--b-font-size-xl);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-text-primary);
+}
+
+.b-founder-card__role {
+  font-size: var(--b-font-size-sm);
+  font-weight: var(--b-font-weight-medium);
+  color: var(--b-color-primary);
+}
+
+.b-founder-card__desc {
+  font-size: var(--b-font-size-base);
+  color: var(--b-text-muted);
+  line-height: var(--b-line-height-relaxed);
+}
+
+.b-founders__note {
+  text-align: center;
+  margin-top: var(--b-space-8);
+  font-size: var(--b-font-size-sm);
+  color: var(--b-text-muted);
+}
+
+/* ── Blockchain / Investment Section ─────────────────────── */
+.b-investment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--b-space-8);
+  margin-top: var(--b-space-16);
+}
+
+.b-investment-card {
+  background: var(--b-card-bg);
+  border: 1px solid var(--b-card-border);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-10);
+  transition: all var(--b-transition-normal);
+}
+
+.b-investment-card:hover {
+  border-color: var(--b-color-primary);
+  background: var(--b-card-hover-bg);
+}
+
+.b-investment-card__name {
+  font-size: var(--b-font-size-xl);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-color-primary);
+  margin-bottom: var(--b-space-3);
+}
+
+.b-investment-card__stake {
+  display: inline-block;
+  font-size: var(--b-font-size-xs);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-color-primary-light);
+  background: var(--b-color-primary-subtle);
+  border: 1px solid var(--b-border-primary);
+  border-radius: var(--b-radius-full);
+  padding: var(--b-space-1) var(--b-space-3);
+  margin-bottom: var(--b-space-4);
+}
+
+.b-investment-card__desc {
+  font-size: var(--b-font-size-base);
+  color: var(--b-text-muted);
+  line-height: var(--b-line-height-relaxed);
+  margin-bottom: var(--b-space-5);
+}
+
+.b-investment-card__bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-2);
+}
+
+.b-investment-card__bullets li {
+  font-size: var(--b-font-size-sm);
+  color: var(--b-text-muted);
+  padding-left: var(--b-space-5);
+  position: relative;
+}
+
+.b-investment-card__bullets li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--b-color-primary);
+}
+
+.b-investment-why {
+  background: var(--b-color-primary-subtle);
+  border: 1px solid var(--b-border-primary);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-8) var(--b-space-10);
+  margin-top: var(--b-space-8);
+}
+
+.b-investment-why__heading {
+  font-size: var(--b-font-size-md);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-text-primary);
+  margin-bottom: var(--b-space-4);
+}
+
+.b-investment-why__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--b-space-3);
+}
+
+.b-investment-why__list li {
+  font-size: var(--b-font-size-sm);
+  color: var(--b-text-muted);
+  padding-left: var(--b-space-5);
+  position: relative;
+  line-height: var(--b-line-height-relaxed);
+}
+
+.b-investment-why__list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--b-color-primary);
+  font-weight: var(--b-font-weight-bold);
+}
+
+/* ── Investor CTA Banner ──────────────────────────────────── */
+.b-investor-cta {
+  background: var(--b-color-primary-subtle);
+  border: 1px solid var(--b-border-primary);
+  border-radius: var(--b-radius-xl);
+  padding: var(--b-space-12) var(--b-space-10);
+  text-align: center;
+  margin-top: var(--b-space-8);
+}
+
+.b-investor-cta h3 {
+  font-size: var(--b-font-size-xl);
+  font-weight: var(--b-font-weight-bold);
+  color: var(--b-text-primary);
+  margin-bottom: var(--b-space-4);
+}
+
+.b-investor-cta p {
+  font-size: var(--b-font-size-base);
+  color: var(--b-text-muted);
+  max-width: 600px;
+  margin: 0 auto var(--b-space-8);
+  line-height: var(--b-line-height-relaxed);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .b-founders-grid,
+  .b-investment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .b-timeline {
+    padding-left: var(--b-space-6);
+  }
+}

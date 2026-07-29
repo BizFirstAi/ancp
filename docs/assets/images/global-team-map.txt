@@ -1,0 +1,11 @@
+IMAGE: global-team-map.png
+DIMENSIONS: 1200 x 600px
+USED ON: About page — Team section
+
+=== VERSION A — BRAND GREEN (USE THIS) ===
+
+Deep dark green-black background (#080F08). A minimal world map outline in very dark green lines (almost invisible, just a subtle geography hint). Six glowing Brand Green (#16A34A) location pins with soft radial glows placed at: Austin Texas (larger/brighter — HQ), New Jersey USA, Canada, United Kingdom, UAE, India. Each pin has a small white label with location name. Thin glowing green connection lines link all pins back to Austin Texas. The overall effect is elegant and global — not a typical clipart map. Clean, modern, enterprise SaaS feel.
+
+=== VERSION B — ELECTRIC INDIGO (ORIGINAL / REFERENCE) ===
+
+Dark navy background (#0A0F1E). A minimal world map outline in very dark indigo lines (almost invisible, just a subtle geography hint). Six glowing Electric Indigo (#6366F1) location pins with soft radial glows placed at: Austin Texas (larger/brighter — HQ), New Jersey USA, Canada, United Kingdom, UAE, India. Each pin has a small white label with location name. Thin glowing connection lines link all pins back to Austin Texas. The overall effect is elegant and global — not a typical clipart map. Clean, modern, enterprise SaaS feel.

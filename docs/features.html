@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="https://bizfirstai.com/website/assets/Logo/logo-m.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ANCP Features — full capability breakdown of the Agentic Node Communication Protocol by BizFirstAi. Messaging patterns, React hooks, C# node backend, security, LLM providers, and more.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Features — ANCP by BizFirstAi">
+  <meta property="og:description" content="Every capability of ANCP: four messaging patterns, React hooks, C# node host, multi-tenancy, three auth modes, service discovery, and LLM provider support.">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Features — ANCP by BizFirstAi">
+  <meta name="twitter:description" content="Complete feature breakdown of the Agentic Node Communication Protocol.">
+
+  <title>Features — ANCP by BizFirstAi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://bizfirstai.com/website/assets/css/b-index.css">
+  <style>
+    body { overflow-x: hidden; }
+  </style>
+</head>
+<body>
+
+  <header id="header-container"></header>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-hero-section" style="min-height:52vh;">
+    <div class="b-container">
+      <div class="b-hero-left">
+        <h1 class="b-hero-headline">Every capability of the agentic communication protocol.</h1>
+        <p class="b-hero-subheading">Four messaging patterns, React hooks, a C# node host, three auth modes, service discovery, and deep LLM provider support — all in one protocol.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 1 — FOUR MESSAGING PATTERNS
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--alt">
+    <div class="b-container">
+      <h2 class="b-section-title">Four Messaging Patterns</h2>
+      <p class="b-section-subtitle">Choose the right communication pattern at the call site. ANCP routes and delivers each pattern correctly — no custom transport logic needed.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </span>
+            Fire-and-Forget
+          </h3>
+          <p>Returns <strong>202 Accepted</strong> immediately. The caller is never blocked. Work executes in the background on the receiving node with no response channel needed.</p>
+          <ul class="b-feature-list">
+            <li>Email notifications</li>
+            <li>Background job submission</li>
+            <li>Audit log writes</li>
+            <li>Event publishing</li>
+          </ul>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+            Request-Reply
+          </h3>
+          <p>Synchronous — blocks until a typed response is received. The protocol handles serialisation, error propagation, and correlation ID matching automatically.</p>
+          <ul class="b-feature-list">
+            <li>Data queries</li>
+            <li>Calculations</li>
+            <li>Validation checks</li>
+            <li>Form auto-fill</li>
+          </ul>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+              </svg>
+            </span>
+            Streaming (SSE)
+          </h3>
+          <p>Real-time chunk delivery via <strong>Server-Sent Events</strong>. The handler yields chunks as they are produced; the client receives them as they arrive.</p>
+          <ul class="b-feature-list">
+            <li>LLM text generation (tokens live)</li>
+            <li>Report generation with progress</li>
+            <li>Large data exports</li>
+            <li>Chat applications</li>
+          </ul>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </span>
+            Task-Start
+          </h3>
+          <p>Returns a <strong>taskId</strong> immediately. The task runs asynchronously; the caller polls for state: Running, Completed, Failed, or Cancelled.</p>
+          <ul class="b-feature-list">
+            <li>Batch processing (hours)</li>
+            <li>Large analysis jobs</li>
+            <li>Background workflows</li>
+            <li>Long-running AI operations</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 2 — LLM PROVIDER SUPPORT
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--default">
+    <div class="b-container">
+      <h2 class="b-section-title">LLM Provider Support</h2>
+      <p class="b-section-subtitle">One protocol connects to any language model. Per-model cost tracking — TextInputCost and TextOutputCost per 1M tokens — stored automatically for every call.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"></path>
+              </svg>
+            </span>
+            Anthropic Claude
+          </h3>
+          <p>Recommended provider for agentic workloads. Supported models:</p>
+          <ul class="b-feature-list">
+            <li>claude-3-5-sonnet-20241022</li>
+            <li>claude-3-opus-20250219</li>
+            <li>claude-3-sonnet-20240229</li>
+            <li>claude-3-haiku-20240307</li>
+            <li>claude-2.1</li>
+          </ul>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <path d="M9 9h6M9 12h6M9 15h4"></path>
+              </svg>
+            </span>
+            OpenAI GPT
+          </h3>
+          <p>Full GPT model family with unified request normalisation. Supported models:</p>
+          <ul class="b-feature-list">
+            <li>gpt-4o</li>
+            <li>gpt-4-turbo</li>
+            <li>gpt-4</li>
+            <li>gpt-3.5-turbo</li>
+          </ul>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              </svg>
+            </span>
+            Self-Hosted / Local
+          </h3>
+          <p>Run your own models with zero data leaving your infrastructure. Supported runtimes:</p>
+          <ul class="b-feature-list">
+            <li>Ollama (llama2, mistral, neural-chat)</li>
+            <li>HuggingFace endpoints</li>
+            <li>Custom fine-tuned models</li>
+            <li>Any OpenAI-compatible endpoint</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 3 — REACT INTEGRATION
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--alt">
+    <div class="b-container">
+      <h2 class="b-section-title">React Integration (ancp-react)</h2>
+      <p class="b-section-subtitle">Install <code>@bizfirst/ancp-react</code> and get fully typed, reactive hooks for every messaging pattern. No boilerplate — the provider handles auth, connection, and state.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+              </svg>
+            </span>
+            AncpProvider
+          </h3>
+          <p>Wraps your app with the ANCP React context. Configure once at the root — <code>baseUrl</code>, <code>nodeId</code>, and <code>auth</code>. All child hooks consume this context automatically.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+            useAncpInvoke
+          </h3>
+          <p>Typed hook for request-reply invocations. Returns <code>invoke</code>, <code>isLoading</code>, <code>data</code>, <code>error</code>, and <code>reset</code>. Generic over payload and result types for full TypeScript safety.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+              </svg>
+            </span>
+            useAncpStream
+          </h3>
+          <p>Streaming hook for SSE-backed actions. Exposes <code>start</code>, <code>stop</code>, <code>chunks</code>, <code>isStreaming</code>, and <code>isDone</code> — purpose-built for live LLM output in chat UIs.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </span>
+            useAncpTask
+          </h3>
+          <p>Long-task hook that manages task lifecycle automatically. Provides <code>start</code>, <code>cancel</code>, <code>status</code> (state, progress), and <code>isRunning</code> — handles polling under the hood.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            useAncpCapabilities
+          </h3>
+          <p>Queries the discovery endpoint and returns the list of all available actions and their patterns. Enables dynamic UIs that adapt to the available node capabilities at runtime.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 4 — C# NODE BACKEND
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--default">
+    <div class="b-container">
+      <h2 class="b-section-title">C# Node Backend</h2>
+      <p class="b-section-subtitle">The <code>BizFirst.Ancp.Node</code> host handles HTTP transport, envelope parsing, authentication, and routing. You register typed handlers — ANCP does everything else.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </span>
+            OnInvoke
+          </h3>
+          <p>Register a request-reply handler: <code>Ancp.OnInvoke&lt;TPayload, TResult&gt;('action', async ctx =&gt; &#123;...&#125;)</code>. Returns a typed result synchronously to the caller.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </span>
+            OnFireAndForget
+          </h3>
+          <p>Register a one-way handler: <code>Ancp.OnFireAndForget&lt;TPayload&gt;('action', async ctx =&gt; &#123;...&#125;)</code>. Caller receives 202 immediately; handler runs to completion asynchronously.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+              </svg>
+            </span>
+            OnStream
+          </h3>
+          <p>Register a streaming handler: <code>Ancp.OnStream&lt;TPayload, TChunk&gt;('action', async ctx =&gt; &#123; yield return chunk; &#125;)</code>. Chunks are pushed to the SSE stream as the handler yields them.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </span>
+            OnTask
+          </h3>
+          <p>Register a long-running task handler: <code>Ancp.OnTask&lt;TPayload, TResult&gt;('action', async (ctx, ct) =&gt; &#123;...&#125;)</code>. Returns a taskId immediately; the task is tracked and pollable.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+            </span>
+            AncpActionContext
+          </h3>
+          <p>Every handler receives a fully typed context object with: <code>Payload</code>, <code>NodeId</code>, <code>CallerNodeId</code>, <code>TenantId</code>, <code>CallerTenantId</code>, <code>MessageId</code>, <code>CorrelationId</code>, <code>Timestamp</code>, and <code>Extensions</code>.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 5 — SECURITY & MULTI-TENANCY
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--alt">
+    <div class="b-container">
+      <h2 class="b-section-title">Security &amp; Multi-Tenancy</h2>
+      <p class="b-section-subtitle">Enterprise-grade security that does not require custom middleware. Every envelope carries the full identity and tenant context needed for isolation, tracing, and billing.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </span>
+            Three Auth Modes
+          </h3>
+          <p>Choose the authentication model that fits your deployment:</p>
+          <ul class="b-feature-list">
+            <li>JWT — bearer token, standard OIDC flows</li>
+            <li>API Key — simple secret header, great for service-to-service</li>
+            <li>DID — Decentralised ID for autonomous agents and cross-org federation</li>
+          </ul>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+            </span>
+            Tenant Isolation
+          </h3>
+          <p>Every IEnvelope carries <code>TenantId</code> and <code>CallerTenantId</code>. The node host enforces isolation automatically — no tenant data ever crosses a boundary, even in shared infrastructure.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+            </span>
+            Payment &amp; Audit
+          </h3>
+          <p>Built-in token cost tracking (TextInputCost + TextOutputCost per 1M tokens), payment verification for metered AI services, and a full immutable audit trail on every operation. HTTPS/TLS 1.3 required.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 6 — SERVICE DISCOVERY
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--default">
+    <div class="b-container">
+      <h2 class="b-section-title">Service Discovery</h2>
+      <p class="b-section-subtitle">Every ANCP node publishes a machine-readable discovery document. Clients — and other agents — can query the node to learn what it can do before calling it.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            Discovery Endpoint
+          </h3>
+          <p><code>GET /.well-known/ncp.json</code> returns the <strong>AncpDiscoveryDocument</strong> — a complete listing of all registered actions and their messaging patterns. Cached for performance (100ms typical).</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </span>
+            System Actions
+          </h3>
+          <p>Every ANCP node exposes built-in system actions out of the box:</p>
+          <ul class="b-feature-list">
+            <li>ping — health check</li>
+            <li>getCapabilities — list all actions</li>
+            <li>getStatus — node status and metrics</li>
+            <li>getPaymentInfo — billing and usage data</li>
+            <li>pay — initiate payment for metered service</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 7 — AGENT FRAMEWORK
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--alt">
+    <div class="b-container">
+      <h2 class="b-section-title">Agent Framework</h2>
+      <p class="b-section-subtitle">ANCP carries the full Octopus AgentComposite — system prompt, capabilities, tools, conversations, memory, workflows, hooks, metrics, and audit log.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </span>
+            6 Agent Types
+          </h3>
+          <p>Every ANCP node can host agents of the following types:</p>
+          <ul class="b-feature-list">
+            <li>Conversational — chat-first, context-aware</li>
+            <li>Analytical — data reasoning and insight generation</li>
+            <li>Generative — content and artefact creation</li>
+            <li>Reasoning — multi-step logical planning</li>
+            <li>Autonomous — goal-directed, self-directed execution</li>
+            <li>Custom — fully user-defined behaviour</li>
+          </ul>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="3"></circle>
+                <circle cx="5" cy="19" r="3"></circle>
+                <circle cx="19" cy="19" r="3"></circle>
+                <line x1="12" y1="8" x2="5" y2="16"></line>
+                <line x1="12" y1="8" x2="19" y2="16"></line>
+              </svg>
+            </span>
+            5 Agent Roles
+          </h3>
+          <p>Roles define how agents interact with each other in multi-agent systems:</p>
+          <ul class="b-feature-list">
+            <li>Operator — executes actions and tasks</li>
+            <li>Analyst — interprets and summarises data</li>
+            <li>Manager — coordinates other agents</li>
+            <li>Monitor — observes and reports on system state</li>
+            <li>Reviewer — validates and approves outputs</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 8 — PLATFORM INTEGRATION
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--default">
+    <div class="b-container">
+      <h2 class="b-section-title">Platform Integration</h2>
+      <p class="b-section-subtitle">ANCP is not a standalone library — it is the communication backbone of the entire BizFirstAi platform.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              </svg>
+            </span>
+            Octopus
+          </h3>
+          <p>ANCP is the communication backbone of Octopus. The chat interface sends messages via ANCP, the agent executor receives via ANCP, and streams the response token-by-token back via ANCP SSE. Every step is correlated and audited.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+            </span>
+            ProcessServer
+          </h3>
+          <p>AI Agent Nodes and AI Function Nodes inside ProcessServer call LLMs via ANCP actions. The full request lifecycle — auth, multi-tenancy, cost tracking, audit — is handled by the ANCP transport, not custom node code.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="9" x2="15" y2="9"></line>
+                <line x1="9" y1="12" x2="15" y2="12"></line>
+                <line x1="9" y1="15" x2="13" y2="15"></line>
+              </svg>
+            </span>
+            FlowStudio
+          </h3>
+          <p>Visual workflow nodes in FlowStudio can invoke any ANCP action as a workflow step. Drag an ANCP action onto the canvas, map the payload fields, and the visual designer handles the rest.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 9 — COMPETITIVE ADVANTAGES
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--alt">
+    <div class="b-container">
+      <h2 class="b-section-title">Competitive Advantages</h2>
+      <p class="b-section-subtitle">ANCP was designed to address the gaps in existing transport and framework choices for agentic systems.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </span>
+            vs gRPC
+          </h3>
+          <p>ANCP is browser-compatible out of the box — standard fetch and SSE, no special networking, no Protobuf toolchain. JSON serialisation keeps payloads human-readable and debuggable. Auth is simpler and built in.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+              </svg>
+            </span>
+            vs Message Queues
+          </h3>
+          <p>No broker infrastructure to deploy and maintain (no RabbitMQ, no Kafka cluster). ANCP provides request-reply natively, real-time streaming, and built-in payment verification — none of which message queues offer.</p>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"></path>
+              </svg>
+            </span>
+            vs Direct LLM APIs
+          </h3>
+          <p>Direct LLM APIs lock you to one provider. ANCP adds multi-provider routing, workflow integration via ProcessServer, multi-tenancy, on-premise deployment capability, and custom agent orchestration — without losing access to any model.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECTION 10 — ROADMAP
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-section--default">
+    <div class="b-container">
+      <h2 class="b-section-title">Roadmap</h2>
+      <p class="b-section-subtitle">ANCP is evolving toward autonomous multi-agent networks and decentralised AI economies.</p>
+
+      <div class="b-benefits-grid" style="margin-top:var(--b-space-16);">
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </span>
+            Phase 2 — Q2-Q3 2026
+          </h3>
+          <p>Next-generation autonomous capabilities coming mid-2026:</p>
+          <ul class="b-feature-list">
+            <li>Tool composition (agents call tools returning tools)</li>
+            <li>Autonomous agent loops</li>
+            <li>Multi-agent coordination</li>
+            <li>Bidirectional streaming (WebSocket upgrade)</li>
+            <li>OpenTelemetry integration</li>
+            <li>RAG pipeline as ANCP actions</li>
+          </ul>
+        </div>
+
+        <div class="b-benefit-card">
+          <h3>
+            <span class="b-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </span>
+            Phase 3 — Q4 2026
+          </h3>
+          <p>Decentralised AI agent marketplace and cross-org federation:</p>
+          <ul class="b-feature-list">
+            <li>Federated cross-org node networks</li>
+            <li>Cryptocurrency payments (USDC, USDT)</li>
+            <li>Escrow and multi-sig payment flows</li>
+            <li>AI agent marketplace with capability discovery</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FINAL CTA
+       ════════════════════════════════════════════════════════════ -->
+  <section class="b-section b-cta-section">
+    <div class="b-container">
+      <h2>Build on the protocol designed for agents.</h2>
+      <p>Production ready. Enterprise grade. v1.0.2 available now.</p>
+      <div class="b-btn-group">
+        <a href="./docs.html" class="b-btn b-btn-primary b-btn-large">Read the Docs</a>
+        <a href="https://community.bizfirstai.com/tag/ancp" class="b-btn b-btn-secondary b-btn-large" target="_blank" rel="noopener">Join the Community</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer-container"></footer>
+
+  <script src="./shared-layout.js"></script>
+</body>
+</html>

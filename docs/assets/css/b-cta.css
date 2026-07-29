@@ -1,0 +1,43 @@
+/* ============================================================
+   b-cta.css — BizFirstAi
+   Call-to-Action section components with b- prefix
+   ============================================================ */
+
+/* ── CTA Section ──────────────────────────────────────────– */
+.b-cta-section {
+  background: var(--b-cta-bg);
+  border-top: 1px solid var(--b-cta-border);
+  border-bottom: 1px solid var(--b-cta-border);
+  text-align: center;
+  padding: var(--b-space-20) 0;
+}
+
+.b-cta-section h2 {
+  margin-bottom: var(--b-space-6);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+}
+
+.b-cta-section p {
+  font-size: var(--b-font-size-lg);
+  margin-bottom: var(--b-space-12);
+  color: var(--b-text-muted);
+}
+
+/* ── Button Group (for CTAs) ──────────────────────────────– */
+.b-btn-group {
+  display: flex;
+  gap: var(--b-space-6);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Responsive ───────────────────────────────────────────– */
+@media (max-width: 768px) {
+  .b-btn-group {
+    flex-direction: column;
+  }
+
+  .b-cta-section {
+    padding: var(--b-space-12) 0;
+  }
+}

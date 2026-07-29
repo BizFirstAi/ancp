@@ -1,0 +1,109 @@
+/* ============================================================
+   theme-common.css — BizFirstAi
+   Shared CSS custom properties used across both themes.
+   No colour values here — only structural/layout/typography.
+   ============================================================ */
+
+:root {
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --b-font-family:        'Inter', 'Geist', system-ui, -apple-system, sans-serif;
+  --b-font-family-mono:   'JetBrains Mono', 'Fira Code', monospace;
+
+  --b-font-size-xs:       0.75rem;
+  --b-font-size-sm:       0.875rem;
+  --b-font-size-base:     1rem;
+  --b-font-size-md:       1.125rem;
+  --b-font-size-lg:       1.25rem;
+  --b-font-size-xl:       1.5rem;
+  --b-font-size-2xl:      2rem;
+  --b-font-size-3xl:      2.5rem;
+  --b-font-size-4xl:      3rem;
+  --b-font-size-hero:     4rem;
+
+  --b-font-weight-normal:   400;
+  --b-font-weight-medium:   500;
+  --b-font-weight-semibold: 600;
+  --b-font-weight-bold:     700;
+  --b-font-weight-black:    900;
+
+  --b-line-height-tight:    1.2;
+  --b-line-height-normal:   1.5;
+  --b-line-height-relaxed:  1.75;
+
+  --b-letter-spacing-tight:  -0.02em;
+  --b-letter-spacing-normal:  0;
+  --b-letter-spacing-wide:    0.05em;
+  --b-letter-spacing-wider:   0.1em;
+
+  /* ── Spacing ─────────────────────────────────────────────── */
+  --b-space-1:   0.25rem;
+  --b-space-2:   0.5rem;
+  --b-space-3:   0.75rem;
+  --b-space-4:   1rem;
+  --b-space-5:   1.25rem;
+  --b-space-6:   1.5rem;
+  --b-space-8:   2rem;
+  --b-space-10:  2.5rem;
+  --b-space-12:  3rem;
+  --b-space-16:  4rem;
+  --b-space-20:  5rem;
+  --b-space-24:  6rem;
+  --b-space-32:  8rem;
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --b-container-max:      1280px;
+  --b-container-narrow:   860px;
+  --b-container-wide:     1440px;
+  --b-container-padding:  var(--b-space-6);
+
+  /* ── Border Radius ───────────────────────────────────────── */
+  --b-radius-sm:    4px;
+  --b-radius-md:    8px;
+  --b-radius-lg:    12px;
+  --b-radius-xl:    16px;
+  --b-radius-2xl:   24px;
+  --b-radius-full:  9999px;
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --b-transition-fast:    150ms ease;
+  --b-transition-normal:  250ms ease;
+  --b-transition-slow:    400ms ease;
+
+  /* ── Z-index Layers ──────────────────────────────────────── */
+  --b-z-base:       1;
+  --b-z-raised:     10;
+  --b-z-dropdown:   100;
+  --b-z-sticky:     200;
+  --b-z-overlay:    300;
+  --b-z-modal:      400;
+  --b-z-toast:      500;
+
+  /* ── Header ──────────────────────────────────────────────── */
+  --b-header-height:        72px;
+  --b-header-height-mobile: 60px;
+
+  /* ── Section Padding ─────────────────────────────────────── */
+  --b-section-padding-y:     var(--b-space-20);
+  --b-section-padding-y-sm:  var(--b-space-12);
+
+  /* ── Card ────────────────────────────────────────────────── */
+  --b-card-padding:       var(--b-space-6);
+  --b-card-padding-lg:    var(--b-space-8);
+  --b-card-radius:        var(--b-radius-xl);
+
+  /* ── Button ──────────────────────────────────────────────── */
+  --b-btn-padding-x:      var(--b-space-6);
+  --b-btn-padding-y:      var(--b-space-3);
+  --b-btn-radius:         var(--b-radius-full);
+  --b-btn-font-weight:    var(--b-font-weight-semibold);
+  --b-btn-font-size:      var(--b-font-size-sm);
+
+  /* ── Badge / Pill ────────────────────────────────────────── */
+  --b-badge-padding-x:    var(--b-space-3);
+  --b-badge-padding-y:    var(--b-space-1);
+  --b-badge-radius:       var(--b-radius-full);
+  --b-badge-font-size:    var(--b-font-size-xs);
+  --b-badge-font-weight:  var(--b-font-weight-medium);
+
+}

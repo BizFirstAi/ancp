@@ -1,0 +1,103 @@
+/*
+ * octopus-variables.css
+ * Shared CSS custom properties (variables) for all octopus components
+ *
+ * These variables are used by:
+ * - octopus-02-tenacles
+ * - octopus-03-hero
+ * - Other future octopus components
+ *
+ * Override these in your own CSS to customize theme colors
+ */
+
+:root {
+  /* ── Colors ──────────────────────────────────────────────────── */
+
+  /* Background */
+  --oct-bg:          #030C10;        /* Primary background (very dark teal) */
+  --oct-bg-light:    #080F08;        /* Lighter background variant */
+
+  /* Primary Teal (Product Colors) */
+  --oct-teal:        #0D9488;        /* Muted teal */
+  --oct-teal-bright: #2DD4BF;        /* Bright teal (highlights) */
+  --oct-teal-glow:   rgba(45,212,191,0.22);  /* Glow effect */
+
+  /* Accent Green */
+  --oct-green:       #16A34A;        /* Primary green (CTAs) */
+  --oct-green-glow:  rgba(22,163,74,0.25);   /* Green glow */
+
+  /* Text Colors */
+  --oct-text:        #F0FDF4;        /* Primary text (light) */
+  --oct-text-dark:   #F0FDFA;        /* Dark mode text */
+  --oct-dimmed:      #6B7280;        /* Secondary text (dimmed) */
+  --oct-muted:       #D1FAE5;        /* Muted text */
+  --oct-vdimmed:     #042F2E;        /* Very dimmed text */
+  --oct-dimmed-alt:  #134E4A;        /* Alternative dimmed color */
+
+  /* ── Typography ──────────────────────────────────────────────── */
+  --oct-font:        'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --oct-font-mono:   'Menlo', 'Courier New', monospace;
+
+  /* Font Weights */
+  --oct-weight-light:    300;
+  --oct-weight-normal:   400;
+  --oct-weight-semibold: 600;
+  --oct-weight-bold:     700;
+  --oct-weight-extrabold: 800;
+
+  /* ── Spacing ─────────────────────────────────────────────────── */
+  --oct-spacing-xs:   4px;
+  --oct-spacing-sm:   8px;
+  --oct-spacing-md:   16px;
+  --oct-spacing-lg:   32px;
+  --oct-spacing-xl:   60px;
+  --oct-spacing-2xl:  80px;
+
+  /* ── Animation ───────────────────────────────────────────────── */
+  --oct-duration-fast:  0.2s;
+  --oct-duration-normal: 0.3s;
+  --oct-duration-slow:  0.8s;
+  --oct-duration-very-slow: 2.2s;
+
+  --oct-easing-linear:  linear;
+  --oct-easing-ease:    ease;
+  --oct-easing-ease-in:  ease-in;
+  --oct-easing-ease-out: ease-out;
+  --oct-easing-ease-in-out: ease-in-out;
+  --oct-easing-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Border Radius ───────────────────────────────────────────── */
+  --oct-radius-sm:   7px;
+  --oct-radius-md:   10px;
+  --oct-radius-lg:   12px;
+  --oct-radius-xl:   16px;
+  --oct-radius-full: 99px;
+
+  /* ── Z-index Scale ───────────────────────────────────────────── */
+  --oct-z-background: 0;
+  --oct-z-content:    10;
+  --oct-z-header:     100;
+  --oct-z-fixed:      999;
+
+  /* ── Shadows ─────────────────────────────────────────────────── */
+  --oct-shadow-sm:   0 1px 2px rgba(0,0,0,0.05);
+  --oct-shadow-md:   0 4px 6px rgba(0,0,0,0.1);
+  --oct-shadow-lg:   0 10px 15px rgba(0,0,0,0.1);
+  --oct-shadow-xl:   0 20px 25px rgba(0,0,0,0.1);
+  --oct-shadow-glow: 0 0 10px var(--oct-teal-bright);
+}
+
+/* ── Dark Mode (Optional) ────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Colors stay the same (already designed for dark) */
+  }
+}
+
+/* ── Light Mode (Optional) ───────────────────────────────────── */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Light mode would need significant changes - not recommended */
+    /* Keep octopus components dark-themed for best visual impact */
+  }
+}
