@@ -353,7 +353,6 @@ const SHARED_FOOTER = `
       <li><a href="./about.html">About Us</a></li>
       <li><a href="./contact.html">Contact</a></li>
       <li><a href="#">Careers</a></li>
-      <li><a href="#">Blog</a></li>
     </ul>
   </div>
 
